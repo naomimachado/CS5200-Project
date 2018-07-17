@@ -49,11 +49,19 @@ export default function ShowResults(params){
     console.log(arr);
 
     let res = _.map(arr, (nn, i) => <Result key={i} result={nn} />);
-    return <div className="col">
-        { res }
-        <Button onClick={prev_ten}>&laquo; Previous</Button>
-        <Button onClick={next_ten}>Next &raquo;</Button>
-    </div>;
+
+    if(fir.Response === "False"){
+        return <div>
+            <p>No results found, try a different search keyword!</p>
+        </div>;
+    }
+    else {
+        return <div className="col">
+            {res}
+            <Button onClick={prev_ten}>&laquo; Previous</Button>
+            <Button onClick={next_ten}>Next &raquo;</Button>
+        </div>;
+    }
 }
 
 function Result(params){
