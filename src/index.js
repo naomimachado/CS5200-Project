@@ -1,11 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Page from './containers/home-page';
 import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import '../node_modules/font-awesome/css/font-awesome.min.css';
+import store from './store';
+import { Provider } from 'react-redux';
 
+import Page from './containers/home';
 
 ReactDOM.render(
-    <Page />,
+    <Provider store={store}>
+        <Page />
+    </Provider>,
     document.getElementById('root')
 );
