@@ -5,7 +5,7 @@ import '../node_modules/font-awesome/css/font-awesome.min.css';
 import store from './store';
 import { Provider } from 'react-redux';
 
-import Page from './containers/home';
+import Page from './components/home';
 
 ReactDOM.render(
     <Provider store={store}>

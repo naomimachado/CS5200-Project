@@ -1,12 +1,8 @@
 import React from 'react';
 
 import {Card, CardBody, Button} from 'reactstrap';
-import { Link } from 'react-router-dom';
-
-import { connect } from 'react-redux';
 
 import _ from 'underscore';
-import $ from 'jquery';
 
 import api from '../api';
 
@@ -16,7 +12,7 @@ export default function ShowResults(params){
 
     function prev_ten() {
         console.log(params.params.page.page);
-        if (current_page == 1){
+        if (current_page === 1){
             alert("No more previous pages");
         }
         else {

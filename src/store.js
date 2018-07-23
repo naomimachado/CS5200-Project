@@ -45,9 +45,25 @@ function page(state=initial_page, action) {
     }
 }
 
+let empty_login = {
+    username: "",
+    password: "",
+};
+
+function login(state = empty_login, action) {
+    switch (action.type) {
+        case 'UPDATE_LOGIN_FORM':
+            return Object.assign({}, state, action.data);
+        case 'CLEAR_LOGIN_FORM':
+            return empty_login;
+        default:
+            return state;
+    }
+}
+
 function root_reducer(state0, action) {
     console.log("reducer", action);
-    let reducer = combineReducers({search_tab, results, page});
+    let reducer = combineReducers({search_tab, results, page, login});
     let state1 = reducer(state0, action);
     console.log("state1", state1);
     return deepFreeze(state1);
