@@ -61,9 +61,29 @@ function login(state = empty_login, action) {
     }
 }
 
+let empty_register = {
+    firstName: "",
+    lastName: "",
+    username: "",
+    password: "",
+};
+
+function register(state = empty_register, action) {
+    switch (action.type) {
+        case 'UPDATE_REGISTER_FORM':
+            return Object.assign({}, state, action.data);
+        case 'CLEAR_REGISTER_FORM':
+            return empty_register;
+        default:
+            return state;
+    }
+}
+
+
 function root_reducer(state0, action) {
     console.log("reducer", action);
-    let reducer = combineReducers({search_tab, results, page, login});
+    let reducer = combineReducers({search_tab, results, page, login, register});
+    console.log("state0", state0);
     let state1 = reducer(state0, action);
     console.log("state1", state1);
     return deepFreeze(state1);

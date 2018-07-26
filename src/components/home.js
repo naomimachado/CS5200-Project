@@ -24,7 +24,7 @@ let Page = connect((state) => state)((props) => {
                     <Route path="/registration" exact={true} render={
                         ()=>
                             <div>
-                                <RegistrationForm params={props} root={this}/>
+                                <RegistrationForm params={props}/>
                             </div>
                     } />
                 </div>
@@ -52,7 +52,7 @@ let Page = connect((state) => state)((props) => {
                     <Route path="/registration" exact={true} render={
                         ()=>
                             <div>
-                                <RegistrationForm params={props} root={this}/>
+                                <RegistrationForm />
                             </div>
                     } />
                 </div>

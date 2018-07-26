@@ -29,6 +29,24 @@ class TheServer{
                 }
             });
     }
+
+    submit_registration(data){
+            $.ajax("http://localhost:8080/api/user", {
+                method: "post",
+                dataType: "json",
+                contentType: "application/json; charset=UTF-8",
+                data: JSON.stringify(data),
+                success: (resp) => {
+                    console.log("sucess", resp);
+                },
+                error: (resp) => {
+                    console.log("error", resp);
+                    store.dispatch({
+                        type: 'CLEAR_REGISTER_FORM',
+                    })
+                },
+            });
+    }
 }
 
 export default new TheServer();
