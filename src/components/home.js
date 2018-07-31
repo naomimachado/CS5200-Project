@@ -7,37 +7,18 @@ import SearchTab from './search-tab';
 import ShowResults from './show-results';
 import Nav from './nav';
 import RegistrationForm from './registration-form';
+import Details from './details';
+import TitleNav from './title-nav';
 
 let Page = connect((state) => state)((props) => {
-    if(props.results.length > 0){
-        return (
-            <Router>
-                <div className="container-fluid">
-                    <Route path="/results" exact={true} render={
-                        ()=>
-                            <div>
-                                <Nav props={props}/>
-                                <SearchTab params={props} root={this}/>
-                                <ShowResults params={props} />
-                            </div>
-                    } />
-                    <Route path="/registration" exact={true} render={
-                        ()=>
-                            <div>
-                                <RegistrationForm params={props}/>
-                            </div>
-                    } />
-                </div>
-            </Router>
-        )
-    }
-    else {
+    if(props.results){
         return (
             <Router>
                 <div className="container-fluid">
                     <Route path="/" exact={true} render={
                         () =>
                             <div>
+                                <TitleNav/>
                                 <Nav props={props}/>
                                 <SearchTab params={props} root={this}/>
                             </div>
@@ -45,18 +26,30 @@ let Page = connect((state) => state)((props) => {
                     <Route path="/results" exact={true} render={
                         ()=>
                             <div>
+                                <TitleNav/>
                                 <Nav props={props}/>
                                 <SearchTab params={props} root={this}/>
+                                <ShowResults params={props} />
+                            </div>
+                    } />
+                    <Route path="/results/:imdbID" exact={true} render={
+                        ()=>
+                            <div>
+                                <TitleNav/>
+                                <Nav props={props}/>
+                                <Details params={props}/>
                             </div>
                     } />
                     <Route path="/registration" exact={true} render={
                         ()=>
                             <div>
-                                <RegistrationForm />
+                                <TitleNav/>
+                                <RegistrationForm params={props}/>
                             </div>
                     } />
                 </div>
-            </Router>)
+            </Router>
+        )
     }
 });
 

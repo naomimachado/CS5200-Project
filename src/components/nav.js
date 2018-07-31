@@ -29,8 +29,8 @@ function Nav(props) {
         <div className="navbar">
             <Form inline>
                 <FormGroup>
-                    <Input type="text" name="username" placeholder="username"
-                           value={props.login.username} onChange={update} />
+                    <Input type="email" name="email" placeholder="email"
+                           value={props.login.email} onChange={update} />
                 </FormGroup>
                 <FormGroup>
                     <Input type="password" name="password" placeholder="password"

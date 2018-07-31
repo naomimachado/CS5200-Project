@@ -22,15 +22,53 @@ function RegistrationForm(params) {
             params.dispatch(action);
         }
 
+    function ValidateEmail()
+    {
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        console.log("validating email",re.test(params.register.email));
+        return re.test(params.register.email);
+    }
+
+    function validatePassword() {
+        var pass = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$");
+        console.log("validating password", params.register.password);
+        return pass.test(params.register.password);
+    }
+
         function register() {
+
+            if(params.register.firstName === "" ||
+                params.register.lastName === "" ||
+                params.register.email === "" ||
+                params.register.password === "" ||
+                params.register.retype_password === "" ||
+                params.register.dtype === ""){
+                alert("incomlete form");
+            } else if(!(params.register.password === params.register.retype_password)){
+                alert("passwords do not match!!!");
+            } else if(ValidateEmail() === false){
+                alert("You have entered an invalid email address!")
+            } else  if(validatePassword() === false){
+                alert("weak password")
+            } else {
                 console.log("sending regiter request");
                 api.submit_registration(params.register);
+            }
         }
 
             return (
             <div>
-                <h2>Registration Form</h2>
+                <h5>Registration Form</h5>
                 <FormGroup>
+                    <FormGroup>
+                        <Label for="dtype">I am a:</Label>
+                        <Input type="select" name="dtype" value={params.register.dtype} onChange={update}>
+                            <option value="">Select</option>
+                            <option value="Viewer">Viewer</option>
+                            <option value="Critic">Critic</option>
+                            <option value="Seller">Seller</option>
+                        </Input>
+                    </FormGroup>
                     <FormGroup>
                         <Label for="firstName">First Name:</Label>
                         <Input type="text" name="firstName" placeholder="First Name"
@@ -42,14 +80,19 @@ function RegistrationForm(params) {
                                value={params.register.lastName} onChange={update} />
                     </FormGroup>
                     <FormGroup>
-                        <Label for="username">Username:</Label>
-                        <Input type="text" name="username" placeholder="username"
-                               value={params.register.username} onChange={update} />
+                        <Label for="email">Email:</Label>
+                        <Input type="email" name="email" placeholder="email"
+                               value={params.register.email} onChange={update} />
                     </FormGroup>
                     <FormGroup>
-                        <Label for="password">Password:</Label>
+                        <Label for="password">Password: <i>[Min. length 8, 1 Uppercase, 1 Number]</i></Label>
                         <Input type="password" name="password" placeholder="password"
                                value={params.register.password} onChange={update} />
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="retype_password">Re-Type Password:</Label>
+                        <Input type="password" name="retype_password" placeholder="retype password"
+                               value={params.register.retype_password} onChange={update} />
                     </FormGroup>
                     <Button onClick={register} type="button" className="btn btn-primary">Register</Button>
                 </FormGroup>

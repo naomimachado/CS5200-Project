@@ -2,6 +2,8 @@ import React from 'react';
 
 import {Card, CardBody, Button} from 'reactstrap';
 
+import {Link} from 'react-router-dom';
+
 import _ from 'underscore';
 
 import api from '../api';
@@ -39,7 +41,7 @@ export default function ShowResults(params){
 
 
     console.log("inside show results",params);
-    let fir = _.first(params.params.results);
+    let fir = params.params.results;
     console.log("first element",fir);
     let arr = fir.Search;
     console.log(arr);
@@ -62,18 +64,20 @@ export default function ShowResults(params){
 
 function Result(params){
 
+    function details() {
+        api.get_details(params.result.imdbID);
+    }
+
     console.log(params);
     return <Card>
         <CardBody>
             <div>
-                <p>Movie Title:{params.result.Title}</p>
-                <Button onClick={details}>Show Details</Button>
+                <p>Title:{params.result.Title}</p>
+                <Link to={"/results/"+ params.result.imdbID}><Button onClick={details}>Show Details</Button></Link>
             </div>
         </CardBody>
     </Card>;
 }
 
-function details() {
-    alert("TODO- Ask User to sign in!!!");
-}
+
 

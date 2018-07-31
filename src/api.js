@@ -30,6 +30,29 @@ class TheServer{
             });
     }
 
+    get_details(data) {
+        console.log("got this data", data);
+
+        let URL = "http://www.omdbapi.com/?i="+ data +"&apikey=d777acf4";
+        console.log(URL);
+        $.ajax(URL,
+            {
+                method:"get",
+                dataType: "json",
+                success: (resp) => {
+                    console.log("data from request:", resp);
+                    store.dispatch({
+                        type: 'DETAILS',
+                        data: resp
+                    })
+                },
+                error: (resp) => {
+                    console.log("error occurred", resp)
+                }
+            });
+    }
+
+
     submit_registration(data){
             $.ajax("http://localhost:8080/api/user", {
                 method: "post",

@@ -19,13 +19,13 @@ function search_tab(state=empty_search_form, action) {
 
 
 let empty_results = {
-    results: []
+    results: ""
 }
 
 function results(state=empty_results, action) {
     switch (action.type) {
         case 'SEARCH_RESULTS':
-            return [action.data];
+            return action.data;
         default:
             return state;
 
@@ -45,8 +45,21 @@ function page(state=initial_page, action) {
     }
 }
 
+let initial_details= {
+    details:""
+};
+
+function details(state=initial_details, action) {
+    switch (action.type) {
+        case 'DETAILS':
+            return action.data;
+        default:
+            return state;
+    }
+}
+
 let empty_login = {
-    username: "",
+    email: "",
     password: "",
 };
 
@@ -62,10 +75,12 @@ function login(state = empty_login, action) {
 }
 
 let empty_register = {
+    dtype: "",
     firstName: "",
     lastName: "",
-    username: "",
+    email: "",
     password: "",
+    retype_password:""
 };
 
 function register(state = empty_register, action) {
@@ -82,7 +97,7 @@ function register(state = empty_register, action) {
 
 function root_reducer(state0, action) {
     console.log("reducer", action);
-    let reducer = combineReducers({search_tab, results, page, login, register});
+    let reducer = combineReducers({search_tab, results, page, details, login, register});
     console.log("state0", state0);
     let state1 = reducer(state0, action);
     console.log("state1", state1);
