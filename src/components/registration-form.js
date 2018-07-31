@@ -43,13 +43,13 @@ function RegistrationForm(params) {
                 params.register.password === "" ||
                 params.register.retype_password === "" ||
                 params.register.dtype === ""){
-                alert("incomlete form");
+                params.dispatch({type: 'ERROR', msg: 'All fields are mandatory'});
             } else if(!(params.register.password === params.register.retype_password)){
-                alert("passwords do not match!!!");
+                params.dispatch({type: 'ERROR', msg: 'Passwords do not match'});
             } else if(ValidateEmail() === false){
-                alert("You have entered an invalid email address!")
+                params.dispatch({type: 'ERROR', msg: 'Invalid e-mail address'});
             } else  if(validatePassword() === false){
-                alert("weak password")
+                params.dispatch({type: 'ERROR', msg: 'Weak Password!'});
             } else {
                 console.log("sending regiter request");
                 api.submit_registration(params.register);

@@ -20,6 +20,7 @@ let Page = connect((state) => state)((props) => {
                             <div>
                                 <TitleNav/>
                                 <Nav props={props}/>
+                                <div className="errors">{props.errors}</div>
                                 <SearchTab params={props} root={this}/>
                             </div>
                     }/>
@@ -28,6 +29,7 @@ let Page = connect((state) => state)((props) => {
                             <div>
                                 <TitleNav/>
                                 <Nav props={props}/>
+                                <div className="errors">{props.errors}</div>
                                 <SearchTab params={props} root={this}/>
                                 <ShowResults params={props} />
                             </div>
@@ -37,6 +39,7 @@ let Page = connect((state) => state)((props) => {
                             <div>
                                 <TitleNav/>
                                 <Nav props={props}/>
+                                <div className="errors">{props.errors}</div>
                                 <Details params={props}/>
                             </div>
                     } />
@@ -44,6 +47,7 @@ let Page = connect((state) => state)((props) => {
                         ()=>
                             <div>
                                 <TitleNav/>
+                                <div className="errors">{props.errors}</div>
                                 <RegistrationForm params={props}/>
                             </div>
                     } />

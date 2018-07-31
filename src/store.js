@@ -94,10 +94,19 @@ function register(state = empty_register, action) {
     }
 }
 
+function errors(state="", action) {
+    switch (action.type) {
+        case 'ERROR':
+            return action.msg;
+        default:
+            return "";
+    }
+}
+
 
 function root_reducer(state0, action) {
     console.log("reducer", action);
-    let reducer = combineReducers({search_tab, results, page, details, login, register});
+    let reducer = combineReducers({search_tab, results, page, details, login, register, errors});
     console.log("state0", state0);
     let state1 = reducer(state0, action);
     console.log("state1", state1);

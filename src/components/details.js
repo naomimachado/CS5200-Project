@@ -24,7 +24,7 @@ export default function Details(params) {
                         {props.Title}
                     </CardTitle>
                     <div>
-                        <img src={props.Poster} alt="Poster"/>
+                        <img src={props.Poster} alt="Poster" className="float-right"/>
                         <ul>
                             <li>
                                 Plot: {props.Plot}

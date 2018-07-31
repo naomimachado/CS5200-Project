@@ -15,7 +15,7 @@ export default function ShowResults(params){
     function prev_ten() {
         console.log(params.params.page.page);
         if (current_page === 1){
-            alert("No more previous pages");
+            params.dispatch({type: 'ERROR', msg: 'This is the first page'});
         }
         else {
             api.search_request(params.params.search_tab.search , current_page - 1);
@@ -31,7 +31,7 @@ export default function ShowResults(params){
         console.log(next_pages);
 
         if (current_page >= next_pages){
-            alert("No more next pages");
+            params.dispatch({type: 'ERROR', msg: 'No more pages to show'});
         }
         else {
             api.search_request(params.params.search_tab.search , current_page + 1);
@@ -49,6 +49,7 @@ export default function ShowResults(params){
     let res = _.map(arr, (nn, i) => <Result key={i} result={nn} />);
 
     if(fir.Response === "False"){
+        params.dispatch({type:'CLEAR_SEARCH_TAB'});
         return <div>
             <p>No results found, try a different search keyword!</p>
         </div>;

@@ -26,10 +26,15 @@ function SearchTab(params) {
     }
 
     function submit() {
-        console.log("should make api query to omdb");
-        console.log(params.search_tab);
-        api.search_request(params.search_tab.search,1);
-        //params.dispatch({type:'CLEAR_SEARCH_TAB'});
+        if(params.search_tab.search === ""){
+            params.dispatch({type: 'ERROR', msg: 'Please enter a keyword to search!'});
+        } else {
+
+            console.log("should make api query to omdb");
+            console.log(params.search_tab);
+            api.search_request(params.search_tab.search, 1);
+            //params.dispatch({type:'CLEAR_SEARCH_TAB'});
+        }
     }
 
     function reload() {
