@@ -54,7 +54,7 @@ class TheServer{
 
 
     submit_registration(data){
-            $.ajax("http://localhost:8080/api/user", {
+            $.ajax("http://localhost:8080/api/register", {
                 method: "post",
                 dataType: "json",
                 contentType: "application/json; charset=UTF-8",
