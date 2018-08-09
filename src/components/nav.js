@@ -3,6 +3,7 @@ import { Form, Button, FormGroup, Input } from 'reactstrap';
 import $ from "jquery";
 import {connect} from "react-redux";
 import {Link} from 'react-router-dom';
+import api from '../api';
 
 function Nav(props) {
 
@@ -22,23 +23,25 @@ function Nav(props) {
     }
 
     function login() {
-        alert("to do api calls")
+        api.login(props.login);
     }
 
     return (
         <div className="navbar">
-            <Form inline>
-                <FormGroup>
-                    <Input type="email" name="email" placeholder="email"
-                           value={props.login.email} onChange={update} />
-                </FormGroup>
-                <FormGroup>
-                    <Input type="password" name="password" placeholder="password"
-                           value={props.login.password} onChange={update} />
-                </FormGroup>
-                <Button onClick={login} type="button" className="btn btn-primary">Log In</Button>
-            </Form>
-            <Link to="/registration" exact="true">New here? Register Now!</Link>
+            <div className="float-right">
+                <Form inline>
+                    <FormGroup>
+                        <Input type="email" name="email" placeholder="email"
+                               value={props.login.email} onChange={update} />
+                    </FormGroup>
+                    <FormGroup>
+                        <Input type="password" name="password" placeholder="password"
+                               value={props.login.password} onChange={update} />
+                    </FormGroup>
+                    <Button onClick={login} type="button" className="btn btn-primary">Log In</Button>
+                </Form>
+                <Link to="/registration" exact="true">New here? Register Now!</Link>
+            </div>
         </div>
     );
 }

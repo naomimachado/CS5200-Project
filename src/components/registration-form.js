@@ -51,7 +51,7 @@ function RegistrationForm(params) {
             } else  if(validatePassword() === false){
                 params.dispatch({type: 'ERROR', msg: 'Weak Password!'});
             } else {
-                console.log("sending regiter request");
+                console.log("sending register request");
                 api.submit_registration(params.register);
             }
         }

@@ -53,20 +53,97 @@ class TheServer{
     }
 
 
-    submit_registration(data){
-            $.ajax("http://localhost:8080/api/register", {
+    submit_registration(data) {
+        console.log(data.dtype);
+        if (data.dtype === "Viewer") {
+            console.log("inside if");
+            let data1 = {
+                "firstName": data.firstName,
+                "lastName": data.lastName,
+                "email": data.email,
+                "password": data.password,
+                "obj": "Viewer"
+            }
+            $.ajax("http://localhost:8080/api/user/register", {
+                method: "post",
+                dataType: "json",
+                contentType: "application/json; charset=UTF-8",
+                data: JSON.stringify(data1),
+                success: (resp) => {
+                    console.log("sucess", resp);
+                },
+                error: (resp) => {
+                    console.log("error", resp);
+                    // store.dispatch({
+                    //     type: 'CLEAR_REGISTER_FORM',
+                    // })
+                },
+            });
+        } else if (data.dtype === "Critic") {
+            let data1 = {
+                "firstName": data.firstName,
+                "lastName": data.lastName,
+                "email": data.email,
+                "password": data.password,
+                "obj": "Critic"
+            }
+            $.ajax("http://localhost:8080/api/critic/register", {
+                method: "post",
+                dataType: "json",
+                contentType: "application/json; charset=UTF-8",
+                data: JSON.stringify(data1),
+                success: (resp) => {
+                    console.log("sucess", resp);
+                },
+                error: (resp) => {
+                    console.log("error", resp);
+                    // store.dispatch({
+                    //     type: 'CLEAR_REGISTER_FORM',
+                    // })
+                },
+            });
+        } else if (data.dtype === "Seller") {
+            let data1 = {
+                "firstName": data.firstName,
+                "lastName": data.lastName,
+                "email": data.email,
+                "password": data.password,
+                "obj": "Seller"
+            }
+            $.ajax("http://localhost:8080/api/seller/register", {
+                method: "post",
+                dataType: "json",
+                contentType: "application/json; charset=UTF-8",
+                data: JSON.stringify(data1),
+                success: (resp) => {
+                    console.log("sucess", resp);
+                },
+                error: (resp) => {
+                    console.log("error", resp);
+                    // store.dispatch({
+                    //     type: 'CLEAR_REGISTER_FORM',
+                    // })
+                },
+            });
+        }
+    }
+
+        login(data) {
+
+            $.ajax("http://localhost:8080/api/login", {
                 method: "post",
                 dataType: "json",
                 contentType: "application/json; charset=UTF-8",
                 data: JSON.stringify(data),
                 success: (resp) => {
                     console.log("sucess", resp);
+                    //console.log("type", resp.);
                 },
                 error: (resp) => {
                     console.log("error", resp);
-                    store.dispatch({
-                        type: 'CLEAR_REGISTER_FORM',
-                    })
+                    // store.dispatch({
+                    //     type: 'CLEAR_REGISTER_FORM',
+                    // })
                 },
             });
     }
