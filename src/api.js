@@ -2,6 +2,7 @@ import store from './store';
 import $ from 'jquery';
 import Cookies from 'universal-cookie';
 
+
 class TheServer{
 
     search_request(data, page) {
