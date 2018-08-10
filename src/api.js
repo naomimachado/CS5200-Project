@@ -147,6 +147,7 @@ class TheServer{
                     console.log("sucess", resp);
                     //console.log("type", resp.);
                     const cookies = new Cookies();
+                    cookies.set('id', resp.id);
                     cookies.set('firstName', resp.firstName);
                     cookies.set('email', resp.email);
                     cookies.set('obj', resp.obj);
@@ -175,9 +176,10 @@ class TheServer{
                 console.log("sucess", resp);
                 //console.log("type", resp.);
                 const cookies = new Cookies();
-                cookies.remove('firstName', resp.firstName);
-                cookies.remove('email', resp.email);
-                cookies.remove('obj', resp.obj);
+                cookies.remove('id');
+                cookies.remove('firstName');
+                cookies.remove('email');
+                cookies.remove('obj');
                 store.dispatch({
                     type: 'RESET_TOKEN',
                     data: null

@@ -60,8 +60,9 @@ let Session = connect(({token}) => {return {token};})((props) => {
     }
 
     return <div className="navbar">
-        <p>Welcome {props.token.firstName}!</p>
-                <Link to={"/"}><Button onClick={logout} className="btn btn-danger">Logout</Button></Link>
+        <p className="nav-item">Welcome {props.token.firstName}!</p>
+        <p className="nav-item"><Link to={"/profile"} exact="true">My Profile</Link></p>
+            <Link to={"/"}><Button onClick={logout} className="btn btn-danger">Logout</Button></Link>
          </div>;
 });
 
@@ -74,7 +75,7 @@ function Nav(props) {
     if(props.token){
         session = <Session token={props.token}/>
     } else if(cookie.get('email')){
-        token = { firstName: cookie.get('firstName'), email: cookie.get('email'), obj: cookie.get('obj')};
+        token = { id: cookie.get('id'), firstName: cookie.get('firstName'), email: cookie.get('email'), obj: cookie.get('obj')};
         store.dispatch({
             type: 'SET_TOKEN',
             data: token

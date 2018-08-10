@@ -9,7 +9,7 @@ import Nav from './nav';
 import RegistrationForm from './registration-form';
 import Details from './details';
 import TitleNav from "./title-nav";
-//import TitleNav from './title-nav';
+import Profile from './profile';
 //import Cookies from 'universal-cookie';
 
 let Page = connect((state) => state)((props) => {
@@ -50,6 +50,14 @@ let Page = connect((state) => state)((props) => {
                                 <TitleNav/>
                                 <div className="errors">{props.errors}</div>
                                 <RegistrationForm params={props}/>
+                            </div>
+                    } />
+                    <Route path="/profile" exact={true} render={
+                        ()=>
+                            <div>
+                                <Nav/>
+                                <div className="errors">{props.errors}</div>
+                                <Profile props={props}/>
                             </div>
                     } />
                 </div>
