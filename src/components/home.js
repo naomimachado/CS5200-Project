@@ -8,9 +8,13 @@ import ShowResults from './show-results';
 import Nav from './nav';
 import RegistrationForm from './registration-form';
 import Details from './details';
-import TitleNav from './title-nav';
+import TitleNav from "./title-nav";
+//import TitleNav from './title-nav';
+//import Cookies from 'universal-cookie';
 
 let Page = connect((state) => state)((props) => {
+    //let cookie = new Cookies();
+
     if(props.results){
         return (
             <Router>
@@ -18,7 +22,6 @@ let Page = connect((state) => state)((props) => {
                     <Route path="/" exact={true} render={
                         () =>
                             <div>
-                                <TitleNav/>
                                 <Nav props={props}/>
                                 <div className="errors">{props.errors}</div>
                                 <SearchTab params={props} root={this}/>
@@ -27,7 +30,6 @@ let Page = connect((state) => state)((props) => {
                     <Route path="/results" exact={true} render={
                         ()=>
                             <div>
-                                <TitleNav/>
                                 <Nav props={props}/>
                                 <div className="errors">{props.errors}</div>
                                 <SearchTab params={props} root={this}/>
@@ -37,7 +39,6 @@ let Page = connect((state) => state)((props) => {
                     <Route path="/results/:imdbID" exact={true} render={
                         ()=>
                             <div>
-                                <TitleNav/>
                                 <Nav props={props}/>
                                 <div className="errors">{props.errors}</div>
                                 <Details params={props}/>

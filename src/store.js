@@ -103,10 +103,21 @@ function errors(state="", action) {
     }
 }
 
+function token(state = null, action) {
+    switch (action.type) {
+        case 'SET_TOKEN':
+            return action.data;
+        case 'RESET_TOKEN':
+            return action.data;
+        default:
+            return state;
+    }
+}
+
 
 function root_reducer(state0, action) {
     console.log("reducer", action);
-    let reducer = combineReducers({search_tab, results, page, details, login, register, errors});
+    let reducer = combineReducers({search_tab, results, page, details, login, register, errors, token});
     console.log("state0", state0);
     let state1 = reducer(state0, action);
     console.log("state1", state1);

@@ -1,5 +1,6 @@
 import store from './store';
 import $ from 'jquery';
+import Cookies from 'universal-cookie';
 
 class TheServer{
 
@@ -55,6 +56,10 @@ class TheServer{
 
     submit_registration(data) {
         console.log(data.dtype);
+        let login_data={
+            "email": data.email,
+            "password": data.password
+        }
         if (data.dtype === "Viewer") {
             console.log("inside if");
             let data1 = {
@@ -71,6 +76,7 @@ class TheServer{
                 data: JSON.stringify(data1),
                 success: (resp) => {
                     console.log("sucess", resp);
+                    this.login(login_data);
                 },
                 error: (resp) => {
                     console.log("error", resp);
@@ -117,6 +123,7 @@ class TheServer{
                 data: JSON.stringify(data1),
                 success: (resp) => {
                     console.log("sucess", resp);
+
                 },
                 error: (resp) => {
                     console.log("error", resp);
@@ -138,6 +145,17 @@ class TheServer{
                 success: (resp) => {
                     console.log("sucess", resp);
                     //console.log("type", resp.);
+                    const cookies = new Cookies();
+                    cookies.set('firstName', resp.firstName);
+                    cookies.set('email', resp.email);
+                    cookies.set('obj', resp.obj);
+                    store.dispatch({
+                        type: 'SET_TOKEN',
+                        data: resp
+                    })
+                    store.dispatch({
+                        type: 'CLEAR_LOGIN_FORM'
+                    });
                 },
                 error: (resp) => {
                     console.log("error", resp);
@@ -146,6 +164,31 @@ class TheServer{
                     // })
                 },
             });
+    }
+
+    logout(){
+        console.log("inside logout");
+        $.ajax("http://localhost:8080/api/logout", {
+            method: "post",
+            success: (resp) => {
+                console.log("sucess", resp);
+                //console.log("type", resp.);
+                const cookies = new Cookies();
+                cookies.remove('firstName', resp.firstName);
+                cookies.remove('email', resp.email);
+                cookies.remove('obj', resp.obj);
+                store.dispatch({
+                    type: 'RESET_TOKEN',
+                    data: null
+                })
+            },
+            error: (resp) => {
+                console.log("error", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
     }
 }
 

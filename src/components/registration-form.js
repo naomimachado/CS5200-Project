@@ -5,6 +5,7 @@ import { Button, FormGroup, Label, Input } from 'reactstrap';
 import { connect } from 'react-redux';
 
 import api from '../api';
+import {Link} from "react-router-dom";
 
 function RegistrationForm(params) {
 
@@ -94,7 +95,7 @@ function RegistrationForm(params) {
                         <Input type="password" name="retype_password" placeholder="retype password"
                                value={params.register.retype_password} onChange={update} />
                     </FormGroup>
-                    <Button onClick={register} type="button" className="btn btn-primary">Register</Button>
+                        <Button onClick={register} type="button" className="btn btn-primary">Register</Button>
                 </FormGroup>
         </div>);
 }

@@ -48,7 +48,7 @@ function SearchTab(params) {
             <Label for="search"></Label>
             <Input type="text" name="search" value={params.search_tab.search} onChange={update} placeholder="Search for movies and TV shows"/>
         </FormGroup>
-        <Link to="/results" exact="true"><Button onClick={submit} color="primary"><i className="fa fa-search"></i></Button></Link>
+        <Button onClick={submit} color="primary"><i className="fa fa-search"></i></Button>
     </div>;
 }
 

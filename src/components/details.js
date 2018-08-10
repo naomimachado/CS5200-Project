@@ -9,7 +9,11 @@ export default function Details(params) {
     let props=params.params.details;
 
     function add() {
-        alert("Please Login");
+        if(params.params.token == null){
+            params.params.dispatch({type: 'ERROR', msg: 'Please login'});
+        } else {
+            alert("make api call")
+        }
     }
 
     function submit() {
