@@ -27,7 +27,12 @@ let Login = connect(({login}) => {return {login};})((props) =>{
     }
 
     function login() {
-        api.login(props.login);
+        if(props.login.email === "" ||
+            props.login.password === "" ){
+            props.dispatch({type: 'ERROR', msg: 'Please enter valid credentials'});
+        } else {
+            api.login(props.login);
+        }
     }
 
     return (
@@ -59,9 +64,17 @@ let Session = connect(({token}) => {return {token};})((props) => {
         api.logout();
     }
 
+    function getList() {
+        if(props.token.obj === "Viewer") {
+            api.get_watchlist(props.token.id);
+        } else if(props.token.obj === "Seller"){
+            api.get_watchlist(props.token.id);
+            api.get_seller_list(props.token.id);
+        }
+    }
     return <div className="navbar">
         <p className="nav-item">Welcome {props.token.firstName}!</p>
-        <p className="nav-item"><Link to={"/profile"} exact="true">My Profile</Link></p>
+        <p className="nav-item"><Link to={"/profile"} exact="true" onClick={getList}>My Profile</Link></p>
             <Link to={"/"}><Button onClick={logout} className="btn btn-danger">Logout</Button></Link>
          </div>;
 });
@@ -72,9 +85,10 @@ function Nav(props) {
     let cookie = new Cookies();
     let token;
 
-    if(props.token){
+    if(props.token != null){
         session = <Session token={props.token}/>
     } else if(cookie.get('email')){
+        console.log("email", cookie.get('email'));
         token = { id: cookie.get('id'), firstName: cookie.get('firstName'), email: cookie.get('email'), obj: cookie.get('obj')};
         store.dispatch({
             type: 'SET_TOKEN',

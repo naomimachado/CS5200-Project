@@ -47,11 +47,36 @@ class TheServer{
                         type: 'DETAILS',
                         data: resp
                     })
+                    let movie={
+                        "title": resp.Title,
+                        "imdbid": resp.imdbID
+                    }
+                    this.save_movie(movie);
                 },
                 error: (resp) => {
                     console.log("error occurred", resp)
                 }
             });
+    }
+
+    save_movie(data){
+        console.log("saving movie",data);
+        $.ajax("http://localhost:8080/api/movie", {
+            method: "post",
+            dataType: "json",
+            contentType: "application/json; charset=UTF-8",
+            data: JSON.stringify(data),
+            success: (resp) => {
+                console.log("sucess", resp);
+
+            },
+            error: (resp) => {
+                console.log("error", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
     }
 
 
@@ -76,7 +101,7 @@ class TheServer{
                 contentType: "application/json; charset=UTF-8",
                 data: JSON.stringify(data1),
                 success: (resp) => {
-                    console.log("sucess", resp);
+                    console.log("success", resp);
                     this.login(login_data);
                 },
                 error: (resp) => {
@@ -101,6 +126,7 @@ class TheServer{
                 data: JSON.stringify(data1),
                 success: (resp) => {
                     console.log("sucess", resp);
+                    this.login(login_data);
                 },
                 error: (resp) => {
                     console.log("error", resp);
@@ -124,6 +150,7 @@ class TheServer{
                 data: JSON.stringify(data1),
                 success: (resp) => {
                     console.log("sucess", resp);
+                    this.login(login_data);
 
                 },
                 error: (resp) => {
@@ -164,6 +191,7 @@ class TheServer{
                     // store.dispatch({
                     //     type: 'CLEAR_REGISTER_FORM',
                     // })
+                    store.dispatch({type: 'ERROR', msg: 'Invalid Login! Please try again'});
                 },
             });
     }
@@ -180,10 +208,13 @@ class TheServer{
                 cookies.remove('firstName');
                 cookies.remove('email');
                 cookies.remove('obj');
+                //cookies.remove('search');
+                //cookies.remove('page')
                 store.dispatch({
                     type: 'RESET_TOKEN',
                     data: null
                 })
+                window.location.reload();
             },
             error: (resp) => {
                 console.log("error", resp);
@@ -193,6 +224,156 @@ class TheServer{
             },
         });
     }
+
+    add_to_watchlist(id, data) {
+        console.log(id);
+        console.log(data);
+        let imdb=data.imdbid;
+        let URL = "http://localhost:8080/api/movie/"+imdb+"/person/"+id+"/watchlist";
+        $.ajax(URL , {
+            method: "post",
+            dataType: "json",
+            contentType: "application/json; charset=UTF-8",
+            success: (resp) => {
+                console.log("sucess", resp);
+                this.get_watchlist(id);
+                //alert("added succesfully");
+                // store.dispatch({
+                //     type: 'CLEAR_LOGIN_FORM'
+                // });
+            },
+            error: (resp) => {
+                console.log("error", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
+    }
+
+    get_watchlist(id) {
+        console.log(id);
+        //console.log(data);
+        let URL = "http://localhost:8080/api/person/"+id+"/watchlist";
+        $.ajax(URL , {
+            method: "get",
+            dataType: "json",
+            contentType: "application/json; charset=UTF-8",
+            //data: JSON.stringify(data),
+            success: (resp) => {
+                console.log("sucess", resp);
+
+                //alert("added succesfully");
+                store.dispatch({
+                    type: 'WATCHLIST',
+                    data: resp
+                });
+            },
+            error: (resp) => {
+                console.log("error", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
+    }
+
+    get_seller_list(id) {
+        console.log(id);
+        //console.log(data);
+        let URL = "http://localhost:8080/api/seller/"+id+"/movielist";
+        $.ajax(URL , {
+            method: "get",
+            dataType: "json",
+            contentType: "application/json; charset=UTF-8",
+            //data: JSON.stringify(data),
+            success: (resp) => {
+                console.log("sucess", resp);
+
+                //alert("added succesfully");
+                store.dispatch({
+                    type: 'SELLERLIST',
+                    data: resp
+                });
+            },
+            error: (resp) => {
+                console.log("error", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
+    }
+
+    remove_from_watchlist(id, movieid){
+        let URL = "http://localhost:8080/api/user/"+id+"/watchlist/"+movieid;
+        $.ajax(URL , {
+            method: "delete",
+            dataType: "json",
+            contentType: "application/json; charset=UTF-8",
+            //data: JSON.stringify(data),
+            success: (resp) => {
+                console.log("sucess", resp);
+                this.findWatchList(id);
+                //alert("added succesfully");
+                // store.dispatch({
+                //     type: 'WATCHLIST',
+                //     data: resp
+                // });
+            },
+            error: (resp) => {
+                console.log("error", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
+    }
+
+    add_link(sid,imdb,data){
+        console.log("saving link",data);
+        let URL = "http://localhost:8080/api/movie/"+imdb+"/link";
+        let data1 = {
+            link: data
+        };
+        console.log("url", URL);
+        $.ajax(URL, {
+            method: "post",
+            dataType: "json",
+            contentType: "application/json; charset=UTF-8",
+            data: JSON.stringify(data1),
+            success: (resp) => {
+                console.log("sucess", resp);
+                this.seller_movie_link(sid,imdb);
+            },
+            error: (resp) => {
+                console.log("error", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
+    }
+
+    seller_movie_link(sid,imdb){
+        let URL = "http://localhost:8080/api/seller/"+sid+"/movie/"+imdb;
+        console.log("url", URL);
+        $.ajax(URL, {
+            method: "post",
+            dataType: "json",
+            contentType: "application/json; charset=UTF-8",
+            success: (resp) => {
+                console.log("sucess", resp);
+            },
+            error: (resp) => {
+                console.log("error", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
+    }
+
 }
 
 export default new TheServer();

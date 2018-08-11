@@ -7,17 +7,21 @@ import {Link} from 'react-router-dom';
 import _ from 'underscore';
 
 import api from '../api';
+import Cookies from "universal-cookie";
 
 export default function ShowResults(params){
 
     let current_page = params.params.page.page;
+    //let cookies = new Cookies();
 
     function prev_ten() {
         console.log(params.params.page.page);
         if (current_page === 1){
-            params.dispatch({type: 'ERROR', msg: 'This is the first page'});
+            params.params.dispatch({type: 'ERROR', msg: 'This is the first page'});
         }
         else {
+            //cookies.set('search', params.params.search_tab.search);
+            //cookies.set('page', current_page - 1);
             api.search_request(params.params.search_tab.search , current_page - 1);
         }
 
@@ -31,14 +35,14 @@ export default function ShowResults(params){
         console.log(next_pages);
 
         if (current_page >= next_pages){
-            params.dispatch({type: 'ERROR', msg: 'No more pages to show'});
+            params.params.dispatch({type: 'ERROR', msg: 'No more pages to show'});
         }
         else {
+            //cookies.set('search', params.params.search_tab.search);
+            // cookies.set('page', current_page + 1);
             api.search_request(params.params.search_tab.search , current_page + 1);
         }
     }
-
-
 
     console.log("inside show results",params);
     let fir = params.params.results;
@@ -48,13 +52,23 @@ export default function ShowResults(params){
 
     let res = _.map(arr, (nn, i) => <Result key={i} result={nn} />);
 
-    if(fir.Response === "False"){
-        params.dispatch({type:'CLEAR_SEARCH_TAB'});
-        return <div>
-            <p>No results found, try a different search keyword!</p>
-        </div>;
-    }
-    else {
+    if(fir) {
+        if (fir.Response === "False") {
+            //params.params.dispatch({type: 'CLEAR_SEARCH_TAB'});
+            //params.params.dispatch({type: 'CLEAR_RESULTS'});
+            params.params.dispatch({type: 'ERROR', msg: 'No movie found!'});
+            return <div>
+                <p>No results found, try a different search keyword!</p>
+            </div>;
+        }
+        else {
+            return <div className="col">
+                {res}
+                <Button onClick={prev_ten}>&laquo; Previous</Button>
+                <Button onClick={next_ten}>Next &raquo;</Button>
+            </div>;
+        }
+    } else {
         return <div className="col">
             {res}
             <Button onClick={prev_ten}>&laquo; Previous</Button>
@@ -66,6 +80,8 @@ export default function ShowResults(params){
 function Result(params){
 
     function details() {
+        let cookie = new Cookies();
+        cookie.set('imdb', params.result.imdbID);
         api.get_details(params.result.imdbID);
     }
 

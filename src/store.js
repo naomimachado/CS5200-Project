@@ -26,6 +26,8 @@ function results(state=empty_results, action) {
     switch (action.type) {
         case 'SEARCH_RESULTS':
             return action.data;
+        case 'CLEAR_RESULTS':
+            return empty_results;
         default:
             return state;
 
@@ -108,7 +110,45 @@ function token(state = null, action) {
         case 'SET_TOKEN':
             return action.data;
         case 'RESET_TOKEN':
+            return null;
+        default:
+            return state;
+    }
+}
+
+let empty_watchlist = "";
+
+function watchlist(state = empty_watchlist, action) {
+    switch (action.type) {
+        case 'WATCHLIST':
             return action.data;
+        default:
+            return state;
+    }
+}
+
+let empty_seller_list = "";
+
+function seller_list(state = empty_seller_list, action) {
+    switch (action.type) {
+        case 'SELLERLIST':
+            return action.data;
+        default:
+            return state;
+    }
+}
+
+let empty_link = {
+    data:""
+};
+
+
+function link(state = empty_link, action) {
+    switch (action.type) {
+        case 'UPDATE_BUY_FORM':
+            return Object.assign({}, state, action.data);
+        case 'CLEAR_BUY_FORM':
+            return empty_link;
         default:
             return state;
     }
@@ -117,7 +157,8 @@ function token(state = null, action) {
 
 function root_reducer(state0, action) {
     console.log("reducer", action);
-    let reducer = combineReducers({search_tab, results, page, details, login, register, errors, token});
+    let reducer = combineReducers({search_tab, results, page, details, login, register, errors, token,
+        watchlist, link, seller_list});
     console.log("state0", state0);
     let state1 = reducer(state0, action);
     console.log("state1", state1);

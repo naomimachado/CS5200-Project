@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 
 import $ from 'jquery';
 import api from '../api';
+import Cookies from 'universal-cookie';
 
 function SearchTab(params) {
 
@@ -26,14 +27,24 @@ function SearchTab(params) {
     }
 
     function submit() {
+        let cookies = new Cookies();
         if(params.search_tab.search === ""){
             params.dispatch({type: 'ERROR', msg: 'Please enter a keyword to search!'});
-        } else {
-
-            console.log("should make api query to omdb");
-            console.log(params.search_tab);
+        } else if(params.search_tab.search){
+            //cookies.set('search', params.search_tab.search);
+            //cookies.set('page', 1);
+            cookies.set('search', params.search_tab.search);
+            console.log("cookie set");
+            let data = params.search_tab.search;
+            params.dispatch({type:'SET_SEARCH_TOKEN', data: data});
             api.search_request(params.search_tab.search, 1);
             //params.dispatch({type:'CLEAR_SEARCH_TAB'});
+        } else {
+            let search = cookies.get('search');
+            console.log("should make api query to omdb");
+            params.dispatch({type:'SET_SEARCH_TOKEN', data: search});
+            api.search_request(params.search_token, 1);
+            //console.log(params.search_tab);
         }
     }
 
@@ -48,7 +59,7 @@ function SearchTab(params) {
             <Label for="search"></Label>
             <Input type="text" name="search" value={params.search_tab.search} onChange={update} placeholder="Search for movies and TV shows"/>
         </FormGroup>
-        <Button onClick={submit} color="primary"><i className="fa fa-search"></i></Button>
+        <Link to={"/results"} exact="true"><Button onClick={submit} color="primary"><i className="fa fa-search"></i></Button></Link>
     </div>;
 }
 
