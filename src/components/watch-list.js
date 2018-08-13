@@ -163,19 +163,23 @@ function Result2(props){
     let cookie = new Cookies();
 
     function details() {
-        //api.get_details(props.sellerlist.movie.imdbid);
+        api.get_details(props.reviewlist.movie.imdbid);
     }
 
-    function removeFromSellerlist(){
-        // let id = cookie.get('id');
-        // api.remove_from_sellerlist(id, props.sellerlist.id);
+    function deleteFromReviews(){
+        let id = cookie.get('id');
+        api.delete_review(id, props.reviewlist.id);
     }
 
-    function editLink(){
-        // let id = cookie.get('id');
-        // api.get_details(props.sellerlist.movie.imdbid);
-        // api.get_link(props.sellerlist.id);
+    // function editLink(){
+    //     let id = cookie.get('id');
+    //     api.get_details(props.sellerlist.movie.imdbid);
+    //     api.get_link(props.sellerlist.id);
+    // }
 
+    function view(){
+        api.get_review(props.reviewlist.id);
+        api.get_details(props.reviewlist.movie.imdbid);
     }
 
     console.log("inside display",props);
@@ -183,10 +187,16 @@ function Result2(props){
         <CardBody>
             <div>
                 Title:{props.reviewlist.movie.title}
+                <Link to={"/profile/list/"+ props.reviewlist.movie.imdbid}>
                     <Button onClick={details} className="btn btn-info">Details</Button>
-                    <Button onClick={editLink} className="btn btn-info">View Review</Button>
-                    <Button onClick={editLink} className="btn btn-info">Edit Review</Button>
-                <Button onClick={removeFromSellerlist} className="btn btn-danger"> Delete Review</Button>
+                </Link>
+                <Link to={"/viewReview"}>
+                    <Button onClick={view} className="btn btn-info">View Review</Button>
+                </Link>
+                <Link to={"/editReview"}>
+                    <Button onClick={view} className="btn btn-info">Edit Review</Button>
+                </Link>
+                <Button onClick={deleteFromReviews} className="btn btn-danger"> Delete Review</Button>
             </div>
         </CardBody>
     </Card>;

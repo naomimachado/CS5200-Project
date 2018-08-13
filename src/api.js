@@ -586,6 +586,85 @@ class TheServer{
 
     }
 
+    get_review(rid){
+        console.log(rid);
+        let URL = "http://localhost:8080/api/review/"+rid;
+        $.ajax(URL , {
+            method: "get",
+            dataType: "json",
+            contentType: "application/json; charset=UTF-8",
+            //data: JSON.stringify(data),
+            success: (resp) => {
+                console.log("sucess", resp);
+
+                //alert("added succesfully");
+                store.dispatch({
+                    type: 'VIEW_REVIEW',
+                    data: resp
+                });
+                store.dispatch({
+                    type: 'UPDATE_REVIEW_FORM',
+                    data: resp
+                });
+            },
+            error: (resp) => {
+                console.log("error", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
+    }
+
+    edit_review(cid, rid, desc){
+        console.log("rid", rid);
+        let URL = "http://localhost:8080/api/review/"+rid;
+        let data1 = {
+            description: desc
+        };
+        console.log("url", URL);
+        $.ajax(URL, {
+            method: "put",
+            contentType: "application/json; charset=UTF-8",
+            data: JSON.stringify(data1),
+            success: (resp) => {
+                console.log("sucess", resp);
+                this.get_critic_reviews(cid);
+                store.dispatch({
+                    type: 'CLEAR_REVIEW_FORM',
+                })
+            },
+            error: (resp) => {
+                console.log("error", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
+    }
+
+    delete_review(id, rid){
+        let URL = "http://localhost:8080/api/review/"+rid;
+        $.ajax(URL , {
+            method: "delete",
+            success: (resp) => {
+                console.log("sucess", resp);
+                this.get_critic_reviews(id);
+                //alert("added succesfully");
+                // store.dispatch({
+                //     type: 'WATCHLIST',
+                //     data: resp
+                // });
+            },
+            error: (resp) => {
+                console.log("error", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
+    }
+
 
 }
 

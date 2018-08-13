@@ -18,6 +18,8 @@ import BuyingOptions from "./show-buying-options";
 import ReviewDetails from "./review-details";
 import EditLinkForm from './edit-link-form';
 import ViewLink from './view-link';
+import ViewReview from './view-review';
+import EditReviewForm from './edit-review-form';
 
 
 let Page = connect((state) => state)((props) => {
@@ -73,6 +75,7 @@ let Page = connect((state) => state)((props) => {
                             <div>
                                 <Nav/>
                                 <div className="errors">{props.errors}</div>
+                                <Profile props={props}/>
                                 <WatchList props={props}/>
                             </div>
                     } />
@@ -130,6 +133,22 @@ let Page = connect((state) => state)((props) => {
                                 <Nav/>
                                 <div className="errors">{props.errors}</div>
                                 <ReviewDetails props={props}/>
+                            </div>
+                    } />
+                    <Route path="/viewReview" exact={true} render={
+                        ()=>
+                            <div>
+                                <Nav/>
+                                <div className="errors">{props.errors}</div>
+                                <ViewReview params={props}/>
+                            </div>
+                    } />
+                    <Route path="/editReview" exact={true} render={
+                        ()=>
+                            <div>
+                                <Nav/>
+                                <div className="errors">{props.errors}</div>
+                                <EditReviewForm params={props}/>
                             </div>
                     } />
                 </div>

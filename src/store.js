@@ -157,7 +157,7 @@ function link(state = empty_link, action) {
 }
 
 let empty_review = {
-    thoughts:""
+    description:""
 };
 
 function review_form(state = empty_review, action) {
@@ -221,13 +221,25 @@ function critic_review(state = empty_critic_review, action) {
     }
 }
 
+let empty_view_review={
+    decription:""
+};
+
+function view_review(state = empty_view_review, action) {
+    switch (action.type) {
+        case 'VIEW_REVIEW':
+            return action.data;
+        default:
+            return state;
+    }
+}
 
 
 
 function root_reducer(state0, action) {
     console.log("reducer", action);
     let reducer = combineReducers({search_tab, results, page, details, login, register, errors, token,
-        watchlist, link, seller_list, review_form, links, movie_review, edit_link, critic_review});
+        watchlist, link, seller_list, review_form, links, movie_review, edit_link, critic_review, view_review});
     console.log("state0", state0);
     let state1 = reducer(state0, action);
     console.log("state1", state1);

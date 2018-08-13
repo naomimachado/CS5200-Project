@@ -73,6 +73,8 @@ let Session = connect(({token}) => {return {token};})((props) => {
         } else if(props.token.obj === "Critic"){
             api.get_watchlist(props.token.id);
             api.get_critic_reviews(props.token.id);
+        } else if(props.token.obj === "Admin"){
+            //TODO
         }
     }
     return <div className="navbar">

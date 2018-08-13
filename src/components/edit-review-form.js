@@ -1,16 +1,12 @@
 import React from 'react';
 import $ from "jquery";
-import api from "../api";
 import { Button, FormGroup, Label, Input } from 'reactstrap';
 import { connect } from 'react-redux';
-
 import {Link} from "react-router-dom";
-import Cookies from "universal-cookie";
+import api from '../api';
 
+function EditReviewForm(params) {
 
-function ReviewForm(params) {
-
-    console.log("review forms params", params);
     function update(ev) {
         let tgt = $(ev.target);
 
@@ -25,57 +21,74 @@ function ReviewForm(params) {
         params.dispatch(action);
     }
 
-    let cookie = new Cookies();
-
-    function submit() {
-        if(params.params.review_form.thoughts===""){
-            params.dispatch({type: 'ERROR', msg: 'Please enter some thoughts!'});
+    function edit() {
+        if(params.params.review_form.description===""){
+            params.dispatch({type: 'ERROR', msg: 'Please enter some thoughts'});
         } else {
-            console.log("thoughts", params.params.review_form.thoughts);
+            console.log("link", params.params.review_form.description);
             //api.add_link(params.params.token.id,params.params.details.imdbID,params.params.link.data);
-            let id = cookie.get('id');
-            api.add_review(id,params.params.details.imdbID,
-                params.params.details.Title, params.params.review_form.thoughts);
+            api.edit_review(params.params.token.id, params.params.review_form.id, params.params.review_form.description);
+            api.get_watchlist(params.params.token.id);
+
         }
     }
 
-    if(params.params.review_form.thoughts==="") {
+    // function assign(link){
+    //     alert("inside assign");
+    //     let action = {
+    //         type: 'UPDATE_BUY_FORM',
+    //         data: {data: link}
+    //     };
+    //     params.dispatch(action);
+    // }
+
+    //let link = params.params.edit_link.link;
+
+    // if(params.params.link.data===""){
+    //     console.log("link", link);
+    //     let action = {
+    //         type: 'UPDATE_BUY_FORM',
+    //     };
+    //     params.dispatch(action);
+    // }
+
+    if(params.params.review_form.description==="" ) {
         return (
             <div>
-                <div>A review for {params.params.details.Title}</div>
+                <h3>Edit Review</h3>
                 <FormGroup>
                     <FormGroup>
                         <Label for="imdbid">IMDB ID:</Label>
-                        <Input type="hidden" name="imdbid" value={params.params.details.imdbID}/>
+                        <Input type="hidden" name="imdbid"/>
                         <span>{params.params.details.imdbID}</span>
                     </FormGroup>
                     <FormGroup>
                         <Label for="title">Title:</Label>
-                        <Input type="hidden" name="title" value={params.params.details.Title}/>
+                        <Input type="hidden" name="title"/>
                         <span>{params.params.details.Title}</span>
                     </FormGroup>
                     <FormGroup>
-                        <Label for="description">Thoughts:</Label>
+                        <Label for="description">Buying Link:</Label>
                         <Input type="text" name="description" placeholder="My thoughts"
                                value={params.params.review_form.description} onChange={update}/>
                     </FormGroup>
-                    <Button onClick={submit} type="button" className="btn btn-primary">Submit</Button>
+                    <Button onClick={edit} type="button" className="btn btn-primary">Edit</Button>
                 </FormGroup>
             </div>
         );
     } else {
         return (
             <div>
-                <div>A review for {params.params.details.Title}</div>
+                <h3>Edit Review</h3>
                 <FormGroup>
                     <FormGroup>
                         <Label for="imdbid">IMDB ID:</Label>
-                        <Input type="hidden" name="imdbid" value={params.params.details.imdbID}/>
+                        <Input type="hidden" name="imdbid"/>
                         <span>{params.params.details.imdbID}</span>
                     </FormGroup>
                     <FormGroup>
                         <Label for="title">Title:</Label>
-                        <Input type="hidden" name="title" value={params.params.details.Title}/>
+                        <Input type="hidden" name="title"/>
                         <span>{params.params.details.Title}</span>
                     </FormGroup>
                     <FormGroup>
@@ -83,8 +96,8 @@ function ReviewForm(params) {
                         <Input type="text" name="description" placeholder="My thoughts"
                                value={params.params.review_form.description} onChange={update}/>
                     </FormGroup>
-                    <Link to={"/profile"} exact={"true"}>
-                        <Button onClick={submit} type="button" className="btn btn-primary">Submit</Button>
+                    <Link to={"/profile"} exact="true">
+                        <Button onClick={edit} type="button" className="btn btn-primary">Edit</Button>
                     </Link>
                 </FormGroup>
             </div>
@@ -97,4 +110,4 @@ function state2props(state) {
     return { review_form: state.review_form };
 }
 
-export default connect(state2props)(ReviewForm);
+export default connect(state2props)(EditReviewForm);
