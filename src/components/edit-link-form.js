@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import {Link} from "react-router-dom";
 import api from '../api';
 
-function AddBuyLink(params) {
+function EditLinkForm(params) {
 
     function update(ev) {
         let tgt = $(ev.target);
@@ -21,12 +21,15 @@ function AddBuyLink(params) {
         params.dispatch(action);
     }
 
-    function add_link() {
-        if(params.params.link.data===""){
+    function edit() {
+        if(params.params.link.link===""){
             params.dispatch({type: 'ERROR', msg: 'Please enter valid link'});
         } else {
-            console.log("link", params.params.link.data);
-            api.add_link(params.params.token.id,params.params.details.imdbID,params.params.link.data);
+            console.log("link", params.params.link.link);
+            //api.add_link(params.params.token.id,params.params.details.imdbID,params.params.link.data);
+            api.edit_link(params.params.token.id, params.params.link.id, params.params.link.link);
+            api.get_watchlist(params.params.token.id);
+
         }
     }
 
@@ -38,51 +41,71 @@ function AddBuyLink(params) {
             return true;
     }
 
-    if(params.params.link.data==="" ||
-    isUrlValid(params.params.link.data)) {
+    // function assign(link){
+    //     alert("inside assign");
+    //     let action = {
+    //         type: 'UPDATE_BUY_FORM',
+    //         data: {data: link}
+    //     };
+    //     params.dispatch(action);
+    // }
+
+    let link = params.params.edit_link.link;
+
+    // if(params.params.link.data===""){
+    //     console.log("link", link);
+    //     let action = {
+    //         type: 'UPDATE_BUY_FORM',
+    //     };
+    //     params.dispatch(action);
+    // }
+
+    if(params.params.link.link==="" ) {
         return (
             <div>
+                <h3>Edit Link</h3>
                 <FormGroup>
                     <FormGroup>
                         <Label for="imdbid">IMDB ID:</Label>
-                        <Input type="hidden" name="imdbid" value={params.params.details.imdbID}/>
+                        <Input type="hidden" name="imdbid"/>
                         <span>{params.params.details.imdbID}</span>
                     </FormGroup>
                     <FormGroup>
                         <Label for="title">Title:</Label>
-                        <Input type="hidden" name="title" value={params.params.details.Title}/>
+                        <Input type="hidden" name="title"/>
                         <span>{params.params.details.Title}</span>
                     </FormGroup>
                     <FormGroup>
-                        <Label for="data">Buying Link:</Label>
-                        <Input type="text" name="data" placeholder="link"
-                               value={params.link.data} onChange={update}/>
+                        <Label for="link">Buying Link:</Label>
+                        <Input type="text" name="link" placeholder="link"
+                               value={params.link.link} onChange={update}/>
                     </FormGroup>
-                        <Button onClick={add_link} type="button" className="btn btn-primary">Add</Button>
+                    <Button onClick={edit} type="button" className="btn btn-primary">Edit</Button>
                 </FormGroup>
             </div>
         );
     } else {
         return (
             <div>
+                <h3>Edit Link</h3>
                 <FormGroup>
                     <FormGroup>
                         <Label for="imdbid">IMDB ID:</Label>
-                        <Input type="hidden" name="imdbid" value={params.params.details.imdbID}/>
+                        <Input type="hidden" name="imdbid"/>
                         <span>{params.params.details.imdbID}</span>
                     </FormGroup>
                     <FormGroup>
                         <Label for="title">Title:</Label>
-                        <Input type="hidden" name="title" value={params.params.details.Title}/>
+                        <Input type="hidden" name="title"/>
                         <span>{params.params.details.Title}</span>
                     </FormGroup>
                     <FormGroup>
-                        <Label for="data">Buying Link:</Label>
-                        <Input type="text" name="data" placeholder="link"
-                               value={params.link.data} onChange={update}/>
+                        <Label for="link">Buying Link:</Label>
+                        <Input type="text" name="link" placeholder="link"
+                               value={params.link.link} onChange={update}/>
                     </FormGroup>
-                    <Link to={"/profile"} exact={"true"}>
-                        <Button onClick={add_link} type="button" className="btn btn-primary">Add</Button>
+                    <Link to={"/profile"} exact="true">
+                        <Button onClick={edit} type="button" className="btn btn-primary">Edit</Button>
                     </Link>
                 </FormGroup>
             </div>
@@ -95,4 +118,4 @@ function state2props(state) {
     return { link: state.link };
 }
 
-export default connect(state2props)(AddBuyLink);
+export default connect(state2props)(EditLinkForm);

@@ -251,6 +251,30 @@ class TheServer{
         });
     }
 
+    toggle_watched(id, imdb) {
+        console.log(id);
+        console.log(imdb);
+        //let imdb=data.imdbid;
+        let URL = "http://localhost:8080/api/movie/"+imdb+"/person/"+id+"/watchlist";
+        $.ajax(URL , {
+            method: "put",
+            success: (resp) => {
+                console.log("sucess", resp);
+                this.get_watchlist(id);
+                //alert("added succesfully");
+                // store.dispatch({
+                //     type: 'CLEAR_LOGIN_FORM'
+                // });
+            },
+            error: (resp) => {
+                console.log("error", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
+    }
+
     get_watchlist(id) {
         console.log(id);
         //console.log(data);
@@ -278,10 +302,32 @@ class TheServer{
         });
     }
 
+    remove_from_watchlist(id, wid){
+        let URL = "http://localhost:8080/api/watchlist/"+wid;
+        $.ajax(URL , {
+            method: "delete",
+            success: (resp) => {
+                console.log("sucess", resp);
+                this.get_watchlist(id);
+                //alert("added succesfully");
+                // store.dispatch({
+                //     type: 'WATCHLIST',
+                //     data: resp
+                // });
+            },
+            error: (resp) => {
+                console.log("error", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
+    }
+
     get_seller_list(id) {
         console.log(id);
         //console.log(data);
-        let URL = "http://localhost:8080/api/seller/"+id+"/movielist";
+        let URL = "http://localhost:8080/api/seller/"+id+"/linklist";
         $.ajax(URL , {
             method: "get",
             dataType: "json",
@@ -305,16 +351,142 @@ class TheServer{
         });
     }
 
-    remove_from_watchlist(id, movieid){
-        let URL = "http://localhost:8080/api/user/"+id+"/watchlist/"+movieid;
+    get_link(linkid){
+        console.log(linkid);
+        let URL = "http://localhost:8080/api/link/"+linkid;
         $.ajax(URL , {
-            method: "delete",
+            method: "get",
             dataType: "json",
             contentType: "application/json; charset=UTF-8",
             //data: JSON.stringify(data),
             success: (resp) => {
                 console.log("sucess", resp);
-                this.findWatchList(id);
+
+                //alert("added succesfully");
+                store.dispatch({
+                    type: 'UPDATE_BUY_FORM',
+                    data: resp
+                });
+            },
+            error: (resp) => {
+                console.log("error", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
+    }
+
+
+    add_link(sid,imdb,data){
+        console.log("saving link",data);
+        let URL = "http://localhost:8080/api/seller/"+sid+"/movie/"+imdb+"/link";
+        let data1 = {
+            link: data
+        };
+        console.log("url", URL);
+        $.ajax(URL, {
+            method: "post",
+            dataType: "json",
+            contentType: "application/json; charset=UTF-8",
+            data: JSON.stringify(data1),
+            success: (resp) => {
+                console.log("sucess", resp);
+                this.get_seller_list(sid);
+                store.dispatch({
+                    type: 'CLEAR_BUY_FORM',
+                })
+            },
+            error: (resp) => {
+                console.log("error", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
+    }
+
+    edit_link(sid, linkid, data){
+        console.log("saving link",data);
+        let URL = "http://localhost:8080/api/link/"+linkid;
+        let data1 = {
+            link: data
+        };
+        console.log("url", URL);
+        $.ajax(URL, {
+            method: "put",
+            contentType: "application/json; charset=UTF-8",
+            data: JSON.stringify(data1),
+            success: (resp) => {
+                console.log("sucess", resp);
+                this.get_seller_list(sid);
+                store.dispatch({
+                    type: 'CLEAR_BUY_FORM',
+                })
+            },
+            error: (resp) => {
+                console.log("error", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
+    }
+
+    // seller_movie_link(sid,imdb){
+    //     let URL = "http://localhost:8080/api/seller/"+sid+"/movie/"+imdb;
+    //     console.log("url", URL);
+    //     $.ajax(URL, {
+    //         method: "post",
+    //         dataType: "json",
+    //         contentType: "application/json; charset=UTF-8",
+    //         success: (resp) => {
+    //             console.log("sucess", resp);
+    //             this.get_seller_list(sid);
+    //         },
+    //         error: (resp) => {
+    //             console.log("error", resp);
+    //             // store.dispatch({
+    //             //     type: 'CLEAR_REGISTER_FORM',
+    //             // })
+    //         },
+    //     });
+    // }
+
+    get_links(imdb) {
+        //console.log(id);
+        //console.log(data);
+        let URL = "http://localhost:8080/api/movie/"+imdb+"/link";
+        $.ajax(URL , {
+            method: "get",
+            dataType: "json",
+            contentType: "application/json; charset=UTF-8",
+            //data: JSON.stringify(data),
+            success: (resp) => {
+                console.log("sucess", resp);
+
+                //alert("added succesfully");
+                store.dispatch({
+                    type: 'LINKS',
+                    data: resp
+                });
+            },
+            error: (resp) => {
+                console.log("error", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
+    }
+
+    remove_from_sellerlist(id, lid){
+        let URL = "http://localhost:8080/api/link/"+lid;
+        $.ajax(URL , {
+            method: "delete",
+            success: (resp) => {
+                console.log("sucess", resp);
+                this.get_seller_list(id);
                 //alert("added succesfully");
                 // store.dispatch({
                 //     type: 'WATCHLIST',
@@ -330,21 +502,23 @@ class TheServer{
         });
     }
 
-    add_link(sid,imdb,data){
-        console.log("saving link",data);
-        let URL = "http://localhost:8080/api/movie/"+imdb+"/link";
-        let data1 = {
-            link: data
-        };
-        console.log("url", URL);
-        $.ajax(URL, {
-            method: "post",
+    get_movie_reviews(id) {
+        console.log(id);
+        //console.log(data);
+        let URL = "http://localhost:8080/api/movie/"+id+"/review";
+        $.ajax(URL , {
+            method: "get",
             dataType: "json",
             contentType: "application/json; charset=UTF-8",
-            data: JSON.stringify(data1),
+            //data: JSON.stringify(data),
             success: (resp) => {
                 console.log("sucess", resp);
-                this.seller_movie_link(sid,imdb);
+
+                //alert("added succesfully");
+                store.dispatch({
+                    type: 'MOVIE_REVIEW',
+                    data: resp
+                });
             },
             error: (resp) => {
                 console.log("error", resp);
@@ -355,15 +529,26 @@ class TheServer{
         });
     }
 
-    seller_movie_link(sid,imdb){
-        let URL = "http://localhost:8080/api/seller/"+sid+"/movie/"+imdb;
+    add_review(cid,imdb,title,data){
+        console.log("saving link",data);
+        let URL = "http://localhost:8080/api/movie/"+imdb+"/critic/"+cid+"/review";
+        let data1 = {
+            "title": title,
+            "description": data
+        };
         console.log("url", URL);
+        console.log("data 1", data1);
         $.ajax(URL, {
             method: "post",
             dataType: "json",
             contentType: "application/json; charset=UTF-8",
+            data: JSON.stringify(data1),
             success: (resp) => {
                 console.log("sucess", resp);
+                this.get_critic_reviews(cid);
+                store.dispatch({
+                    type: 'CLEAR_REVIEW_FORM',
+                })
             },
             error: (resp) => {
                 console.log("error", resp);
@@ -373,6 +558,34 @@ class TheServer{
             },
         });
     }
+
+    get_critic_reviews(cid){
+        //console.log("waiting for backend");
+        let URL = "http://localhost:8080/api/critic/"+cid+"/review";
+        $.ajax(URL , {
+            method: "get",
+            dataType: "json",
+            contentType: "application/json; charset=UTF-8",
+            //data: JSON.stringify(data),
+            success: (resp) => {
+                console.log("sucess", resp);
+
+                //alert("added succesfully");
+                store.dispatch({
+                    type: 'CRITIC_REVIEW_LIST',
+                    data: resp
+                });
+            },
+            error: (resp) => {
+                console.log("error this", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
+
+    }
+
 
 }
 

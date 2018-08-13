@@ -72,16 +72,25 @@ export default function Details(params) {
             <div>
                 <Link to="/results"><Button onClick={submit}>Back to List</Button></Link>
                 <Individual props={props}/>
-                <Link to={"/profile/watchlist"} exact={"true"}><Button onClick={add}>Add to Watchlist</Button></Link>
+                <Link to={"/profile/list"} exact={"true"}><Button onClick={add}>Add to Watchlist</Button></Link>
             </div>
         );
-    } else {
+    } else if(params.params.token.obj === "Seller"){
         return(
             <div>
                 <Link to="/results"><Button onClick={submit}>Back to List</Button></Link>
                 <Individual props={props}/>
-                <Link to={"/profile/watchlist"} exact={"true"}><Button onClick={add}>Add to Watchlist</Button></Link>
+                <Link to={"/profile/list"} exact={"true"}><Button onClick={add}>Add to Watchlist</Button></Link>
                 <Link to={"/addBuyingOptions"} exact={"true"}><Button>Add buying option for this movie</Button></Link>
+            </div>
+        );
+    } if(params.params.token.obj === "Critic"){
+        return(
+            <div>
+                <Link to="/results"><Button onClick={submit}>Back to List</Button></Link>
+                <Individual props={props}/>
+                <Link to={"/profile/list"} exact={"true"}><Button onClick={add}>Add to Watchlist</Button></Link>
+                <Link to={"/review"} exact={"true"}><Button>Write a review!</Button></Link>
             </div>
         );
     }

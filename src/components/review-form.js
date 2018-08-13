@@ -1,12 +1,16 @@
 import React from 'react';
 import $ from "jquery";
+import api from "../api";
 import { Button, FormGroup, Label, Input } from 'reactstrap';
 import { connect } from 'react-redux';
+
 import {Link} from "react-router-dom";
-import api from '../api';
+import Cookies from "universal-cookie";
 
-function AddBuyLink(params) {
 
+function ReviewForm(params) {
+
+    console.log("review forms params", params);
     function update(ev) {
         let tgt = $(ev.target);
 
@@ -14,34 +18,31 @@ function AddBuyLink(params) {
         data[tgt.attr('name')] = tgt.val();
         console.log("data",data);
         let action = {
-            type: 'UPDATE_BUY_FORM',
+            type: 'UPDATE_REVIEW_FORM',
             data: data,
         };
         console.log("update action",action);
         params.dispatch(action);
     }
 
-    function add_link() {
-        if(params.params.link.data===""){
-            params.dispatch({type: 'ERROR', msg: 'Please enter valid link'});
+    let cookie = new Cookies();
+
+    function submit() {
+        if(params.params.review_form.thoughts===""){
+            params.dispatch({type: 'ERROR', msg: 'Please enter some thoughts!'});
         } else {
-            console.log("link", params.params.link.data);
-            api.add_link(params.params.token.id,params.params.details.imdbID,params.params.link.data);
+            console.log("thoughts", params.params.review_form.thoughts);
+            //api.add_link(params.params.token.id,params.params.details.imdbID,params.params.link.data);
+            let id = cookie.get('id');
+            api.add_review(id,params.params.details.imdbID,
+                params.params.details.Title, params.params.review_form.thoughts);
         }
     }
 
-    function isUrlValid(userInput) {
-        var res = userInput.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
-        if(res == null)
-            return false;
-        else
-            return true;
-    }
-
-    if(params.params.link.data==="" ||
-    isUrlValid(params.params.link.data)) {
+    if(params.params.review_form.thoughts==="") {
         return (
             <div>
+                <div>A review for {params.params.details.Title}</div>
                 <FormGroup>
                     <FormGroup>
                         <Label for="imdbid">IMDB ID:</Label>
@@ -54,17 +55,18 @@ function AddBuyLink(params) {
                         <span>{params.params.details.Title}</span>
                     </FormGroup>
                     <FormGroup>
-                        <Label for="data">Buying Link:</Label>
-                        <Input type="text" name="data" placeholder="link"
-                               value={params.link.data} onChange={update}/>
+                        <Label for="thoughts">Thoughts:</Label>
+                        <Input type="text" name="thoughts" placeholder="My thoughts"
+                               value={params.params.review_form.thoughts} onChange={update}/>
                     </FormGroup>
-                        <Button onClick={add_link} type="button" className="btn btn-primary">Add</Button>
+                    <Button onClick={submit} type="button" className="btn btn-primary">Submit</Button>
                 </FormGroup>
             </div>
         );
     } else {
         return (
             <div>
+                <div>A review for {params.params.details.Title}</div>
                 <FormGroup>
                     <FormGroup>
                         <Label for="imdbid">IMDB ID:</Label>
@@ -77,12 +79,12 @@ function AddBuyLink(params) {
                         <span>{params.params.details.Title}</span>
                     </FormGroup>
                     <FormGroup>
-                        <Label for="data">Buying Link:</Label>
-                        <Input type="text" name="data" placeholder="link"
-                               value={params.link.data} onChange={update}/>
+                        <Label for="thoughts">Thoughts:</Label>
+                        <Input type="text" name="thoughts" placeholder="My thoughts"
+                               value={params.params.review_form.thoughts} onChange={update}/>
                     </FormGroup>
                     <Link to={"/profile"} exact={"true"}>
-                        <Button onClick={add_link} type="button" className="btn btn-primary">Add</Button>
+                        <Button onClick={submit} type="button" className="btn btn-primary">Submit</Button>
                     </Link>
                 </FormGroup>
             </div>
@@ -92,7 +94,7 @@ function AddBuyLink(params) {
 
 function state2props(state) {
     console.log("rerender", state);
-    return { link: state.link };
+    return { review_form: state.review_form };
 }
 
-export default connect(state2props)(AddBuyLink);
+export default connect(state2props)(ReviewForm);

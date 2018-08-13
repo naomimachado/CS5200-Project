@@ -9,7 +9,7 @@ export default function WatchDetails(params) {
     //if(params.params.token.obj === "Viewer"){
         return(
             <div>
-                <Link to={"/profile/watchlist"} exact="true">Back to List</Link>
+                <Link to={"/profile/list"} exact="true">Back to List</Link>
                 <Individual props={props}/>
             </div>
         );

@@ -13,6 +13,11 @@ import Profile from './profile';
 import WatchList from "./watch-list";
 import WatchDetails from "./watch-details";
 import AddBuyLink from './buy-link';
+import ReviewForm from "./review-form";
+import BuyingOptions from "./show-buying-options";
+import ReviewDetails from "./review-details";
+import EditLinkForm from './edit-link-form';
+import ViewLink from './view-link';
 
 
 let Page = connect((state) => state)((props) => {
@@ -63,7 +68,7 @@ let Page = connect((state) => state)((props) => {
                                 <WatchList props={props}/>
                             </div>
                     } />
-                    <Route path="/profile/watchlist" exact={true} render={
+                    <Route path="/profile/list" exact={true} render={
                         ()=>
                             <div>
                                 <Nav/>
@@ -71,7 +76,7 @@ let Page = connect((state) => state)((props) => {
                                 <WatchList props={props}/>
                             </div>
                     } />
-                    <Route path="/profile/watchlist/:imdbid" exact={true} render={
+                    <Route path="/profile/list/:imdbid" exact={true} render={
                         ()=>
                             <div>
                                 <Nav/>
@@ -85,6 +90,46 @@ let Page = connect((state) => state)((props) => {
                                 <Nav/>
                                 <div className="errors">{props.errors}</div>
                                 <AddBuyLink params={props}/>
+                            </div>
+                    } />
+                    <Route path="/buyingOptions" exact={true} render={
+                        ()=>
+                            <div>
+                                <Nav/>
+                                <div className="errors">{props.errors}</div>
+                                <BuyingOptions props={props}/>
+                            </div>
+                    } />
+                    <Route path="/link/:lid" exact={true} render={
+                        ()=>
+                            <div>
+                                <Nav/>
+                                <div className="errors">{props.errors}</div>
+                                <EditLinkForm params={props} />
+                            </div>
+                    } />
+                    <Route path="/viewLink/:lid" exact={true} render={
+                        ()=>
+                            <div>
+                                <Nav/>
+                                <div className="errors">{props.errors}</div>
+                                <ViewLink params={props} />
+                            </div>
+                    } />
+                    <Route path="/review" exact={true} render={
+                        ()=>
+                            <div>
+                                <Nav/>
+                                <div className="errors">{props.errors}</div>
+                                <ReviewForm params={props}/>
+                            </div>
+                    } />
+                    <Route path="/reviews/:rid" exact={true} render={
+                        ()=>
+                            <div>
+                                <Nav/>
+                                <div className="errors">{props.errors}</div>
+                                <ReviewDetails props={props}/>
                             </div>
                     } />
                 </div>

@@ -139,7 +139,9 @@ function seller_list(state = empty_seller_list, action) {
 }
 
 let empty_link = {
-    data:""
+    data:"",
+    link:"",
+    id:""
 };
 
 
@@ -154,11 +156,78 @@ function link(state = empty_link, action) {
     }
 }
 
+let empty_review = {
+    thoughts:""
+};
+
+function review_form(state = empty_review, action) {
+    switch (action.type) {
+        case 'UPDATE_REVIEW_FORM':
+            return Object.assign({}, state, action.data);
+        case 'CLEAR_REVIEW_FORM':
+            return empty_review;
+        default:
+            return state;
+    }
+}
+
+let empty_list_link={
+    links: ""
+};
+
+function links(state = empty_list_link, action) {
+    switch (action.type) {
+        case 'LINKS':
+            return action.data;
+        default:
+            return state;
+    }
+}
+
+let empty_movie_review={
+    reviews: ""
+};
+
+function movie_review(state = empty_movie_review, action) {
+    switch (action.type) {
+        case 'MOVIE_REVIEW':
+            return action.data;
+        default:
+            return state;
+    }
+}
+
+let empty_edit_link={
+    data: ""
+};
+
+function edit_link(state = empty_edit_link, action) {
+    switch (action.type) {
+        case 'EDIT_LINK':
+            return action.data;
+        default:
+            return state;
+    }
+}
+
+let empty_critic_review="";
+
+function critic_review(state = empty_critic_review, action) {
+    switch (action.type) {
+        case 'CRITIC_REVIEW_LIST':
+            return action.data;
+        default:
+            return state;
+    }
+}
+
+
+
 
 function root_reducer(state0, action) {
     console.log("reducer", action);
     let reducer = combineReducers({search_tab, results, page, details, login, register, errors, token,
-        watchlist, link, seller_list});
+        watchlist, link, seller_list, review_form, links, movie_review, edit_link, critic_review});
     console.log("state0", state0);
     let state1 = reducer(state0, action);
     console.log("state1", state1);
