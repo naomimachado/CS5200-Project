@@ -157,7 +157,8 @@ function link(state = empty_link, action) {
 }
 
 let empty_review = {
-    description:""
+    description:"",
+    thoughts:"",
 };
 
 function review_form(state = empty_review, action) {
@@ -222,7 +223,7 @@ function critic_review(state = empty_critic_review, action) {
 }
 
 let empty_view_review={
-    decription:""
+    description:""
 };
 
 function view_review(state = empty_view_review, action) {
@@ -234,12 +235,90 @@ function view_review(state = empty_view_review, action) {
     }
 }
 
+let empty_person_list="";
+
+function person_list(state = empty_person_list, action) {
+    switch (action.type) {
+        case 'PERSON_LIST':
+            return action.data;
+        default:
+            return state;
+    }
+}
+
+let empty_movie_list="";
+
+function movie_list(state = empty_movie_list, action) {
+    switch (action.type) {
+        case 'MOVIE_LIST':
+            return action.data;
+        default:
+            return state;
+    }
+}
+
+let empty_link_list="";
+
+function link_list(state = empty_link_list, action) {
+    switch (action.type) {
+        case 'LINK_LIST':
+            return action.data;
+        default:
+            return state;
+    }
+}
+
+let empty_review_list="";
+
+function review_list(state = empty_review_list, action) {
+    switch (action.type) {
+        case 'REVIEW_LIST':
+            return action.data;
+        default:
+            return state;
+    }
+}
+
+let empty_rec="";
+
+function rec(state = empty_rec, action) {
+    switch (action.type) {
+        case 'RECOMMENDATIONS':
+            return action.data;
+        default:
+            return state;
+    }
+}
+
+let empty_user_follows_list="";
+
+function user_follows(state = empty_user_follows_list, action) {
+    switch (action.type) {
+        case 'FOLLOWS':
+            return action.data;
+        default:
+            return state;
+    }
+}
+
+let empty_critic_followers_list="";
+
+function critic_followers(state = empty_critic_followers_list, action) {
+    switch (action.type) {
+        case 'FOLLOWERS':
+            return action.data;
+        default:
+            return state;
+    }
+}
+
 
 
 function root_reducer(state0, action) {
     console.log("reducer", action);
     let reducer = combineReducers({search_tab, results, page, details, login, register, errors, token,
-        watchlist, link, seller_list, review_form, links, movie_review, edit_link, critic_review, view_review});
+        watchlist, link, seller_list, review_form, links, movie_review, edit_link, critic_review, view_review,
+        person_list, movie_list, link_list, review_list, rec, user_follows, critic_followers});
     console.log("state0", state0);
     let state1 = reducer(state0, action);
     console.log("state1", state1);

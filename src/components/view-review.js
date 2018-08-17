@@ -7,7 +7,7 @@ export default function ViewReview(params) {
 
     return (
         <div>
-            <Link to={"/profile/list"} exact="true">Back to List</Link>
+            <Link to={"/profile/list"} exact="true">Back to Profile</Link>
             <h3>Review Details</h3>
             <Card>
                 <CardBody>

@@ -12,6 +12,7 @@ export default function WatchList(props) {
     let list = props.props.watchlist;
     let slist = props.props.seller_list;
     let rlist = props.props.critic_review;
+    let follows = props.props.user_follows;
 
     let cookie = new Cookies();
     let obj1;
@@ -25,11 +26,23 @@ export default function WatchList(props) {
     let sdisp = _.map(slist, (kk, i) => <Result1 key={i} sellerlist={kk}/>);
     let rdisp =  _.map(rlist, (ss, i) => <Result2 key={i} reviewlist={ss}/>);
 
+    let critics = _.map(follows, (rr, i) => <Critic key={i} c={rr}  token={props.props.token}/>);
+
+    let followers = props.props.critic_followers;
+
+    let users= _.map(followers, (yy, i) => <Users key={i} u={yy}/>);
+
     if(obj1 === "Viewer") {
         return (
             <div>
-                My Watch list
-                {disp}
+                <div>
+                    My Watch list
+                    {disp}
+                </div>
+                <div>
+                    Critics I follow:
+                    {critics}
+                </div>
             </div>
         );
     } else if(obj1 === "Seller") {
@@ -56,9 +69,34 @@ export default function WatchList(props) {
                     My Reviews
                     {rdisp}
                 </div>
+                <div>
+                    Users who follow me:
+                    { users }
+                </div>
             </div>
         );
     }
+}
+
+function Users(props) {
+    return <div>
+        {props.u.firstName}
+    </div>
+}
+
+function Critic(props) {
+    console.log("inside critic props", props);
+    function unfollow() {
+        console.log("unfollow");
+        api.unfollow(props.token.id, props.c.id);
+    }
+
+    return <div>
+        Name: {props.c.firstName}
+        <Link to={"/profile"}>
+            <Button onClick={unfollow}>Unfollow</Button>
+        </Link>
+    </div>;
 }
 
 
@@ -90,6 +128,10 @@ function Result(props){
         api.get_movie_reviews(props.watchlist.movie.imdbid);
     }
 
+    function recommendations(){
+        api.get_recommendations(props.watchlist.movie.imdbid);
+    }
+
     let val="";
 
         if(props.watchlist.watched){
@@ -114,6 +156,9 @@ function Result(props){
                     <Button className="btn btn-primary" onClick={getBuyingLinks}>Buy</Button>
                 </Link>
                 <Button onClick={removeFromWatchlist} className="btn btn-danger"> Remove </Button>
+                <Link to={"/recommendations"}>
+                    <Button onClick={recommendations} className="btn btn-danger"> Get Recommendations </Button>
+                </Link>
             </div>
         </CardBody>
     </Card>;
@@ -132,7 +177,7 @@ function Result1(props){
     }
 
     function editLink(){
-        let id = cookie.get('id');
+        //let id = cookie.get('id');
         api.get_details(props.sellerlist.movie.imdbid);
         api.get_link(props.sellerlist.id);
 

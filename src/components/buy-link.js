@@ -24,22 +24,30 @@ function AddBuyLink(params) {
     function add_link() {
         if(params.params.link.data===""){
             params.dispatch({type: 'ERROR', msg: 'Please enter valid link'});
-        } else {
+        } else if(!isUrl(params.params.link.data)){
+            params.dispatch({type: 'ERROR', msg: 'Please enter valid link'});
+        }
+        else {
             console.log("link", params.params.link.data);
             api.add_link(params.params.token.id,params.params.details.imdbID,params.params.link.data);
         }
     }
 
-    function isUrlValid(userInput) {
-        var res = userInput.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
-        if(res == null)
-            return false;
-        else
-            return true;
+    function isUrl(s) {
+        var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+        return regexp.test(s);
     }
 
+    // function isUrlValid(userInput) {
+    //     var res = userInput.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+    //     if(res == null)
+    //         return false;
+    //     else
+    //         return true;
+    // }
+
     if(params.params.link.data==="" ||
-    isUrlValid(params.params.link.data)) {
+    !isUrl(params.params.link.data)) {
         return (
             <div>
                 <FormGroup>

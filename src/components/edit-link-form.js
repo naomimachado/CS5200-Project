@@ -24,6 +24,8 @@ function EditLinkForm(params) {
     function edit() {
         if(params.params.link.link===""){
             params.dispatch({type: 'ERROR', msg: 'Please enter valid link'});
+        } else if(!isUrl(params.params.link.link)){
+            params.dispatch({type: 'ERROR', msg: 'Please enter valid link'});
         } else {
             console.log("link", params.params.link.link);
             //api.add_link(params.params.token.id,params.params.details.imdbID,params.params.link.data);
@@ -33,13 +35,13 @@ function EditLinkForm(params) {
         }
     }
 
-    function isUrlValid(userInput) {
-        var res = userInput.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
-        if(res == null)
-            return false;
-        else
-            return true;
-    }
+    // function isUrlValid(userInput) {
+    //     var res = userInput.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
+    //     if(res == null)
+    //         return false;
+    //     else
+    //         return true;
+    // }
 
     // function assign(link){
     //     alert("inside assign");
@@ -50,7 +52,7 @@ function EditLinkForm(params) {
     //     params.dispatch(action);
     // }
 
-    let link = params.params.edit_link.link;
+    //let link = params.params.edit_link.link;
 
     // if(params.params.link.data===""){
     //     console.log("link", link);
@@ -60,7 +62,12 @@ function EditLinkForm(params) {
     //     params.dispatch(action);
     // }
 
-    if(params.params.link.link==="" ) {
+    function isUrl(s) {
+        var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+        return regexp.test(s);
+    }
+
+    if(params.params.link.link==="" || !isUrl(params.params.link.link) ) {
         return (
             <div>
                 <h3>Edit Link</h3>

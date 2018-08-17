@@ -55,9 +55,9 @@ function ReviewForm(params) {
                         <span>{params.params.details.Title}</span>
                     </FormGroup>
                     <FormGroup>
-                        <Label for="description">Thoughts:</Label>
-                        <Input type="text" name="description" placeholder="My thoughts"
-                               value={params.params.review_form.description} onChange={update}/>
+                        <Label for="thoughts">Thoughts:</Label>
+                        <Input type="text" name="thoughts" placeholder="My thoughts"
+                               value={params.params.review_form.thoughts} onChange={update}/>
                     </FormGroup>
                     <Button onClick={submit} type="button" className="btn btn-primary">Submit</Button>
                 </FormGroup>
@@ -79,9 +79,9 @@ function ReviewForm(params) {
                         <span>{params.params.details.Title}</span>
                     </FormGroup>
                     <FormGroup>
-                        <Label for="description">Thoughts:</Label>
-                        <Input type="text" name="description" placeholder="My thoughts"
-                               value={params.params.review_form.description} onChange={update}/>
+                        <Label for="thoughts">Thoughts:</Label>
+                        <Input type="text" name="thoughts" placeholder="My thoughts"
+                               value={params.params.review_form.thoughts} onChange={update}/>
                     </FormGroup>
                     <Link to={"/profile"} exact={"true"}>
                         <Button onClick={submit} type="button" className="btn btn-primary">Submit</Button>

@@ -1,6 +1,7 @@
 import store from './store';
 import $ from 'jquery';
 import Cookies from 'universal-cookie';
+import _ from 'underscore';
 
 
 class TheServer{
@@ -530,7 +531,7 @@ class TheServer{
     }
 
     add_review(cid,imdb,title,data){
-        console.log("saving link",data);
+        console.log("saving thoughts",data);
         let URL = "http://localhost:8080/api/movie/"+imdb+"/critic/"+cid+"/review";
         let data1 = {
             "title": title,
@@ -655,6 +656,346 @@ class TheServer{
                 //     type: 'WATCHLIST',
                 //     data: resp
                 // });
+            },
+            error: (resp) => {
+                console.log("error", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
+    }
+
+    get_person_list(){
+       // console.log(rid);
+        let URL = "http://localhost:8080/api/person";
+        $.ajax(URL , {
+            method: "get",
+            dataType: "json",
+            contentType: "application/json; charset=UTF-8",
+            //data: JSON.stringify(data),
+            success: (resp) => {
+                console.log("sucess", resp);
+
+                //alert("added succesfully");
+                store.dispatch({
+                    type: 'PERSON_LIST',
+                    data: resp
+                });
+            },
+            error: (resp) => {
+                console.log("error", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
+    }
+
+    get_movie_list(){
+        // console.log(rid);
+        let URL = "http://localhost:8080/api/movie";
+        $.ajax(URL , {
+            method: "get",
+            dataType: "json",
+            contentType: "application/json; charset=UTF-8",
+            //data: JSON.stringify(data),
+            success: (resp) => {
+                console.log("sucess", resp);
+
+                //alert("added succesfully");
+                store.dispatch({
+                    type: 'MOVIE_LIST',
+                    data: resp
+                });
+            },
+            error: (resp) => {
+                console.log("error", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
+    }
+
+    get_link_list(){
+        // console.log(rid);
+        let URL = "http://localhost:8080/api/link";
+        $.ajax(URL , {
+            method: "get",
+            dataType: "json",
+            contentType: "application/json; charset=UTF-8",
+            //data: JSON.stringify(data),
+            success: (resp) => {
+                console.log("sucess", resp);
+
+                //alert("added succesfully");
+                store.dispatch({
+                    type: 'LINK_LIST',
+                    data: resp
+                });
+            },
+            error: (resp) => {
+                console.log("error", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
+    }
+
+    get_review_list(){
+        // console.log(rid);
+        let URL = "http://localhost:8080/api/review";
+        $.ajax(URL , {
+            method: "get",
+            dataType: "json",
+            contentType: "application/json; charset=UTF-8",
+            //data: JSON.stringify(data),
+            success: (resp) => {
+                console.log("sucess", resp);
+
+                //alert("added succesfully");
+                store.dispatch({
+                    type: 'REVIEW_LIST',
+                    data: resp
+                });
+            },
+            error: (resp) => {
+                console.log("error", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
+    }
+
+    get_recommendations(data){
+        console.log("data send", data);
+        //let tmdb = this.get_movieid(data);
+        let URL = "https://api.themoviedb.org/3/find/"+data+"?api_key=9e5f2732bb363ded081f6928efdd5f04&language=en-US&external_source=imdb_id";
+        console.log("URL", URL);
+        $.ajax(URL , {
+            method: "get",
+            dataType: "json",
+            contentType: "application/json; charset=UTF-8",
+            //data: JSON.stringify(data),
+            success: (resp) => {
+                console.log("sucess", resp);
+
+                if(resp.movie_results.length > 0){
+                    console.log("inside movie");
+                    let first = _.first(resp.movie_results);
+                    console.log("first", first.id);
+                    this.movie_recommendations(first.id);
+
+                } else {
+                    console.log("inside tv show");
+                    let first = _.first(resp.tv_results);
+                    console.log("first", first.id);
+                    this.tv_recommendations(first.id);
+                }
+
+
+                //alert("added succesfully");
+                // store.dispatch({
+                //     type: 'REVIEW_LIST',
+                //     data: resp
+                // });
+            },
+            error: (resp) => {
+                console.log("error", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
+    }
+
+    movie_recommendations(data){
+        let URL = "https://api.themoviedb.org/3/movie/"+data+"/recommendations?api_key=9e5f2732bb363ded081f6928efdd5f04&language=en-US&page=1";
+        $.ajax(URL , {
+            method: "get",
+            dataType: "json",
+            contentType: "application/json; charset=UTF-8",
+            //data: JSON.stringify(data),
+            success: (resp) => {
+                console.log("sucess", resp);
+
+                //alert("added succesfully");
+                store.dispatch({
+                    type: 'RECOMMENDATIONS',
+                    data: resp.results
+                });
+            },
+            error: (resp) => {
+                console.log("error", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
+    }
+
+    tv_recommendations(data){
+        let URL = "https://api.themoviedb.org/3/tv/"+data+"/recommendations?api_key=9e5f2732bb363ded081f6928efdd5f04&language=en-US&page=1";
+        $.ajax(URL , {
+            method: "get",
+            dataType: "json",
+            contentType: "application/json; charset=UTF-8",
+            //data: JSON.stringify(data),
+            success: (resp) => {
+                console.log("sucess", resp);
+
+                //alert("added succesfully");
+                // store.dispatch({
+                //     type: 'MOVIE_REC',
+                //     data: resp
+                // });
+                store.dispatch({
+                    type: 'RECOMMENDATIONS',
+                    data: resp.results
+                });
+            },
+            error: (resp) => {
+                console.log("error", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
+    }
+
+    get_movie_imdbid(data){
+        let URL = "https://api.themoviedb.org/3/movie/"+data+"/external_ids?api_key=9e5f2732bb363ded081f6928efdd5f04";
+        $.ajax(URL , {
+            method: "get",
+            dataType: "json",
+            contentType: "application/json; charset=UTF-8",
+            //data: JSON.stringify(data),
+            success: (resp) => {
+                console.log("sucess", resp);
+                console.log("imdb", resp.imdb_id);
+                this.get_details(resp.imdb_id);
+
+                //alert("added succesfully");
+                // store.dispatch({
+                //     type: 'MOVIE_REC',
+                //     data: resp
+                // });
+            },
+            error: (resp) => {
+                console.log("error", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
+    }
+
+    get_tv_imdbid(data){
+        let URL = "https://api.themoviedb.org/3/tv/"+data+"/external_ids?api_key=9e5f2732bb363ded081f6928efdd5f04&language=en-US";
+        $.ajax(URL , {
+            method: "get",
+            dataType: "json",
+            contentType: "application/json; charset=UTF-8",
+            //data: JSON.stringify(data),
+            success: (resp) => {
+                console.log("sucess", resp);
+                console.log("imdb", resp.imdb_id);
+                this.get_details(resp.imdb_id);
+
+                //alert("added succesfully");
+                // store.dispatch({
+                //     type: 'MOVIE_REC',
+                //     data: resp
+                // });
+            },
+            error: (resp) => {
+                console.log("error", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
+    }
+
+    follow(id,cid){
+        let URL = "http://localhost:8080/api/user/"+id+"/critic/"+cid;
+        $.ajax(URL, {
+            method: "post",
+            contentType: "application/json; charset=UTF-8",
+            success: (resp) => {
+                console.log("sucess", resp);
+                this.get_user_follows_critic(id);
+            },
+            error: (resp) => {
+                console.log("error", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
+    }
+
+    get_user_follows_critic(id){
+        let URL = "http://localhost:8080/api/user/"+id+"/critic";
+        $.ajax(URL , {
+            method: "get",
+            dataType: "json",
+            contentType: "application/json; charset=UTF-8",
+            //data: JSON.stringify(data),
+            success: (resp) => {
+                console.log("sucess", resp);
+
+                //alert("added succesfully");
+                store.dispatch({
+                    type: 'FOLLOWS',
+                    data: resp
+                });
+            },
+            error: (resp) => {
+                console.log("error", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
+    }
+
+    get_followers_critic(id){
+        let URL = "http://localhost:8080/api/critic/"+id+"/user";
+        $.ajax(URL , {
+            method: "get",
+            dataType: "json",
+            contentType: "application/json; charset=UTF-8",
+            //data: JSON.stringify(data),
+            success: (resp) => {
+                console.log("sucess", resp);
+
+                //alert("added succesfully");
+                store.dispatch({
+                    type: 'FOLLOWERS',
+                    data: resp
+                });
+            },
+            error: (resp) => {
+                console.log("error", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
+    }
+
+    unfollow(id,cid){
+        let URL = "http://localhost:8080/api/user/"+id+"/critic/"+cid;
+        $.ajax(URL , {
+            method: "delete",
+            success: (resp) => {
+                console.log("sucess", resp);
+                this.get_user_follows_critic(id);
+                this.get_watchlist(id);
             },
             error: (resp) => {
                 console.log("error", resp);

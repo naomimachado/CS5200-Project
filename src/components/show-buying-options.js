@@ -11,7 +11,7 @@ export default function BuyingOptions(props) {
     if(list.length === 0){
         return (
             <div>
-                <Link to={"/profile"} exact="true">Back to WatchList</Link>
+                <Link to={"/profile"} exact="true">Back to List</Link>
                 <div>
                     no buying options found {props.props.details.Title}
                 </div>
@@ -20,7 +20,7 @@ export default function BuyingOptions(props) {
     } else {
         return (
             <div>
-                <Link to={"/profile"} exact="true">Back to WatchList</Link>
+                <Link to={"/profile"} exact="true">Back to List</Link>
                 <div>
                     buying options for {props.props.details.Title}
                 </div>

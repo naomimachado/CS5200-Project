@@ -67,21 +67,35 @@ let Session = connect(({token}) => {return {token};})((props) => {
     function getList() {
         if(props.token.obj === "Viewer") {
             api.get_watchlist(props.token.id);
+            api.get_user_follows_critic(props.token.id);
         } else if(props.token.obj === "Seller"){
             api.get_watchlist(props.token.id);
             api.get_seller_list(props.token.id);
         } else if(props.token.obj === "Critic"){
             api.get_watchlist(props.token.id);
+            api.get_followers_critic(props.token.id);
             api.get_critic_reviews(props.token.id);
         } else if(props.token.obj === "Admin"){
-            //TODO
+            api.get_person_list();
+            api.get_movie_list();
+            api.get_link_list();
+            api.get_review_list();
         }
     }
+
+    if(props.token.obj === "Admin"){
+        return<div className="navbar">
+            <p className="nav-item">Welcome {props.token.firstName}!</p>
+            <p className="nav-item"><Link to={"/system"} exact="true" onClick={getList}>System Administration</Link></p>
+            <Link to={"/"}><Button onClick={logout} className="btn btn-danger">Logout</Button></Link>
+        </div>;
+    } else {
     return <div className="navbar">
         <p className="nav-item">Welcome {props.token.firstName}!</p>
         <p className="nav-item"><Link to={"/profile"} exact="true" onClick={getList}>My Profile</Link></p>
             <Link to={"/"}><Button onClick={logout} className="btn btn-danger">Logout</Button></Link>
          </div>;
+    }
 });
 
 function Nav(props) {

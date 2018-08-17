@@ -20,6 +20,9 @@ import EditLinkForm from './edit-link-form';
 import ViewLink from './view-link';
 import ViewReview from './view-review';
 import EditReviewForm from './edit-review-form';
+import Admin from './admin';
+import Recommendations from './rec';
+import List from './review-list';
 
 
 let Page = connect((state) => state)((props) => {
@@ -149,6 +152,30 @@ let Page = connect((state) => state)((props) => {
                                 <Nav/>
                                 <div className="errors">{props.errors}</div>
                                 <EditReviewForm params={props}/>
+                            </div>
+                    } />
+                    <Route path="/system" exact={true} render={
+                        ()=>
+                            <div>
+                                <Nav/>
+                                <div className="errors">{props.errors}</div>
+                                <Admin props={props}/>
+                            </div>
+                    } />
+                    <Route path="/recommendations" exact={true} render={
+                        ()=>
+                            <div>
+                                <Nav/>
+                                <div className="errors">{props.errors}</div>
+                                <Recommendations props={props}/>
+                            </div>
+                    } />
+                    <Route path="/viewer/critic" exact={true} render={
+                        ()=>
+                            <div>
+                                <Nav/>
+                                <div className="errors">{props.errors}</div>
+                                <List props={props}/>
                             </div>
                     } />
                 </div>

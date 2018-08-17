@@ -35,12 +35,12 @@ function SearchTab(params) {
             //cookies.set('page', 1);
             cookies.set('search', params.search_tab.search);
             console.log("cookie set");
-            let data = params.search_tab.search;
+            //let data = params.search_tab.search;
             //params.dispatch({type:'SET_SEARCH_TOKEN', data: data});
             api.search_request(params.search_tab.search, 1);
             //params.dispatch({type:'CLEAR_SEARCH_TAB'});
         } else {
-            let search = cookies.get('search');
+            //let search = cookies.get('search');
             console.log("should make api query to omdb");
             //params.dispatch({type:'SET_SEARCH_TOKEN', data: search});
             api.search_request(params.search_token, 1);
