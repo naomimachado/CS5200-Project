@@ -1006,6 +1006,60 @@ class TheServer{
         });
     }
 
+    find_user(id){
+        let URL = "http://localhost:8080/api/user/"+id;
+        $.ajax(URL , {
+            method: "get",
+            dataType: "json",
+            contentType: "application/json; charset=UTF-8",
+            //data: JSON.stringify(data),
+            success: (resp) => {
+                console.log("sucess", resp);
+
+                //alert("added succesfully");
+                store.dispatch({
+                    type: 'UPDATE_REGISTER_FORM',
+                    data: resp
+                });
+            },
+            error: (resp) => {
+                console.log("error", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
+    }
+
+    edit_profile(id, data){
+        let URL = "http://localhost:8080/api/user/"+id;
+        let data1= {
+            "email": data.email,
+            "password": data.password,
+        };
+        $.ajax(URL , {
+            method: "put",
+            dataType: "json",
+            contentType: "application/json; charset=UTF-8",
+            data: JSON.stringify(data),
+            success: (resp) => {
+                console.log("sucess", resp);
+
+                //alert("added succesfully");
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM'
+                // });
+                this.login(data1);
+            },
+            error: (resp) => {
+                console.log("error", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
+    }
+
 
 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import _ from "underscore";
-import Cookies from "universal-cookie";
+//import Cookies from "universal-cookie";
 import api from "../api";
 import { Card } from "reactstrap";
 import { CardBody } from "reactstrap";
@@ -34,7 +34,7 @@ export default function List(props) {
         let followList = props.props.user_follows;
         let button;
 
-        let found = _.find(followList, function (o) {return o.id == first.critic.id});
+        let found = _.find(followList, function (o) {return o.id === first.critic.id});
 
         if(typeof found === "undefined" ){
             console.log("not found");
@@ -63,16 +63,16 @@ export default function List(props) {
 
 
 function Result2(props){
-    let cookie = new Cookies();
+    //let cookie = new Cookies();
 
     function details() {
         api.get_details(props.reviewlist.movie.imdbid);
     }
 
-    function deleteFromReviews(){
-        let id = cookie.get('id');
-        api.delete_review(id, props.reviewlist.id);
-    }
+    // function deleteFromReviews(){
+    //     let id = cookie.get('id');
+    //     api.delete_review(id, props.reviewlist.id);
+    // }
 
     // function editLink(){
     //     let id = cookie.get('id');

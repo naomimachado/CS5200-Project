@@ -83,6 +83,11 @@ let Session = connect(({token}) => {return {token};})((props) => {
         }
     }
 
+    function fillForm() {
+        console.log("id", props.token.id);
+        api.find_user(props.token.id);
+    }
+
     if(props.token.obj === "Admin"){
         return<div className="navbar">
             <p className="nav-item">Welcome {props.token.firstName}!</p>
@@ -93,6 +98,7 @@ let Session = connect(({token}) => {return {token};})((props) => {
     return <div className="navbar">
         <p className="nav-item">Welcome {props.token.firstName}!</p>
         <p className="nav-item"><Link to={"/profile"} exact="true" onClick={getList}>My Profile</Link></p>
+        <p className="nav-item"><Link to={"/editProfile"} exact="true" onClick={fillForm}>Edit Profile</Link></p>
             <Link to={"/"}><Button onClick={logout} className="btn btn-danger">Logout</Button></Link>
          </div>;
     }

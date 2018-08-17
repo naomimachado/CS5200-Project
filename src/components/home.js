@@ -23,6 +23,7 @@ import EditReviewForm from './edit-review-form';
 import Admin from './admin';
 import Recommendations from './rec';
 import List from './review-list';
+import EditRegistrationForm from './edit-profile';
 
 
 let Page = connect((state) => state)((props) => {
@@ -62,6 +63,14 @@ let Page = connect((state) => state)((props) => {
                                 <TitleNav/>
                                 <div className="errors">{props.errors}</div>
                                 <RegistrationForm params={props}/>
+                            </div>
+                    } />
+                    <Route path="/editProfile" exact={true} render={
+                        ()=>
+                            <div>
+                                <TitleNav/>
+                                <div className="errors">{props.errors}</div>
+                                <EditRegistrationForm params={props}/>
                             </div>
                     } />
                     <Route path="/profile" exact={true} render={
