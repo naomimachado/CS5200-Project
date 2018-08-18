@@ -10,6 +10,7 @@ import api from '../api';
 import {Link} from "react-router-dom";
 
 function EditRegistrationForm(params) {
+    console.log("edit params", params);
 
     function update(ev) {
         let tgt = $(ev.target);
@@ -39,6 +40,7 @@ function EditRegistrationForm(params) {
     }
 
     let button;
+    let button1;
 
     function register() {
 
@@ -56,9 +58,15 @@ function EditRegistrationForm(params) {
             params.dispatch({type: 'ERROR', msg: 'Weak Password!'});
         } else {
             console.log("sending edit request");
-            api.edit_profile(params.params.token.id,params.register);
-            api.get_watchlist(params.params.token.id);
-            api.get_user_follows_critic(params.params.token.id);
+            if(params.props) {
+                if (params.props.token.obj === "Admin") {
+                    api.edit_user_by_admin(params.props.register.id, params.props.register);
+                }
+            } else {
+                api.edit_profile(params.params.token.id, params.params.register);
+            }
+           // api.get_watchlist(params.params.token.id);
+           // api.get_user_follows_critic(params.params.token.id);
         }
     }
 
@@ -90,13 +98,31 @@ function EditRegistrationForm(params) {
     } else {
         console.log("sending edit request");
         button =
-            <Link to={"/profile"}>
+            <Link to={"/"}>
                 <Button onClick={register} type="button" className="btn btn-primary">Edit</Button>
             </Link>;
         //api.edit_profile(params.params.token.id,params.register);
     }
 
-    if(params.params.token){
+    if(params.register.firstName === "" ||
+        params.register.lastName === "" ||
+        params.register.email === "" ||
+        params.register.password === "" ||
+        !(params.register.password === params.register.retype_password) ||
+        ValidateEmail() === false ||
+        validatePassword() === false){
+        console.log("error");
+        button1 = <Button onClick={validate} type="button" className="btn btn-primary">Edit</Button>;
+    } else {
+        console.log("sending edit request");
+        button1 =
+            <Link to={"/system"}>
+                <Button onClick={register} type="button" className="btn btn-primary">Edit</Button>
+            </Link>;
+        //api.edit_profile(params.params.token.id,params.register);
+    }
+
+    if(params.params) {
         return (
             <div>
                 <h5>Edit Profile</h5>
@@ -126,7 +152,40 @@ function EditRegistrationForm(params) {
                         <Input type="password" name="retype_password" placeholder="retype password"
                                value={params.register.retype_password} onChange={update}/>
                     </FormGroup>
-                    { button }
+                    {button}
+                </FormGroup>
+            </div>);
+    } else {
+        return (
+            <div>
+                <h5>Admin Edit</h5>
+                <FormGroup>
+                    <FormGroup>
+                        <Label for="firstName">First Name:</Label>
+                        <Input type="text" name="firstName" placeholder="First Name"
+                               value={params.register.firstName} onChange={update}/>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="lastName">Last Name:</Label>
+                        <Input type="text" name="lastName" placeholder="Last Name"
+                               value={params.register.lastName} onChange={update}/>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="email">Email:</Label>
+                        <Input type="email" name="email" placeholder="email"
+                               value={params.register.email} onChange={update}/>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="password">Password: <i>[Min. length 8, 1 Uppercase, 1 Number]</i></Label>
+                        <Input type="password" name="password" placeholder="password"
+                               value={params.register.password} onChange={update}/>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="retype_password">Re-Type Password:</Label>
+                        <Input type="password" name="retype_password" placeholder="retype password"
+                               value={params.register.retype_password} onChange={update}/>
+                    </FormGroup>
+                    {button1}
                 </FormGroup>
             </div>);
     }

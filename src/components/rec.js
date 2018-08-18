@@ -11,7 +11,6 @@ export default function Recommendations(props) {
 
     let show = _.map(list, (ii, key) => <Results d={ii} key={key}/>);
     return <div>
-        display rec here
         {show}
     </div>;
 }
@@ -29,17 +28,16 @@ function Results(props) {
     }
 
     if(props.d.original_title) {
-
         return <div>
             Title: {props.d.original_title}
-            <Link to={"/profile/list/" + props.d.id}>
+            <Link to={"/profile/recommendations/" + props.d.id}>
                 <Button onClick={getDetails}>Get Details</Button>
             </Link>
         </div>;
     } else {
         return <div>
             Title: {props.d.original_name}
-            <Link to={"/profile/list/" + props.d.id}>
+            <Link to={"/profile/recommendations/" + props.d.id}>
                 <Button onClick={getDetails1}>Get Details</Button>
             </Link>
         </div>;

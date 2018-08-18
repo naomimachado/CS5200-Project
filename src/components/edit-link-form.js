@@ -35,6 +35,19 @@ function EditLinkForm(params) {
         }
     }
 
+    function adminEdit() {
+        if(params.params.link.link===""){
+            params.dispatch({type: 'ERROR', msg: 'Please enter valid link'});
+        } else if(!isUrl(params.params.link.link)){
+            params.dispatch({type: 'ERROR', msg: 'Please enter valid link'});
+        } else {
+            console.log("link", params.params.link.link);
+            //api.add_link(params.params.token.id,params.params.details.imdbID,params.params.link.data);
+            api.edit_link_by_admin(params.params.link.id, params.params.link.link);
+
+        }
+    }
+
     // function isUrlValid(userInput) {
     //     var res = userInput.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
     //     if(res == null)
@@ -65,6 +78,18 @@ function EditLinkForm(params) {
     function isUrl(s) {
         var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
         return regexp.test(s);
+    }
+
+    let button;
+
+    if(params.params.token.obj === "Admin"){
+        button = <Link to={"/system"} exact="true">
+            <Button onClick={adminEdit} type="button" className="btn btn-primary">Edit</Button>
+        </Link>;
+    } else {
+        button = <Link to={"/profile"} exact="true">
+            <Button onClick={edit} type="button" className="btn btn-primary">Edit</Button>
+        </Link>;
     }
 
     if(params.params.link.link==="" || !isUrl(params.params.link.link) ) {
@@ -111,9 +136,7 @@ function EditLinkForm(params) {
                         <Input type="text" name="link" placeholder="link"
                                value={params.link.link} onChange={update}/>
                     </FormGroup>
-                    <Link to={"/profile"} exact="true">
-                        <Button onClick={edit} type="button" className="btn btn-primary">Edit</Button>
-                    </Link>
+                    {button}
                 </FormGroup>
             </div>
         );

@@ -24,11 +24,22 @@ import Admin from './admin';
 import Recommendations from './rec';
 import List from './review-list';
 import EditRegistrationForm from './edit-profile';
+import AdminUser from './admin-user';
+import AdminMovie from './admin-movie';
+import AdminLinks from "./admin-link";
+import AdminReview from "./admin-review";
+import RecDetails from './details-rec';
+import CriticList from './critic-list';
+import store from "../store";
 
 
 let Page = connect((state) => state)((props) => {
 
-    if(props.results){
+    store.subscribe(() => {
+        localStorage.setItem('reduxState', JSON.stringify(store.getState()))
+    })
+
+    if(props.results) {
         return (
             <Router>
                 <div className="container-fluid">
@@ -55,6 +66,14 @@ let Page = connect((state) => state)((props) => {
                                 <Nav props={props}/>
                                 <div className="errors">{props.errors}</div>
                                 <Details params={props}/>
+                            </div>
+                    } />
+                    <Route path="/profile/recommendations/:imdbID" exact={true} render={
+                        ()=>
+                            <div>
+                                <Nav props={props}/>
+                                <div className="errors">{props.errors}</div>
+                                <RecDetails params={props}/>
                             </div>
                     } />
                     <Route path="/registration" exact={true} render={
@@ -163,14 +182,6 @@ let Page = connect((state) => state)((props) => {
                                 <EditReviewForm params={props}/>
                             </div>
                     } />
-                    <Route path="/system" exact={true} render={
-                        ()=>
-                            <div>
-                                <Nav/>
-                                <div className="errors">{props.errors}</div>
-                                <Admin props={props}/>
-                            </div>
-                    } />
                     <Route path="/recommendations" exact={true} render={
                         ()=>
                             <div>
@@ -185,6 +196,86 @@ let Page = connect((state) => state)((props) => {
                                 <Nav/>
                                 <div className="errors">{props.errors}</div>
                                 <List props={props}/>
+                            </div>
+                    } />
+                    <Route path="/system" exact={true} render={
+                        ()=>
+                            <div>
+                                <Nav/>
+                                <div className="errors">{props.errors}</div>
+                                <Admin props={props}/>
+                            </div>
+                    } />
+                    <Route path="/system/user" exact={true} render={
+                        ()=>
+                            <div>
+                                <Nav/>
+                                <div className="errors">{props.errors}</div>
+                                <AdminUser props={props}/>
+                            </div>
+                    } />
+                    <Route path="/system/user/edit" exact={true} render={
+                        ()=>
+                            <div>
+                                <Nav/>
+                                <div className="errors">{props.errors}</div>
+                                <EditRegistrationForm props={props}/>
+                            </div>
+                    } />
+                    <Route path="/system/movie" exact={true} render={
+                        ()=>
+                            <div>
+                                <Nav/>
+                                <div className="errors">{props.errors}</div>
+                                <AdminMovie props={props}/>
+                            </div>
+                    } />
+                    <Route path="/system/createUser" exact={true} render={
+                        ()=>
+                            <div>
+                                <Nav/>
+                                <div className="errors">{props.errors}</div>
+                                <RegistrationForm props={props}/>
+                            </div>
+                    } />
+                    <Route path="/system/link" exact={true} render={
+                        ()=>
+                            <div>
+                                <Nav/>
+                                <div className="errors">{props.errors}</div>
+                                <AdminLinks props={props}/>
+                            </div>
+                    } />
+                    <Route path="/system/link/edit" exact={true} render={
+                        ()=>
+                            <div>
+                                <Nav/>
+                                <div className="errors">{props.errors}</div>
+                                <EditLinkForm params={props}/>
+                            </div>
+                    } />
+                    <Route path="/system/review" exact={true} render={
+                        ()=>
+                            <div>
+                                <Nav/>
+                                <div className="errors">{props.errors}</div>
+                                <AdminReview props={props}/>
+                            </div>
+                    } />
+                    <Route path="/system/review/edit" exact={true} render={
+                        ()=>
+                            <div>
+                                <Nav/>
+                                <div className="errors">{props.errors}</div>
+                                <EditReviewForm params={props}/>
+                            </div>
+                    } />
+                    <Route path="/criticList" exact={true} render={
+                        ()=>
+                            <div>
+                                <Nav/>
+                                <div className="errors">{props.errors}</div>
+                                <CriticList props={props}/>
                             </div>
                     } />
                 </div>

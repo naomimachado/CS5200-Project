@@ -32,6 +32,10 @@ export default function WatchList(props) {
 
     let users= _.map(followers, (yy, i) => <Users key={i} u={yy}/>);
 
+    function getCritics() {
+        api.get_critics();
+    }
+
     if(obj1 === "Viewer") {
         return (
             <div>
@@ -42,6 +46,11 @@ export default function WatchList(props) {
                 <div>
                     Critics I follow:
                     {critics}
+                </div>
+                <div>
+                    <Link to={"/criticList"}>
+                        <Button onClick={getCritics}> View all critics</Button>
+                    </Link>
                 </div>
             </div>
         );

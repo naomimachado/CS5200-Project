@@ -166,6 +166,7 @@ class TheServer{
 
         login(data) {
 
+        console.log("login data", data);
             $.ajax("http://localhost:8080/api/login", {
                 method: "post",
                 dataType: "json",
@@ -215,7 +216,7 @@ class TheServer{
                     type: 'RESET_TOKEN',
                     data: null
                 })
-                window.location.reload();
+                //window.location.reload();
             },
             error: (resp) => {
                 console.log("error", resp);
@@ -617,11 +618,12 @@ class TheServer{
         });
     }
 
-    edit_review(cid, rid, desc){
+    edit_review(cid, rid, title, desc){
         console.log("rid", rid);
         let URL = "http://localhost:8080/api/review/"+rid;
         let data1 = {
-            description: desc
+            "title": title,
+            "description": desc
         };
         console.log("url", URL);
         $.ajax(URL, {
@@ -1007,7 +1009,7 @@ class TheServer{
     }
 
     find_user(id){
-        let URL = "http://localhost:8080/api/user/"+id;
+        let URL = "http://localhost:8080/api/person/"+id;
         $.ajax(URL , {
             method: "get",
             dataType: "json",
@@ -1032,11 +1034,13 @@ class TheServer{
     }
 
     edit_profile(id, data){
-        let URL = "http://localhost:8080/api/user/"+id;
+        let URL = "http://localhost:8080/api/person/"+id;
         let data1= {
             "email": data.email,
             "password": data.password,
         };
+        //this.logout();
+        console.log("data", data);
         $.ajax(URL , {
             method: "put",
             dataType: "json",
@@ -1044,12 +1048,17 @@ class TheServer{
             data: JSON.stringify(data),
             success: (resp) => {
                 console.log("sucess", resp);
+                console.log("login calling");
+                this.logout();
+                store.dispatch({
+                    type: 'ERROR',
+                    msg: 'Edit successful, please login again'});
 
-                //alert("added succesfully");
+                alert("Edit successful! please log in again");
                 // store.dispatch({
                 //     type: 'CLEAR_REGISTER_FORM'
                 // });
-                this.login(data1);
+
             },
             error: (resp) => {
                 console.log("error", resp);
@@ -1059,6 +1068,302 @@ class TheServer{
             },
         });
     }
+
+
+    edit_user_by_admin(id, data){
+        console.log("id", id);
+        console.log("data", data);
+        let URL = "http://localhost:8080/api/person/"+id;
+        $.ajax(URL , {
+            method: "put",
+            dataType: "json",
+            contentType: "application/json; charset=UTF-8",
+            data: JSON.stringify(data),
+            success: (resp) => {
+                console.log("sucess", resp);
+                this.get_person_list();
+                this.get_movie_list();
+                this.get_review_list();
+                this.get_link_list();
+                store.dispatch({
+                    type: 'CLEAR_BUY_FORM',
+                })
+                //console.log("login calling");
+                // this.logout();
+                // store.dispatch({
+                //     type: 'ERROR',
+                //     msg: 'Edit successful, please login again'});
+                //
+                // alert("Edit successful! please log in again");
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM'
+                // });
+
+            },
+            error: (resp) => {
+                console.log("error", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
+    }
+
+    delete_user(id){
+        let URL = "http://localhost:8080/api/person/"+id;
+        $.ajax(URL , {
+            method: "delete",
+            success: (resp) => {
+                console.log("sucess", resp);
+                this.get_person_list();
+                this.get_movie_list();
+                this.get_review_list();
+                this.get_link_list();
+            },
+            error: (resp) => {
+                console.log("error", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
+    }
+
+    delete_movie(id){
+        let URL = "http://localhost:8080/api/movie/"+id;
+        $.ajax(URL , {
+            method: "delete",
+            success: (resp) => {
+                console.log("sucess", resp);
+                this.get_person_list();
+                this.get_movie_list();
+                this.get_review_list();
+                this.get_link_list();
+            },
+            error: (resp) => {
+                console.log("error", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
+    }
+
+    submit_registration_by_admin(data) {
+        console.log(data.dtype);
+        if (data.dtype === "Viewer") {
+            console.log("inside if");
+            let data1 = {
+                "firstName": data.firstName,
+                "lastName": data.lastName,
+                "email": data.email,
+                "password": data.password,
+                "obj": "Viewer"
+            }
+            $.ajax("http://localhost:8080/api/user/register", {
+                method: "post",
+                dataType: "json",
+                contentType: "application/json; charset=UTF-8",
+                data: JSON.stringify(data1),
+                success: (resp) => {
+                    console.log("success", resp);
+                    //this.login(login_data);
+                    this.get_person_list();
+                    this.get_movie_list();
+                    this.get_review_list();
+                    this.get_link_list();
+                },
+                error: (resp) => {
+                    console.log("error", resp);
+                    // store.dispatch({
+                    //     type: 'CLEAR_REGISTER_FORM',
+                    // })
+                },
+            });
+        } else if (data.dtype === "Critic") {
+            let data1 = {
+                "firstName": data.firstName,
+                "lastName": data.lastName,
+                "email": data.email,
+                "password": data.password,
+                "obj": "Critic"
+            }
+            $.ajax("http://localhost:8080/api/critic/register", {
+                method: "post",
+                dataType: "json",
+                contentType: "application/json; charset=UTF-8",
+                data: JSON.stringify(data1),
+                success: (resp) => {
+                    console.log("sucess", resp);
+                    //this.login(login_data);
+                    this.get_person_list();
+                    this.get_movie_list();
+                    this.get_review_list();
+                    this.get_link_list();
+                },
+                error: (resp) => {
+                    console.log("error", resp);
+                    // store.dispatch({
+                    //     type: 'CLEAR_REGISTER_FORM',
+                    // })
+                },
+            });
+        } else if (data.dtype === "Seller") {
+            let data1 = {
+                "firstName": data.firstName,
+                "lastName": data.lastName,
+                "email": data.email,
+                "password": data.password,
+                "obj": "Seller"
+            }
+            $.ajax("http://localhost:8080/api/seller/register", {
+                method: "post",
+                dataType: "json",
+                contentType: "application/json; charset=UTF-8",
+                data: JSON.stringify(data1),
+                success: (resp) => {
+                    console.log("sucess", resp);
+                    //this.login(login_data);
+                    this.get_person_list();
+                    this.get_movie_list();
+                    this.get_review_list();
+                    this.get_link_list();
+                },
+                error: (resp) => {
+                    console.log("error", resp);
+                    // store.dispatch({
+                    //     type: 'CLEAR_REGISTER_FORM',
+                    // })
+                },
+            });
+        }
+    }
+
+    delete_link(id){
+        let URL = "http://localhost:8080/api/link/"+id;
+        $.ajax(URL , {
+            method: "delete",
+            success: (resp) => {
+                console.log("sucess", resp);
+                this.get_person_list();
+                this.get_movie_list();
+                this.get_review_list();
+                this.get_link_list();
+            },
+            error: (resp) => {
+                console.log("error", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
+    }
+
+    edit_link_by_admin(linkid, data){
+        console.log("saving link",data);
+        let URL = "http://localhost:8080/api/link/"+linkid;
+        let data1 = {
+            link: data
+        };
+        console.log("url", URL);
+        $.ajax(URL, {
+            method: "put",
+            contentType: "application/json; charset=UTF-8",
+            data: JSON.stringify(data1),
+            success: (resp) => {
+                console.log("sucess", resp);
+                this.get_person_list();
+                this.get_movie_list();
+                this.get_review_list();
+                this.get_link_list();
+            },
+            error: (resp) => {
+                console.log("error", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
+    }
+
+    delete_review_by_admin(id){
+        let URL = "http://localhost:8080/api/review/"+id;
+        $.ajax(URL , {
+            method: "delete",
+            success: (resp) => {
+                console.log("sucess", resp);
+                this.get_person_list();
+                this.get_movie_list();
+                this.get_review_list();
+                this.get_link_list();
+            },
+            error: (resp) => {
+                console.log("error", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
+    }
+
+    edit_review_by_admin( rid, title, desc){
+        console.log("rid", rid);
+        let URL = "http://localhost:8080/api/review/"+rid;
+        let data1 = {
+            "title": title,
+            "description": desc
+        };
+        console.log("url", URL);
+        $.ajax(URL, {
+            method: "put",
+            contentType: "application/json; charset=UTF-8",
+            data: JSON.stringify(data1),
+            success: (resp) => {
+                console.log("sucess", resp);
+                this.get_person_list();
+                this.get_movie_list();
+                this.get_review_list();
+                this.get_link_list();
+                store.dispatch({
+                    type: 'CLEAR_REVIEW_FORM',
+                })
+            },
+            error: (resp) => {
+                console.log("error", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
+    }
+
+    get_critics(){
+        let URL = "http://localhost:8080/api/critic";
+        $.ajax(URL , {
+            method: "get",
+            dataType: "json",
+            contentType: "application/json; charset=UTF-8",
+            //data: JSON.stringify(data),
+            success: (resp) => {
+                console.log("sucess", resp);
+
+                //alert("added succesfully");
+                store.dispatch({
+                    type: 'CRITICS',
+                    data: resp
+                });
+            },
+            error: (resp) => {
+                console.log("error", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
+    }
+
+
+
 
 
 }

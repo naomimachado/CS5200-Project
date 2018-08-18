@@ -52,15 +52,37 @@ function SearchTab(params) {
         window.location.reload();
     }
 
-    return <div style={ {padding: "4ex"} }>
-        <h2>Search Tab</h2>
-        <Link to="/" exact="true"><Button onClick={reload}>Start Again?</Button></Link>
-        <FormGroup>
-            <Label for="search"></Label>
-            <Input type="text" name="search" value={params.search_tab.search} onChange={update} placeholder="Search for movies and TV shows"/>
-        </FormGroup>
-        <Link to={"/results"} exact="true"><Button onClick={submit} color="primary"><i className="fa fa-search"></i></Button></Link>
-    </div>;
+    console.log("serach tab params", params);
+
+    if(params.params.token){
+
+        if(params.params.token.obj === "Admin"){
+            return <div>admin!!</div>;
+        } else {
+            return <div style={{padding: "4ex"}}>
+                <h2>Search Tab</h2>
+                <Link to="/" exact="true"><Button onClick={reload}>Start Again?</Button></Link>
+                <FormGroup>
+                    <Label for="search"></Label>
+                    <Input type="text" name="search" value={params.search_tab.search} onChange={update}
+                           placeholder="Search for movies and TV shows"/>
+                </FormGroup>
+                <Link to={"/results"} exact="true"><Button onClick={submit} color="primary"><i className="fa fa-search"></i></Button></Link>
+            </div>;
+        }
+
+    } else {
+        return <div style={{padding: "4ex"}}>
+            <h2>Search Tab</h2>
+            <Link to="/" exact="true"><Button onClick={reload}>Start Again?</Button></Link>
+            <FormGroup>
+                <Label for="search"></Label>
+                <Input type="text" name="search" value={params.search_tab.search} onChange={update}
+                       placeholder="Search for movies and TV shows"/>
+            </FormGroup>
+            <Link to={"/results"} exact="true"><Button onClick={submit} color="primary"><i className="fa fa-search"></i></Button></Link>
+        </div>;
+    }
 }
 
 function state2props(state) {

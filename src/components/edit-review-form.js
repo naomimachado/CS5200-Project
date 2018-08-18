@@ -27,10 +27,36 @@ function EditReviewForm(params) {
         } else {
             console.log("link", params.params.review_form.description);
             //api.add_link(params.params.token.id,params.params.details.imdbID,params.params.link.data);
-            api.edit_review(params.params.token.id, params.params.review_form.id, params.params.review_form.description);
+            api.edit_review(params.params.token.id, params.params.review_form.id,
+                params.params.review_form.title, params.params.review_form.description);
             api.get_watchlist(params.params.token.id);
 
         }
+    }
+
+    function adminEdit(){
+        if(params.params.review_form.description===""){
+            params.dispatch({type: 'ERROR', msg: 'Please enter some thoughts'});
+        } else {
+            console.log("link", params.params.review_form.description);
+            //api.add_link(params.params.token.id,params.params.details.imdbID,params.params.link.data);
+            api.edit_review_by_admin(params.params.review_form.id,
+                params.params.review_form.title, params.params.review_form.description);
+            //api.get_watchlist(params.params.token.id);
+
+        }
+    }
+
+    let button;
+
+    if(params.params.token.obj === "Admin"){
+        button = <Link to={"/system"} exact="true">
+            <Button onClick={adminEdit} type="button" className="btn btn-primary">Edit</Button>
+        </Link>;
+    } else {
+        button = <Link to={"/profile"} exact="true">
+            <Button onClick={edit} type="button" className="btn btn-primary">Edit</Button>
+        </Link>;
     }
 
     // function assign(link){
@@ -68,6 +94,11 @@ function EditReviewForm(params) {
                         <span>{params.params.details.Title}</span>
                     </FormGroup>
                     <FormGroup>
+                        <Label for="title">Review Title:</Label>
+                        <Input type="text" name="title" placeholder="Title"
+                               value={params.params.review_form.title} onChange={update}/>
+                    </FormGroup>
+                    <FormGroup>
                         <Label for="description">Buying Link:</Label>
                         <Input type="text" name="description" placeholder="My thoughts"
                                value={params.params.review_form.description} onChange={update}/>
@@ -92,13 +123,16 @@ function EditReviewForm(params) {
                         <span>{params.params.details.Title}</span>
                     </FormGroup>
                     <FormGroup>
+                        <Label for="title">Review Title:</Label>
+                        <Input type="text" name="title" placeholder="Title"
+                               value={params.params.review_form.title} onChange={update}/>
+                    </FormGroup>
+                    <FormGroup>
                         <Label for="description">Thoughts:</Label>
                         <Input type="text" name="description" placeholder="My thoughts"
                                value={params.params.review_form.description} onChange={update}/>
                     </FormGroup>
-                    <Link to={"/profile"} exact="true">
-                        <Button onClick={edit} type="button" className="btn btn-primary">Edit</Button>
-                    </Link>
+                    {button}
                 </FormGroup>
             </div>
         );

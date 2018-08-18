@@ -1,6 +1,10 @@
 import { createStore, combineReducers } from 'redux';
 import deepFreeze from 'deep-freeze';
 
+//let store;
+
+const persistedState = localStorage.getItem('reduxState') ? JSON.parse(localStorage.getItem('reduxState')) : {};
+
 let empty_search_form = {
     search: ""
 };
@@ -159,6 +163,8 @@ function link(state = empty_link, action) {
 let empty_review = {
     description:"",
     thoughts:"",
+    review_title: "",
+    title: "",
 };
 
 function review_form(state = empty_review, action) {
@@ -312,18 +318,28 @@ function critic_followers(state = empty_critic_followers_list, action) {
     }
 }
 
+let empty_critics="";
+
+function critics(state = empty_critics, action) {
+    switch (action.type) {
+        case 'CRITICS':
+            return action.data;
+        default:
+            return state;
+    }
+}
 
 
 function root_reducer(state0, action) {
     console.log("reducer", action);
     let reducer = combineReducers({search_tab, results, page, details, login, register, errors, token,
         watchlist, link, seller_list, review_form, links, movie_review, edit_link, critic_review, view_review,
-        person_list, movie_list, link_list, review_list, rec, user_follows, critic_followers});
+        person_list, movie_list, link_list, review_list, rec, user_follows, critic_followers, critics});
     console.log("state0", state0);
     let state1 = reducer(state0, action);
     console.log("state1", state1);
     return deepFreeze(state1);
 };
 
-let store = createStore(root_reducer);
+let store = createStore(root_reducer, persistedState);
 export default store;

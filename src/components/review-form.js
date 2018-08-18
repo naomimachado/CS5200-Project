@@ -28,14 +28,14 @@ function ReviewForm(params) {
     let cookie = new Cookies();
 
     function submit() {
-        if(params.params.review_form.thoughts===""){
+        if(params.params.review_form.thoughts==="" || params.params.review_form.review_title===""){
             params.dispatch({type: 'ERROR', msg: 'Please enter some thoughts!'});
         } else {
             console.log("thoughts", params.params.review_form.thoughts);
             //api.add_link(params.params.token.id,params.params.details.imdbID,params.params.link.data);
             let id = cookie.get('id');
             api.add_review(id,params.params.details.imdbID,
-                params.params.details.Title, params.params.review_form.thoughts);
+                params.params.review_form.review_title, params.params.review_form.thoughts);
         }
     }
 
@@ -50,9 +50,14 @@ function ReviewForm(params) {
                         <span>{params.params.details.imdbID}</span>
                     </FormGroup>
                     <FormGroup>
-                        <Label for="title">Title:</Label>
+                        <Label for="title">Movie Title:</Label>
                         <Input type="hidden" name="title" value={params.params.details.Title}/>
                         <span>{params.params.details.Title}</span>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="review_title">Review Title:</Label>
+                        <Input type="text" name="review_title" placeholder="Title"
+                               value={params.params.review_form.review_title} onChange={update}/>
                     </FormGroup>
                     <FormGroup>
                         <Label for="thoughts">Thoughts:</Label>
@@ -74,9 +79,14 @@ function ReviewForm(params) {
                         <span>{params.params.details.imdbID}</span>
                     </FormGroup>
                     <FormGroup>
-                        <Label for="title">Title:</Label>
+                        <Label for="title">Movie Title:</Label>
                         <Input type="hidden" name="title" value={params.params.details.Title}/>
                         <span>{params.params.details.Title}</span>
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="review_title">Review Title:</Label>
+                        <Input type="text" name="review_title" placeholder="Title"
+                               value={params.params.review_form.review_title} onChange={update}/>
                     </FormGroup>
                     <FormGroup>
                         <Label for="thoughts">Thoughts:</Label>
