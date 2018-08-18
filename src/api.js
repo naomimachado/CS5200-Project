@@ -2,6 +2,7 @@ import store from './store';
 import $ from 'jquery';
 import Cookies from 'universal-cookie';
 import _ from 'underscore';
+import swal from 'sweetalert';
 
 
 class TheServer{
@@ -1049,12 +1050,19 @@ class TheServer{
             success: (resp) => {
                 console.log("sucess", resp);
                 console.log("login calling");
+                swal({
+                    title: "Edit Successful!",
+                    text: "Login again!",
+                    icon: "success",
+                    button: "Okay",
+                    dangerMode: false,
+                })
                 this.logout();
-                store.dispatch({
-                    type: 'ERROR',
-                    msg: 'Edit successful, please login again'});
+                // store.dispatch({
+                //     type: 'ERROR',
+                //     msg: 'Edit successful, please login again'});
 
-                alert("Edit successful! please log in again");
+                // alert("Edit successful! please log in again");
                 // store.dispatch({
                 //     type: 'CLEAR_REGISTER_FORM'
                 // });
