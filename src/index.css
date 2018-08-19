@@ -69,6 +69,18 @@ select.form-control:not([size]):not([multiple]) {
     color: white !important;
 }
 
+.title-css{
+    color: white !important;
+    font-weight: bolder;
+    font-size: 3em;
+}
+
+.title-css:hover{
+    color: coral !important;
+    background-color: white !important;
+    font-size: 3em;
+}
+
 .admin-createuser{
 
     padding: 18px 23px 35px 30px;

@@ -26,7 +26,7 @@ export default function TitleNav() {
 
 
         <NavLink to="/" onClick={clear}>
-            <h2 className="heading-rec">Recommendation System</h2>
+            <h2 className="title-css">Movie Mania</h2>
         </NavLink>
 
 
