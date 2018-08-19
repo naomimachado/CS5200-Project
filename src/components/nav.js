@@ -42,12 +42,13 @@ let Login = connect(({login}) => {return {login};})((props) =>{
                     <FormGroup>
                         <Input type="email" name="email" placeholder="email"
                                value={props.login.email} onChange={update}/>
-                    </FormGroup>
+                    </FormGroup> &nbsp; &nbsp;
                     <FormGroup>
                         <Input type="password" name="password" placeholder="password"
                                value={props.login.password} onChange={update}/>
-                    </FormGroup>
-                    <Button onClick={login} type="button" className="btn btn-primary">Login</Button>
+                    </FormGroup> &nbsp; &nbsp;
+                    {/*<Button onClick={login} type="button" className="btn btn-primary">Login</Button>*/}
+                    <Button className="btn loginbtn" onClick={login}><span className="glyphicon glyphicon-log-in"></span>&nbsp;<b>Log In</b></Button>
                 </Form>
                 <Link to="/registration" exact="true">New here? Register Now!</Link>
             </div>
@@ -93,14 +94,19 @@ let Session = connect(({token}) => {return {token};})((props) => {
     if(props.token.obj === "Admin"){
         return<div className="navbar">
             <p className="nav-item">Welcome {props.token.firstName}!</p>
-            <Link to={"/"}><Button onClick={logout} className="btn btn-danger">Logout</Button></Link>
+            <Link to={"/"}>
+                <Button className=" btn btn-danger" onClick={logout}><span className="glyphicon glyphicon-log-out"></span>&nbsp;<b>Logout</b></Button>
+            </Link>
         </div>;
     } else {
     return <div className="navbar">
-        <p className="nav-item">Welcome {props.token.firstName}!</p>
-        <p className="nav-item"><Link to={"/profile"} exact="true" onClick={getList}>My Profile</Link></p>
-        <p className="nav-item"><Link to={"/editProfile"} exact="true" onClick={fillForm}>Edit Profile</Link></p>
-            <Link to={"/"}><Button onClick={logout} className="btn btn-danger">Logout</Button></Link>
+        <p className="nav-item">Welcome {props.token.firstName}!</p> 	&nbsp;	&nbsp;
+        <p className="nav-item"><Link to={"/profile"} exact="true" onClick={getList}>My Profile</Link></p>	&nbsp;	&nbsp;
+        <p className="nav-item"><Link to={"/editProfile"} exact="true" onClick={fillForm}>Edit Profile</Link></p>	&nbsp;	&nbsp;
+            <Link to={"/"}>
+                {/*<Button onClick={logout} className="btn btn-danger">Logout</Button>*/}
+                <Button className=" btn btn-danger" onClick={logout}><span className="glyphicon glyphicon-log-out"></span>&nbsp;<b>Logout</b></Button>
+            </Link>
          </div>;
     }
 });

@@ -1,4 +1,64 @@
+body {
+    background-image: url(images/3.jpg);
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: 1200px 800px;
+}
+
+.image-div{
+    padding: 18px 23px 35px 30px;
+    border-radius: 7px;
+    margin-top: 6ex;
+    max-width: 350px;
+    margin-left: 44px;
+}
+
+
 .errors {
     background-color: pink;
     opacity: 0.9;
+}
+
+
+.heading-rec{
+    padding-right: 408px;
+}
+
+.signin-label{
+    font-size: 26px;
+}
+
+.registration form {
+    padding: 18px 23px 35px 30px;
+    border-radius: 7px;
+    margin-top: 6ex;
+    max-width: 350px;
+    margin-left: 44px;
+
+}
+
+select.form-control:not([size]):not([multiple]) {
+    height: calc(2.25rem + 10px);
+}
+
+.reg-nav{
+    padding: 17px;
+}
+
+.editprofile-form{
+    padding: 18px 23px 35px 30px;
+    border-radius: 7px;
+    margin-top: 6ex;
+    max-width: 350px;
+    margin-left: 44px;
+}
+
+.admin-createuser{
+
+    padding: 18px 23px 35px 30px;
+    border-radius: 7px;
+    margin-top: 6ex;
+    max-width: 350px;
+    margin-left: 44px;
+
 }

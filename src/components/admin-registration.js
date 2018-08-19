@@ -3,10 +3,12 @@ import $ from "jquery";
 //import swal from 'sweetalert';
 import {Link, Redirect} from 'react-router-dom';
 
-import { Button, FormGroup, Label, Input } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { connect } from 'react-redux';
 
 import api from '../api';
+import swal from "sweetalert";
+
 //import {Link} from "react-router-dom";
 
 function AdminRegistrationForm(params) {
@@ -48,11 +50,11 @@ function AdminRegistrationForm(params) {
             params.register.dtype === ""){
             params.dispatch({type: 'ERROR', msg: 'All fields are mandatory'});
         } else if(!(params.register.password === params.register.retype_password)){
-            params.dispatch({type: 'ERROR', msg: 'Passwords do not match'});
+            swal("Passwords do not match", "Please try again", "error");
         } else if(ValidateEmail() === false){
-            params.dispatch({type: 'ERROR', msg: 'Invalid e-mail address'});
+            swal("Invalid email address", "Please try again", "error");
         } else  if(validatePassword() === false){
-            params.dispatch({type: 'ERROR', msg: 'Weak Password!'});
+            swal("Weak password", "Make sure the password has Minimum 8 characters which includes 1 Uppercase and 1 Number", "error");
         } else {
             console.log("sending register request");
             api.submit_registration_by_admin(params.register);
@@ -69,11 +71,11 @@ function AdminRegistrationForm(params) {
             params.register.retype_password === ""){
             params.dispatch({type: 'ERROR', msg: 'All fields are mandatory'});
         } else if(!(params.register.password === params.register.retype_password)){
-            params.dispatch({type: 'ERROR', msg: 'Passwords do not match'});
+            swal("Passwords do not match", "Please try again", "error");
         } else if(ValidateEmail() === false){
-            params.dispatch({type: 'ERROR', msg: 'Invalid e-mail address'});
+            swal("Invalid email address", "Please try again", "error");
         } else  if(validatePassword() === false) {
-            params.dispatch({type: 'ERROR', msg: 'Weak Password!'});
+            swal("Weak password", "Make sure the password has Minimum 8 characters which includes 1 Uppercase and 1 Number", "error");
         }
     }
 
@@ -95,11 +97,94 @@ function AdminRegistrationForm(params) {
         //api.edit_profile(params.params.token.id,params.register);
     }
         return (
-            <div>
+            <div className="admin-createuser">
                 <h5>Registration Form</h5>
-                <FormGroup>
+                <Form>
+
+                    {/*<FormGroup>*/}
+                        {/*<Label for="firstName">First Name:</Label>*/}
+                        {/*<Input type="text" name="firstName" placeholder="First Name"*/}
+                               {/*value={params.register.firstName} onChange={update}/>*/}
+                    {/*</FormGroup>*/}
+
                     <FormGroup>
-                        <Label for="dtype">I am a:</Label>
+                        <div className="input-group">
+                            <div className="input-group-addon">
+                                <span className="glyphicon glyphicon-user"></span>
+                            </div>
+                            <Input type="text" id="firstName" name="firstName" placeholder="First Name"
+                                   value={params.register.firstName} onChange={update}/>
+                        </div>
+                    </FormGroup>
+
+                    {/*<FormGroup>*/}
+                        {/*<Label for="lastName">Last Name:</Label>*/}
+                        {/*<Input type="text" name="lastName" placeholder="Last Name"*/}
+                               {/*value={params.register.lastName} onChange={update}/>*/}
+                    {/*</FormGroup>*/}
+
+                    <FormGroup>
+                        <div className="input-group">
+                            <div className="input-group-addon">
+                                <span className="glyphicon glyphicon-user"></span>
+                            </div>
+                            <Input type="text" id="lastName" name="lastName" placeholder="Last Name"
+                                   vvalue={params.register.lastName} onChange={update}/>
+                        </div>
+                    </FormGroup>
+
+                    {/*<FormGroup>*/}
+                        {/*<Label for="email">Email:</Label>*/}
+                        {/*<Input type="email" name="email" placeholder="email"*/}
+                               {/*value={params.register.email} onChange={update}/>*/}
+                    {/*</FormGroup>*/}
+
+                    <FormGroup>
+                        <div className="input-group">
+                            <div className="input-group-addon">
+                                <span className="glyphicon glyphicon-envelope"></span>
+                            </div>
+                            <Input type="email" id="email" name="email" placeholder="Email"
+                                   value={params.register.email} onChange={update}/>
+                        </div>
+                    </FormGroup>
+
+                    {/*<FormGroup>*/}
+                        {/*<Label for="password">Password: <i>[Min. length 8, 1 Uppercase, 1 Number]</i></Label>*/}
+                        {/*<Input type="password" name="password" placeholder="password"*/}
+                               {/*value={params.register.password} onChange={update}/>*/}
+                    {/*</FormGroup>*/}
+
+                    <FormGroup>
+                        <div className="input-group">
+                            <div className="input-group-addon">
+                                <span className="glyphicon glyphicon-lock"></span>
+                            </div>
+                            <Input type="password" id="password" name="password" placeholder="Password"
+                                   value={params.register.password} onChange={update}/>
+                        </div>
+                    </FormGroup>
+
+
+                    {/*<FormGroup>*/}
+                        {/*<Label for="retype_password">Re-Type Password:</Label>*/}
+                        {/*<Input type="password" name="retype_password" placeholder="retype password"*/}
+                               {/*value={params.register.retype_password} onChange={update}/>*/}
+                    {/*</FormGroup>*/}
+
+                    <FormGroup>
+                        <div className="input-group">
+                            <div className="input-group-addon">
+                                <span className="glyphicon glyphicon-lock"></span>
+                            </div>
+                            <Input type="password" id="retype_password" name="retype_password" placeholder="Confirm Password"
+                                   value={params.register.retype_password} onChange={update}/>
+                        </div>
+                    </FormGroup>
+
+
+                    <FormGroup>
+                        <Label for="dtype">User Type</Label>
                         <Input type="select" name="dtype" value={params.register.dtype} onChange={update}>
                             <option value="">Select</option>
                             <option value="Viewer">Viewer</option>
@@ -107,33 +192,9 @@ function AdminRegistrationForm(params) {
                             <option value="Seller">Vendor</option>
                         </Input>
                     </FormGroup>
-                    <FormGroup>
-                        <Label for="firstName">First Name:</Label>
-                        <Input type="text" name="firstName" placeholder="First Name"
-                               value={params.register.firstName} onChange={update}/>
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="lastName">Last Name:</Label>
-                        <Input type="text" name="lastName" placeholder="Last Name"
-                               value={params.register.lastName} onChange={update}/>
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="email">Email:</Label>
-                        <Input type="email" name="email" placeholder="email"
-                               value={params.register.email} onChange={update}/>
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="password">Password: <i>[Min. length 8, 1 Uppercase, 1 Number]</i></Label>
-                        <Input type="password" name="password" placeholder="password"
-                               value={params.register.password} onChange={update}/>
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for="retype_password">Re-Type Password:</Label>
-                        <Input type="password" name="retype_password" placeholder="retype password"
-                               value={params.register.retype_password} onChange={update}/>
-                    </FormGroup>
+
                     { button }
-                </FormGroup>
+                </Form>
             </div>);
 
 }

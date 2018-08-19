@@ -11,15 +11,26 @@ export default function TitleNav() {
     }
 
     return (
-        <div>
-            <span className="navbar-brand navbar-nav">
-                <NavItem>
-                    <NavLink to="/" onClick={clear}>
-                        <h2>Recommendation System</h2>
-                    </NavLink>
-                </NavItem>
-            </span>
-        </div>
+  //      {/*<div>*/}
+  //          {/*<span className="navbar-brand navbar-nav">*/}
+  //              {/*<NavItem>*/}
+  //                  {/*<NavLink to="/" onClick={clear}>*/}
+  //                      {/*<h2>Recommendation System</h2>*/}
+  //                  {/*</NavLink>*/}
+  //              {/*</NavItem>*/}
+  //          {/*</span>*/}
+  //      {/*</div>*/}
+
+    <div className="reg-nav">
+
+
+
+        <NavLink to="/" onClick={clear}>
+            <h2 className="heading-rec">Recommendation System</h2>
+        </NavLink>
+
+
+    </div>
     )
 
 }
