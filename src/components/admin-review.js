@@ -20,12 +20,12 @@ export default function AdminReview(props){
         <ViewReview params={props}/>
         <div>
             <Link to={"/system/review/edit"}>
-                <Button onClick={edit}>Edit Review</Button>
+                <Button className="btn btn-primary" onClick={edit}>Edit Review</Button>
             </Link>
         </div>
         <div>
             <Link to={"/system"}>
-                <Button onClick={deleteReview}>Delete Review</Button>
+                <Button className="btn btn-danger" onClick={deleteReview}>Delete Review</Button>
             </Link>
         </div>
     </div>;

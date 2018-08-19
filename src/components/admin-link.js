@@ -20,12 +20,12 @@ export default function AdminLinks(props){
         <ViewLink params={props}/>
         <div>
             <Link to={"/system/link/edit"}>
-                <Button onClick={edit}>Edit Link</Button>
+                <Button className="btn btn-primary" onClick={edit}>Edit Link</Button>
             </Link>
         </div>
         <div>
             <Link to={"/system"}>
-                <Button onClick={deleteLink}>Delete Link</Button>
+                <Button className="btn btn-primary" onClick={deleteLink}>Delete Link</Button>
             </Link>
         </div>
     </div>;

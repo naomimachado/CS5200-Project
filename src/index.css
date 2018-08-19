@@ -78,3 +78,28 @@ select.form-control:not([size]):not([multiple]) {
     margin-left: 44px;
 
 }
+
+.admin-table
+{
+    font-weight: bold;
+    font-family: Courier New, monospace;
+    font-size: 20px;
+}
+
+.admin-head{
+    color: coral;
+}
+
+.admin-head-edit{
+    color: bisque;
+}
+
+table{
+    font-family: Courier New, monospace;
+    font-weight: bold;
+}
+
+.nav-item{
+    font-family: Courier New, monospace;
+    color: white !important;
+}

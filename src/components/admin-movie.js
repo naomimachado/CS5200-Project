@@ -15,7 +15,7 @@ export default function AdminMovie(props) {
     return <div>
         <Individual props={props.props.details}/>
         <Link to={"/system"}>
-            <Button onClick={deleteMovie}>Delete Movie</Button>
+            <Button className="btn btn-danger" onClick={deleteMovie}>Delete Movie</Button>
         </Link>
     </div>;
 }

@@ -28,12 +28,12 @@ export default function AdminUser(props) {
             <div>Type: {props.props.register.obj}</div>
             <div>
                 <Link to={"/system/user/edit"}>
-                    <Button onClick={edit}>Edit User</Button>
+                    <Button className="btn btn-primary" onClick={edit}>Edit User</Button>
                 </Link>
             </div>
             <div>
                 <Link to={"/system"}>
-                    <Button onClick={deleteUser}>Delete User</Button>
+                    <Button className="btn btn-danger" onClick={deleteUser}>Delete User</Button>
                 </Link>
             </div>
         </div>

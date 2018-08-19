@@ -27,24 +27,32 @@ export default function Admin(props) {
     return <div>
         <div>
             <Link to={"/system/createUser"}>
-                <Button>Create New User</Button>
+                <Button className="btn btn-primary">Create New User</Button>
             </Link>
         </div>
         <div>
-            List of users:
+            <div className="admin-table"> List of users </div>
+            <table>
             {disp_person}
+            </table>
         </div>
         <div>
-            List of Movies:
+            <div className="admin-table"> List of Movies </div>
+            <table>
             {disp_movie}
+            </table>
         </div>
         <div>
-            List of Links:
+            <div className="admin-table"> List of Links </div>
+            <table>
             {disp_link}
+            </table>
         </div>
         <div>
-            List of Reviews:
+            <div className="admin-table"> List of Reviews </div>
+            <table>
             {disp_review}
+            </table>
         </div>
     </div>;
 }
@@ -58,12 +66,16 @@ function Person(props) {
     }
 
     return (
-        <div>
+            <tr>
+                <td width="200">
             {props.person.firstName}
+                </td>
+                <td width="200">
             <Link to={"/system/user"}>
-                <Button onClick={getPerson}>View</Button>
+                <Button className="btn btn-info" onClick={getPerson}>View</Button>
             </Link>
-        </div>
+                </td>
+            </tr>
     );
 }
 
@@ -75,12 +87,16 @@ function Movie(props) {
     }
 
     return (
-        <div>
+        <tr>
+            <td width="200">
             {props.movie.title}
+            </td>
+            <td width="200">
             <Link to={"/system/movie"}>
-                <Button onClick={getMovie}>View</Button>
+                <Button className="btn btn-info" onClick={getMovie}>View</Button>
             </Link>
-        </div>
+            </td>
+        </tr>
     );
 }
 
@@ -93,12 +109,16 @@ function Links(props) {
     }
 
     return (
-        <div>
+        <tr>
+            <td width="200">
             {props.link.link}
+            </td>
+            <td width="200">
             <Link to={"/system/link"}>
-                <Button onClick={getLink}>View</Button>
+                <Button className="btn btn-info" onClick={getLink}>View</Button>
             </Link>
-        </div>
+            </td>
+        </tr>
     );
 }
 
@@ -111,11 +131,15 @@ function Review(props) {
     }
 
     return (
-        <div>
+        <tr>
+            <td width="200">
             {props.review.title}
+            </td>
+            <td width="200">
             <Link to={"/system/review"}>
-                <Button onClick={getReview}>View</Button>
+                <Button className="btn btn-info" onClick={getReview}>View</Button>
             </Link>
-        </div>
+            </td>
+        </tr>
     );
 }
