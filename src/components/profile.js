@@ -18,8 +18,8 @@ export default function Profile(props) {
 
     return (
         <div>
-            <div>
-                My profile:
+            <div className="admin-table">
+                My profile
             </div>
             <div>
                 Name: {name} {lname}

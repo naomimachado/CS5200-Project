@@ -83,11 +83,11 @@ export default function WatchList(props) {
         return (
             <div>
                 <div>
-                    My Watch list
+                    <div className="admin-table"> My Watch list</div>
                     {disp}
                 </div>
                 <div>
-                    Critics I follow:
+                    <div className="admin-table">Critics I follow</div>
                     {critics}
                 </div>
                 <div>
@@ -101,11 +101,11 @@ export default function WatchList(props) {
         return (
             <div>
                 <div>
-                My Watch list
+                    <div className="admin-table">My Watch list</div>
                 {disp}
                 </div>
                 <div>
-                    Critics I follow:
+                    <div className="admin-table">Critics I follow</div>
                     {critics}
                 </div>
                 <div>
@@ -114,7 +114,7 @@ export default function WatchList(props) {
                     </Link>
                 </div>
                 <div>
-                    My Selling Links
+                    <div className="admin-table">My Selling Links</div>
                     { sdisp }
                 </div>
             </div>
@@ -123,19 +123,24 @@ export default function WatchList(props) {
         return (
             <div>
                 <div>
-                    My Watch list
+                    <div className="admin-table">My Watch list</div>
                     {disp}
                 </div>
                 <div>
-                    My Reviews
+                    <div className="admin-table">My Reviews</div>
                     {rdisp}
                 </div>
                 <div>
-                    Critics I follow:
+                    <div className="admin-table">Critics I follow</div>
                     {critics}
+                    <div>
+                        <Link to={"/criticList"}>
+                            <Button onClick={getCritics}> View all critics</Button>
+                        </Link>
+                    </div>
                 </div>
                 <div>
-                    Users who follow me:
+                    <div className="admin-table">Users who follow me</div>
                     { users }
                 </div>
             </div>
@@ -160,9 +165,9 @@ function Critic(props) {
     }
 
     return <div>
-        Name: {props.c.firstName}
+        {props.c.firstName} &nbsp;
         <Link to={"/profile"}>
-            <Button onClick={unfollow}>Unfollow</Button>
+            <Button onClick={unfollow} className="btn btn-danger">Unfollow</Button>
         </Link>
     </div>;
 }
@@ -212,21 +217,21 @@ function Result(props){
     return <Card>
         <CardBody>
             <div>
-                Title:{props.watchlist.movie.title}
+                Title:{props.watchlist.movie.title} &nbsp;
                 <Link to={"/profile/list/"+ props.watchlist.movie.imdbid}>
                     <Button onClick={details} className="btn btn-info">Details</Button>
-                </Link>
+                </Link> &nbsp;
                 <Link to={"/reviews/"+ props.watchlist.movie.imdbid}>
                     <Button onClick={reviews} className="btn btn-info">Reviews</Button>
-                </Link>
-                <Button className="btn btn-primary" onClick={toggleWatched}>{val}</Button>
+                </Link> &nbsp;
+                <Button className="btn btn-primary" onClick={toggleWatched}>{val}</Button> &nbsp;
                 <Link to={"/buyingOptions"}>
                     <Button className="btn btn-primary" onClick={getBuyingLinks}>Buy</Button>
-                </Link>
-                <Button onClick={removeFromWatchlist} className="btn btn-danger"> Remove </Button>
+                </Link> &nbsp;
                 <Link to={"/recommendations"}>
-                    <Button onClick={recommendations} className="btn btn-danger"> Get Recommendations </Button>
-                </Link>
+                    <Button onClick={recommendations} className="btn btn-basic"> Get Recommendations </Button>
+                </Link> &nbsp;
+                <Button onClick={removeFromWatchlist} className="btn btn-danger"> Remove </Button>
             </div>
         </CardBody>
     </Card>;
@@ -255,16 +260,16 @@ function Result1(props){
     return <Card>
         <CardBody>
             <div>
-                Title:{props.sellerlist.movie.title}
+                Title:{props.sellerlist.movie.title} &nbsp;
                 <Link to={"/profile/list/"+ props.sellerlist.movie.imdbid}>
                     <Button onClick={details} className="btn btn-info">Details</Button>
-                </Link>
+                </Link> &nbsp;
                 <Link to={"/viewLink/"+ props.sellerlist.id}>
                     <Button onClick={editLink} className="btn btn-info">View Link</Button>
-                </Link>
+                </Link> &nbsp;
                 <Link to={"/link/"+ props.sellerlist.id}>
-                    <Button onClick={editLink} className="btn btn-info">Edit Link</Button>
-                </Link>
+                    <Button onClick={editLink} className="btn btn-primary">Edit Link</Button>
+                </Link> &nbsp;
                 <Button onClick={removeFromSellerlist} className="btn btn-danger"> Delete Link </Button>
             </div>
         </CardBody>
@@ -299,16 +304,16 @@ function Result2(props){
     return <Card>
         <CardBody>
             <div>
-                Title:{props.reviewlist.movie.title}
+                Title:{props.reviewlist.movie.title} &nbsp;
                 <Link to={"/profile/list/"+ props.reviewlist.movie.imdbid}>
                     <Button onClick={details} className="btn btn-info">Details</Button>
-                </Link>
+                </Link> &nbsp;
                 <Link to={"/viewReview"}>
                     <Button onClick={view} className="btn btn-info">View Review</Button>
-                </Link>
+                </Link> &nbsp;
                 <Link to={"/editReview"}>
-                    <Button onClick={view} className="btn btn-info">Edit Review</Button>
-                </Link>
+                    <Button onClick={view} className="btn btn-primary">Edit Review</Button>
+                </Link> &nbsp;
                 <Button onClick={deleteFromReviews} className="btn btn-danger"> Delete Review</Button>
             </div>
         </CardBody>

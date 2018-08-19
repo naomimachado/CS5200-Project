@@ -8,6 +8,10 @@ export default function Admin(props) {
 
     console.log("admin props", props);
 
+    function clear(){
+        props.props.dispatch({type:'CLEAR_REGISTER_FORM'});
+    }
+
     let person = props.props.person_list;
 
     let disp_person = _.map(person, (kk, i) => <Person person={kk} key={i} token={props.props.token}/>);
@@ -27,31 +31,39 @@ export default function Admin(props) {
     return <div>
         <div>
             <Link to={"/system/createUser"}>
-                <Button className="btn btn-primary">Create New User</Button>
+                <Button className="btn btn-primary" onClick={clear}>Create New User</Button>
             </Link>
         </div>
         <div>
             <div className="admin-table"> List of users </div>
             <table>
+                <tbody>
             {disp_person}
+                </tbody>
             </table>
         </div>
         <div>
             <div className="admin-table"> List of Movies </div>
             <table>
+                <tbody>
             {disp_movie}
+                </tbody>
             </table>
         </div>
         <div>
             <div className="admin-table"> List of Links </div>
             <table>
+            <tbody>
             {disp_link}
+            </tbody>
             </table>
         </div>
         <div>
             <div className="admin-table"> List of Reviews </div>
             <table>
+            <tbody>
             {disp_review}
+            </tbody>
             </table>
         </div>
     </div>;

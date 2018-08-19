@@ -70,12 +70,12 @@ export default function List(props) {
         if (typeof found === "undefined") {
             console.log("not found");
             button = <Link to={"/profile"}>
-                <Button onClick={follow}>Follow</Button>
+                <Button onClick={follow} className="btn btn-primary">Follow</Button>
             </Link>;
         } else {
             console.log("found");
             button = <Link to={"/profile"}>
-                <Button onClick={unfollow}>Unfollow</Button>
+                <Button onClick={unfollow} className="btn btn-danger">Unfollow</Button>
             </Link>;
         }
 
@@ -103,12 +103,12 @@ export default function List(props) {
     if(typeof found === "undefined" ){
         console.log("not found");
         button = <Link to={"/profile"}>
-            <Button onClick={follow1}>Follow</Button>
+            <Button onClick={follow1} className="btn btn-primary">Follow</Button>
         </Link>;
     } else {
         console.log("found");
         button = <Link to={"/profile"}>
-            <Button onClick={unfollow1}>Unfollow</Button>
+            <Button onClick={unfollow1} className="btn btn-danger">Unfollow</Button>
         </Link>;
     }
 

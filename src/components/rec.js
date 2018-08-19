@@ -31,14 +31,14 @@ function Results(props) {
         return <div>
             Title: {props.d.original_title}
             <Link to={"/profile/recommendations/" + props.d.id}>
-                <Button onClick={getDetails}>Get Details</Button>
+                <Button onClick={getDetails} className="btn btn-info">Get Details</Button>
             </Link>
         </div>;
     } else {
         return <div>
             Title: {props.d.original_name}
             <Link to={"/profile/recommendations/" + props.d.id}>
-                <Button onClick={getDetails1}>Get Details</Button>
+                <Button onClick={getDetails1} className="btn btn-info">Get Details</Button>
             </Link>
         </div>;
     }
