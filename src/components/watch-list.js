@@ -66,6 +66,11 @@ export default function WatchList(props) {
                     {critics}
                 </div>
                 <div>
+                    <Link to={"/criticList"}>
+                        <Button onClick={getCritics}> View all critics</Button>
+                    </Link>
+                </div>
+                <div>
                     My Selling Links
                     { sdisp }
                 </div>

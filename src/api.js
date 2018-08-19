@@ -222,6 +222,7 @@ class TheServer{
                 cookies.remove('obj');
                 //cookies.remove('search');
                 //cookies.remove('page')
+                localStorage.removeItem('reduxState');
                 store.dispatch({
                     type: 'RESET_TOKEN',
                     data: null
@@ -1116,6 +1117,9 @@ class TheServer{
                 this.get_link_list();
                 store.dispatch({
                     type: 'CLEAR_BUY_FORM',
+                })
+                store.dispatch({
+                    type: 'CLEAR_REGISTER_FORM',
                 })
                 //console.log("login calling");
                 // this.logout();
