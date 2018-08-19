@@ -93,7 +93,6 @@ let Session = connect(({token}) => {return {token};})((props) => {
     if(props.token.obj === "Admin"){
         return<div className="navbar">
             <p className="nav-item">Welcome {props.token.firstName}!</p>
-            <p className="nav-item"><Link to={"/system"} exact="true" onClick={getList}>System Administration</Link></p>
             <Link to={"/"}><Button onClick={logout} className="btn btn-danger">Logout</Button></Link>
         </div>;
     } else {

@@ -49,7 +49,14 @@ function SearchTab(params) {
     }
 
     function reload() {
-        window.location.reload();
+        //window.location.reload();
+    }
+
+    function getList(){
+        api.get_person_list();
+        api.get_movie_list();
+        api.get_link_list();
+        api.get_review_list();
     }
 
     console.log("serach tab params", params);
@@ -57,7 +64,9 @@ function SearchTab(params) {
     if(params.params.token){
 
         if(params.params.token.obj === "Admin"){
-            return <div>admin!!</div>;
+            return <div>
+                <Link to={"/system"} exact="true" onClick={getList}>System Administration</Link>
+            </div>;
         } else {
             return <div style={{padding: "4ex"}}>
                 <h2>Search Tab</h2>
