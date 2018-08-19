@@ -203,7 +203,13 @@ class TheServer{
                     // store.dispatch({
                     //     type: 'CLEAR_REGISTER_FORM',
                     // })
-                    store.dispatch({type: 'ERROR', msg: 'Invalid Login! Please try again'});
+                    //store.dispatch({type: 'ERROR', msg: 'Invalid Login! Please try again'});
+                    swal({
+                        title: "Invalid Login",
+                        text: "Please enter correct Email and Password combination!",
+                        icon: "error",
+                        button: "OK",
+                    });
                 },
             });
     }
@@ -226,6 +232,9 @@ class TheServer{
                 store.dispatch({
                     type: 'RESET_TOKEN',
                     data: null
+                })
+                store.dispatch({
+                    type: 'CLEAR_SEARCH_TAB'
                 })
                 //window.location.reload();
             },
@@ -1074,7 +1083,7 @@ class TheServer{
                 console.log("login calling");
                 swal({
                     title: "Edit Successful!",
-                    text: "Login again!",
+                    text: "Please Login again!",
                     icon: "success",
                     button: "Okay",
                     dangerMode: false,

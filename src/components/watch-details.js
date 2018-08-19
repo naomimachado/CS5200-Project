@@ -3,6 +3,7 @@ import Individual from "./individual-details";
 import {Link} from 'react-router-dom';
 import {Button} from "reactstrap";
 import api from "../api";
+import swal from "sweetalert";
 
 export default function WatchDetails(params) {
     console.log("details", params.params.details);
@@ -10,7 +11,13 @@ export default function WatchDetails(params) {
 
     function add() {
         if(params.params.token == null){
-            params.params.dispatch({type: 'ERROR', msg: 'Please login'});
+            //params.params.dispatch({type: 'ERROR', msg: 'Please login'});
+            swal({
+                title: "Login Required",
+                text: "Please login to use the services!",
+                icon: "error",
+                button: "OK",
+            });
         } else {
             //alert("make api call");
             let id = params.params.token.id;

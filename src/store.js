@@ -59,6 +59,8 @@ function details(state=initial_details, action) {
     switch (action.type) {
         case 'DETAILS':
             return action.data;
+        case 'CLEAR_DETAILS':
+            return initial_details;
         default:
             return state;
     }

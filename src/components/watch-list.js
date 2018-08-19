@@ -10,6 +10,7 @@ import {Button} from "reactstrap";
 export default function WatchList(props) {
     console.log(props.props.watchlist);
     let list = props.props.watchlist;
+
     let slist = props.props.seller_list;
     let rlist = props.props.critic_review;
     let follows = props.props.user_follows;
@@ -22,15 +23,57 @@ export default function WatchList(props) {
         obj1 = props.props.token.obj;
     }
 
-    let disp = _.map(list, (ll, i) => <Result key={i} watchlist={ll}/>);
-    let sdisp = _.map(slist, (kk, i) => <Result1 key={i} sellerlist={kk}/>);
-    let rdisp =  _.map(rlist, (ss, i) => <Result2 key={i} reviewlist={ss}/>);
+    let disp;
 
-    let critics = _.map(follows, (rr, i) => <Critic key={i} c={rr}  token={props.props.token}/>);
+    if(list.length === 0){
+        disp = <Card>
+            <CardBody> Your WatchList is empty!</CardBody>
+        </Card>;
+    } else {
+        disp = _.map(list, (ll, i) => <Result key={i} watchlist={ll}/>);
+    }
+
+    let sdisp;
+
+    if(slist.length === 0){
+        sdisp = <Card>
+            <CardBody> You have not uploaded any selling links!</CardBody>
+        </Card>;
+    } else {
+        sdisp = _.map(slist, (kk, i) => <Result1 key={i} sellerlist={kk}/>);
+    }
+
+    let rdisp;
+
+    if(rlist.length === 0){
+        rdisp = <Card>
+            <CardBody> You have not uploaded any reviews!</CardBody>
+        </Card>;
+    } else {
+        rdisp = _.map(rlist, (ss, i) => <Result2 key={i} reviewlist={ss}/>);
+    }
+
+    let critics;
+
+    if(follows.length === 0){
+        critics = <Card>
+            <CardBody> You don't follow anyone!</CardBody>
+        </Card>;
+    } else {
+        critics = _.map(follows, (rr, i) => <Critic key={i} c={rr}  token={props.props.token}/>);
+    }
 
     let followers = props.props.critic_followers;
 
-    let users= _.map(followers, (yy, i) => <Users key={i} u={yy}/>);
+    let users;
+
+    if(followers.length === 0){
+        users = <Card>
+            <CardBody> You have no followers yet!</CardBody>
+        </Card>;
+    } else {
+        users = _.map(followers, (yy, i) => <Users key={i} u={yy}/>);
+    }
 
     function getCritics() {
         api.get_critics();
