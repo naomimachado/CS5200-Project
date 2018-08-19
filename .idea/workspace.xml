@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="34d3e970-4504-42ec-bb85-ecd639033a56" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-    </list>
+    <list default="true" id="34d3e970-4504-42ec-bb85-ecd639033a56" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -34,12 +31,12 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="js" value="25057" />
-          <entry key="json" value="1" />
+          <entry key="json" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JSON" value="1" />
+          <entry key="JSON" value="4" />
           <entry key="JavaScript" value="25057" />
         </counts>
       </usages-collector>
@@ -47,13 +44,13 @@
         <counts>
           <entry key="css" value="1" />
           <entry key="js" value="206" />
-          <entry key="json" value="4" />
+          <entry key="json" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CSS" value="1" />
-          <entry key="JSON" value="4" />
+          <entry key="JSON" value="5" />
           <entry key="JavaScript" value="206" />
         </counts>
       </usages-collector>
@@ -102,7 +99,7 @@
         <entry file="file://$PROJECT_DIR$/package-lock.json">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="162">
-              <caret line="9926" column="27" selection-start-line="9926" selection-start-column="27" selection-end-line="9926" selection-end-column="27" />
+              <caret line="9527" column="18" selection-start-line="9527" selection-start-column="9" selection-end-line="9527" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -136,7 +133,7 @@
         <entry file="file://$PROJECT_DIR$/src/components/registration-form.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-896">
-              <caret line="16" column="26" lean-forward="true" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="26" />
+              <caret line="16" column="26" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="26" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
                 <element signature="e#84#132#0" expanded="true" />
@@ -273,7 +270,7 @@
       <path value="$PROJECT_DIR$/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="795" />
     <option name="y" value="30" />
     <option name="width" value="1200" />
@@ -389,7 +386,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="195644000" />
+    <option name="totallyTimeSpent" value="195995000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
@@ -498,6 +495,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="308">
           <caret line="37" column="54" selection-start-line="37" selection-start-column="54" selection-end-line="37" selection-end-column="54" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -505,6 +505,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="478">
           <caret line="40" column="10" selection-start-line="40" selection-start-column="10" selection-end-line="40" selection-end-column="10" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -519,6 +522,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="359">
           <caret line="37" column="18" lean-forward="true" selection-start-line="28" selection-start-column="12" selection-end-line="37" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -533,6 +539,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="376">
           <caret line="29" column="14" lean-forward="true" selection-start-line="20" selection-start-column="8" selection-end-line="29" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -540,6 +549,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="10" column="46" selection-start-line="10" selection-start-column="46" selection-end-line="10" selection-end-column="46" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -547,6 +559,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="243">
           <caret line="92" column="5" lean-forward="true" selection-start-line="84" selection-start-column="4" selection-end-line="92" selection-end-column="5" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -554,6 +569,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="308">
           <caret line="42" column="36" selection-start-line="42" selection-start-column="36" selection-end-line="42" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -592,6 +610,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
           <caret line="39" column="47" selection-start-line="39" selection-start-column="47" selection-end-line="39" selection-end-column="47" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -640,16 +661,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/critic-profile.js" />
-    <entry file="file://$PROJECT_DIR$/src/store.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="274">
-          <caret line="348" column="116" selection-start-line="348" selection-start-column="116" selection-end-line="348" selection-end-column="116" />
-          <folding>
-            <element signature="e#0#53#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/home.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="70">
@@ -683,7 +694,7 @@
     <entry file="file://$PROJECT_DIR$/src/components/registration-form.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-896">
-          <caret line="16" column="26" lean-forward="true" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="26" />
+          <caret line="16" column="26" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="26" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
             <element signature="e#84#132#0" expanded="true" />
@@ -742,10 +753,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/store.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="348" column="116" selection-start-line="348" selection-start-column="116" selection-end-line="348" selection-end-column="116" />
+          <folding>
+            <element signature="e#0#53#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/package-lock.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
-          <caret line="9926" column="27" selection-start-line="9926" selection-start-column="27" selection-end-line="9926" selection-end-column="27" />
+          <caret line="9527" column="18" selection-start-line="9527" selection-start-column="9" selection-end-line="9527" selection-end-column="18" />
         </state>
       </provider>
     </entry>
