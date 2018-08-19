@@ -5,17 +5,28 @@ export default function Profile(props) {
 
     let token = props.props.token;
     let name;
+    let lname="";
+    let email="";
     let cookie = new Cookies();
     if(token==null){
         name = cookie.get('name');
     } else {
         name = token.firstName;
+        lname = token.lastName;
+        email = token.email;
     }
 
     return (
         <div>
-            My profile:
-            Name: {name}
+            <div>
+                My profile:
+            </div>
+            <div>
+                Name: {name} {lname}
+            </div>
+            <div>
+                Email: {email}
+            </div>
         </div>
     );
 }

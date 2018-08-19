@@ -8,6 +8,7 @@ import _ from 'underscore';
 
 import api from '../api';
 import Cookies from "universal-cookie";
+import swal from "sweetalert";
 
 export default function ShowResults(params){
 
@@ -52,11 +53,21 @@ export default function ShowResults(params){
 
     let res = _.map(arr, (nn, i) => <Result key={i} result={nn} />);
 
-    if(fir) {
+    if(fir.results === "") {
+        return <div className="col">
+            {res}
+        </div>;
+    } else {
         if (fir.Response === "False") {
-            //params.params.dispatch({type: 'CLEAR_SEARCH_TAB'});
-            //params.params.dispatch({type: 'CLEAR_RESULTS'});
-            params.params.dispatch({type: 'ERROR', msg: 'No movie found!'});
+            params.params.dispatch({type: 'CLEAR_SEARCH_TAB'});
+            params.params.dispatch({type: 'CLEAR_RESULTS'});
+            //params.params.dispatch({type: 'ERROR', msg: 'No movie found!'});
+            swal({
+                title: "No sugestions found",
+                text: "Please enter a different keyword to search!",
+                icon: "warning",
+                button: "OK",
+            });
             return <div>
                 <p>No results found, try a different search keyword!</p>
             </div>;
@@ -68,12 +79,6 @@ export default function ShowResults(params){
                 <Button onClick={next_ten}>Next &raquo;</Button>
             </div>;
         }
-    } else {
-        return <div className="col">
-            {res}
-            <Button onClick={prev_ten}>&laquo; Previous</Button>
-            <Button onClick={next_ten}>Next &raquo;</Button>
-        </div>;
     }
 }
 
