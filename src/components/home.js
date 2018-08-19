@@ -31,6 +31,7 @@ import AdminReview from "./admin-review";
 import RecDetails from './details-rec';
 import CriticList from './critic-list';
 import store from "../store";
+import AdminRegistrationForm from './admin-registration';
 
 
 let Page = connect((state) => state)((props) => {
@@ -235,7 +236,7 @@ let Page = connect((state) => state)((props) => {
                             <div>
                                 <Nav/>
                                 <div className="errors">{props.errors}</div>
-                                <RegistrationForm props={props}/>
+                                <AdminRegistrationForm params={props}/>
                             </div>
                     } />
                     <Route path="/system/link" exact={true} render={

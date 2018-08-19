@@ -19,6 +19,7 @@ function Show(props) {
 
     function getReviews() {
         api.get_critic_reviews(props.c.id);
+        api.get_critic_object(props.c.id);
     }
 
     return <div>

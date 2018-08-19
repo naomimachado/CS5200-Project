@@ -62,6 +62,10 @@ export default function WatchList(props) {
                 {disp}
                 </div>
                 <div>
+                    Critics I follow:
+                    {critics}
+                </div>
+                <div>
                     My Selling Links
                     { sdisp }
                 </div>
@@ -77,6 +81,10 @@ export default function WatchList(props) {
                 <div>
                     My Reviews
                     {rdisp}
+                </div>
+                <div>
+                    Critics I follow:
+                    {critics}
                 </div>
                 <div>
                     Users who follow me:
@@ -97,7 +105,10 @@ function Critic(props) {
     console.log("inside critic props", props);
     function unfollow() {
         console.log("unfollow");
-        api.unfollow(props.token.id, props.c.id);
+        api.unfollow(props.token.id, props.c.id, props.token.obj);
+        if(props.token.obj === "Critic") {
+            api.get_followers_critic(props.token.id);
+        }
     }
 
     return <div>

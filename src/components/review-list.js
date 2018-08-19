@@ -13,30 +13,61 @@ export default function List(props) {
 
     let rlist = props.props.critic_review;
 
+    let crtiticlist = props.props.critics;
+    //let fc;
+
     let first;
 
     function follow() {
         console.log(first.critic.id);
-        api.follow(props.props.token.id,first.critic.id);
+        api.follow(props.props.token.id,first.critic.id, props.props.token.obj);
+        if(props.props.token.obj === "Critic"){
+            api.get_followers_critic(props.props.token.id);
+            api.get_user_follows_critic(props.props.token.id);
+        }
     }
 
     function unfollow() {
         console.log("unfollow");
-        api.unfollow(props.props.token.id,first.critic.id);
+        api.unfollow(props.props.token.id,first.critic.id, props.props.token.obj);
+        if(props.props.token.obj === "Critic"){
+            api.get_followers_critic(props.props.token.id);
+            api.get_user_follows_critic(props.props.token.id);
+        }
+    }
+
+    function follow1() {
+        console.log(first.id);
+        api.follow(props.props.token.id,first.id, props.props.token.obj);
+        if(props.props.token.obj === "Critic"){
+            api.get_followers_critic(props.props.token.id);
+            api.get_user_follows_critic(props.props.token.id);
+        }
+    }
+
+    function unfollow1() {
+        console.log("unfollow");
+        api.unfollow(props.props.token.id,first.id, props.props.token.obj);
+        if(props.props.token.obj === "Critic"){
+            api.get_followers_critic(props.props.token.id);
+            api.get_user_follows_critic(props.props.token.id);
+        }
     }
 
 
-    if(rlist){
-        first=_.first(rlist);
-        let rdisp =  _.map(rlist, (ss, i) => <Result2 key={i} reviewlist={ss}/>);
+    if(rlist.length > 0) {
+        first = _.first(rlist);
+        let rdisp = _.map(rlist, (ss, i) => <Result2 key={i} reviewlist={ss}/>);
         console.log("first review", first);
 
         let followList = props.props.user_follows;
         let button;
 
-        let found = _.find(followList, function (o) {return o.id === first.critic.id});
+        let found = _.find(followList, function (o) {
+            return o.id === first.critic.id
+        });
 
-        if(typeof found === "undefined" ){
+        if (typeof found === "undefined") {
             console.log("not found");
             button = <Link to={"/profile"}>
                 <Button onClick={follow}>Follow</Button>
@@ -48,16 +79,58 @@ export default function List(props) {
             </Link>;
         }
 
+        if (first.critic) {
+            return <div>
+                <h5>{first.critic.firstName}'s Reviews</h5>
+                {button}
+                {rdisp}
+            </div>;
+        } else {
+            return <div>
+                loading
+            </div>;
+        }
+    } else if(rlist.length === 0) {
+    first = props.props.critic_object;
+    let rdisp =  _.map(rlist, (ss, i) => <Result2 key={i} reviewlist={ss}/>);
+    console.log("first review", first);
+
+    let followList = props.props.user_follows;
+    let button;
+
+    let found = _.find(followList, function (o) {return o.id === first.id});
+
+    if(typeof found === "undefined" ){
+        console.log("not found");
+        button = <Link to={"/profile"}>
+            <Button onClick={follow1}>Follow</Button>
+        </Link>;
+    } else {
+        console.log("found");
+        button = <Link to={"/profile"}>
+            <Button onClick={unfollow1}>Unfollow</Button>
+        </Link>;
+    }
+
+    if(first) {
         return <div>
-            <h5>{first.critic.firstName}'s Reviews</h5>
-            { button }
+            <h5>{first.firstName}'s Reviews</h5>
+            {button}
             {rdisp}
         </div>;
     } else {
         return <div>
-           loading
+            loading
         </div>;
     }
+    } else {
+
+        return <div>
+            No reviews found
+        </div>;
+    }
+
+
 
 }
 
