@@ -4,6 +4,7 @@ import { Button, FormGroup, Label, Input } from 'reactstrap';
 import { connect } from 'react-redux';
 import {Link} from "react-router-dom";
 import api from '../api';
+import swal from "sweetalert";
 
 function EditLinkForm(params) {
 
@@ -23,9 +24,11 @@ function EditLinkForm(params) {
 
     function edit() {
         if(params.params.link.link===""){
-            params.dispatch({type: 'ERROR', msg: 'Please enter valid link'});
+            //params.dispatch({type: 'ERROR', msg: 'Please enter valid link'});
+            swal("All fields are mandatory", "Please try again", "warning");
         } else if(!isUrl(params.params.link.link)){
-            params.dispatch({type: 'ERROR', msg: 'Please enter valid link'});
+            //params.dispatch({type: 'ERROR', msg: 'Please enter valid link'});
+            swal("Invalid Link", "Please try again", "warning");
         } else {
             console.log("link", params.params.link.link);
             //api.add_link(params.params.token.id,params.params.details.imdbID,params.params.link.data);
@@ -37,9 +40,11 @@ function EditLinkForm(params) {
 
     function adminEdit() {
         if(params.params.link.link===""){
-            params.dispatch({type: 'ERROR', msg: 'Please enter valid link'});
+            //params.dispatch({type: 'ERROR', msg: 'Please enter valid link'});
+            swal("All fields are mandatory", "Please try again", "warning");
         } else if(!isUrl(params.params.link.link)){
-            params.dispatch({type: 'ERROR', msg: 'Please enter valid link'});
+            //params.dispatch({type: 'ERROR', msg: 'Please enter valid link'});
+            swal("Invalid Link", "Please try again", "warning");
         } else {
             console.log("link", params.params.link.link);
             //api.add_link(params.params.token.id,params.params.details.imdbID,params.params.link.data);
@@ -107,10 +112,19 @@ function EditLinkForm(params) {
                         <Input type="hidden" name="title"/>
                         <span>{params.params.details.Title}</span>
                     </FormGroup>
+                    {/*<FormGroup>*/}
+                        {/*<Label for="link">Buying Link:</Label>*/}
+                        {/*<Input type="text" name="link" placeholder="link"*/}
+                               {/*value={params.link.link} onChange={update}/>*/}
+                    {/*</FormGroup>*/}
                     <FormGroup>
-                        <Label for="link">Buying Link:</Label>
-                        <Input type="text" name="link" placeholder="link"
-                               value={params.link.link} onChange={update}/>
+                        <div className="input-group">
+                            <div className="input-group-addon">
+                                <span className="glyphicon glyphicon-link"></span>
+                            </div>
+                            <Input type="text" id="link" name="link" placeholder="Link"
+                                   value={params.link.link} onChange={update}/>
+                        </div>
                     </FormGroup>
                     <Button onClick={edit} type="button" className="btn btn-primary">Edit</Button>
                 </FormGroup>
@@ -131,10 +145,19 @@ function EditLinkForm(params) {
                         <Input type="hidden" name="title"/>
                         <span>{params.params.details.Title}</span>
                     </FormGroup>
+                    {/*<FormGroup>*/}
+                        {/*<Label for="link">Buying Link:</Label>*/}
+                        {/*<Input type="text" name="link" placeholder="link"*/}
+                               {/*value={params.link.link} onChange={update}/>*/}
+                    {/*</FormGroup>*/}
                     <FormGroup>
-                        <Label for="link">Buying Link:</Label>
-                        <Input type="text" name="link" placeholder="link"
-                               value={params.link.link} onChange={update}/>
+                        <div className="input-group">
+                            <div className="input-group-addon">
+                                <span className="glyphicon glyphicon-link"></span>
+                            </div>
+                            <Input type="text" id="link" name="link" placeholder="Link"
+                                   value={params.link.link} onChange={update}/>
+                        </div>
                     </FormGroup>
                     {button}
                 </FormGroup>

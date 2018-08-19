@@ -220,7 +220,12 @@ function EditRegistrationForm(params) {
         return (
             <div className="editprofile-form">
                 <Form>
-                <label className="editprofile-label">Admin Edit</label>
+                    <label className="editprofile-label">Admin Edit</label>
+                    {/*<FormGroup>*/}
+                    {/*<Label for="firstName">First Name:</Label>*/}
+                    {/*<Input type="text" name="firstName" placeholder="First Name"*/}
+                    {/*value={params.register.firstName} onChange={update}/>*/}
+                    {/*</FormGroup>*/}
 
                     <FormGroup>
                         <div className="input-group">
@@ -231,6 +236,15 @@ function EditRegistrationForm(params) {
                                    value={params.register.firstName} onChange={update}/>
                         </div>
                     </FormGroup>
+
+
+                    {/*<FormGroup>*/}
+                    {/*<Label for="lastName">Last Name:</Label>*/}
+                    {/*<Input type="text" name="lastName" placeholder="Last Name"*/}
+                    {/*value={params.register.lastName} onChange={update}/>*/}
+                    {/*</FormGroup>*/}
+
+
                     <FormGroup>
                         <div className="input-group">
                             <div className="input-group-addon">
@@ -240,6 +254,14 @@ function EditRegistrationForm(params) {
                                    value={params.register.lastName} onChange={update}/>
                         </div>
                     </FormGroup>
+
+                    {/*<FormGroup>*/}
+                    {/*<Label for="email">Email:</Label>*/}
+                    {/*<Input type="email" name="email" placeholder="email"*/}
+                    {/*value={params.register.email} onChange={update}/>*/}
+                    {/*</FormGroup>*/}
+
+
                     <FormGroup>
                         <div className="input-group">
                             <div className="input-group-addon">
@@ -249,6 +271,13 @@ function EditRegistrationForm(params) {
                                    value={params.register.email} onChange={update}/>
                         </div>
                     </FormGroup>
+
+                    {/*<FormGroup>*/}
+                    {/*<Label for="password">Password: <i>[Min. length 8, 1 Uppercase, 1 Number]</i></Label>*/}
+                    {/*<Input type="password" name="password" placeholder="password"*/}
+                    {/*value={params.register.password} onChange={update}/>*/}
+                    {/*</FormGroup>*/}
+
                     <FormGroup>
                         <div className="input-group">
                             <div className="input-group-addon">
@@ -258,22 +287,85 @@ function EditRegistrationForm(params) {
                                    value={params.register.password} onChange={update}/>
                         </div>
                     </FormGroup>
+
+
+                    {/*<FormGroup>*/}
+                    {/*<Label for="retype_password">Re-Type Password:</Label>*/}
+                    {/*<Input type="password" name="retype_password" placeholder="retype password"*/}
+                    {/*value={params.register.retype_password} onChange={update}/>*/}
+                    {/*</FormGroup>*/}
+
+
                     <FormGroup>
                         <div className="input-group">
                             <div className="input-group-addon">
                                 <span className="glyphicon glyphicon-lock"></span>
                             </div>
-                            <Input type="password" id="retype_password" name="retype_password" placeholder="Confirm Password"
+                            <Input type="password" id="retype_password" name="retype_password"
+                                   placeholder="Confirm Password"
                                    value={params.register.retype_password} onChange={update}/>
                         </div>
                     </FormGroup>
-
                     {button1}
-
                 </Form>
             </div>);
     }
 }
+            {/*<div className="editprofile-form">*/}
+                {/*<Form>*/}
+                {/*<label className="editprofile-label">Admin Edit</label>*/}
+
+                    {/*<FormGroup>*/}
+                        {/*<div className="input-group">*/}
+                            {/*<div className="input-group-addon">*/}
+                                {/*<span className="glyphicon glyphicon-user"></span>*/}
+                            {/*</div>*/}
+                            {/*<Input type="text" id="firstName" name="firstName" placeholder="First Name"*/}
+                                   {/*value={params.register.firstName} onChange={update}/>*/}
+                        {/*</div>*/}
+                    {/*</FormGroup>*/}
+                    {/*<FormGroup>*/}
+                        {/*<div className="input-group">*/}
+                            {/*<div className="input-group-addon">*/}
+                                {/*<span className="glyphicon glyphicon-user"></span>*/}
+                            {/*</div>*/}
+                            {/*<Input type="text" id="lastName" name="lastName" placeholder="Last Name"*/}
+                                   {/*value={params.register.lastName} onChange={update}/>*/}
+                        {/*</div>*/}
+                    {/*</FormGroup>*/}
+                    {/*<FormGroup>*/}
+                        {/*<div className="input-group">*/}
+                            {/*<div className="input-group-addon">*/}
+                                {/*<span className="glyphicon glyphicon-envelope"></span>*/}
+                            {/*</div>*/}
+                            {/*<Input type="email" id="email" name="email" placeholder="Email"*/}
+                                   {/*value={params.register.email} onChange={update}/>*/}
+                        {/*</div>*/}
+                    {/*</FormGroup>*/}
+                    {/*<FormGroup>*/}
+                        {/*<div className="input-group">*/}
+                            {/*<div className="input-group-addon">*/}
+                                {/*<span className="glyphicon glyphicon-lock"></span>*/}
+                            {/*</div>*/}
+                            {/*<Input type="password" id="password" name="password" placeholder="Password"*/}
+                                   {/*value={params.register.password} onChange={update}/>*/}
+                        {/*</div>*/}
+                    {/*</FormGroup>*/}
+                    {/*<FormGroup>*/}
+                        {/*<div className="input-group">*/}
+                            {/*<div className="input-group-addon">*/}
+                                {/*<span className="glyphicon glyphicon-lock"></span>*/}
+                            {/*</div>*/}
+                            {/*<Input type="password" id="retype_password" name="retype_password" placeholder="Confirm Password"*/}
+                                   {/*value={params.register.retype_password} onChange={update}/>*/}
+                        {/*</div>*/}
+                    {/*</FormGroup>*/}
+
+                    {/*{button1}*/}
+
+                {/*</Form>*/}
+            {/*</div>);*/}
+
 
 function state2props(state) {
     console.log("rerender", state);

@@ -4,6 +4,7 @@ import { Button, FormGroup, Label, Input } from 'reactstrap';
 import { connect } from 'react-redux';
 import {Link} from "react-router-dom";
 import api from '../api';
+import swal from "sweetalert";
 
 function EditReviewForm(params) {
 
@@ -23,7 +24,8 @@ function EditReviewForm(params) {
 
     function edit() {
         if(params.params.review_form.description===""){
-            params.dispatch({type: 'ERROR', msg: 'Please enter some thoughts'});
+            //params.dispatch({type: 'ERROR', msg: 'Please enter some thoughts'});
+            swal("All fields are mandatory", "Please try again", "warning");
         } else {
             console.log("link", params.params.review_form.description);
             //api.add_link(params.params.token.id,params.params.details.imdbID,params.params.link.data);
@@ -36,7 +38,8 @@ function EditReviewForm(params) {
 
     function adminEdit(){
         if(params.params.review_form.description===""){
-            params.dispatch({type: 'ERROR', msg: 'Please enter some thoughts'});
+            //params.dispatch({type: 'ERROR', msg: 'Please enter some thoughts'});
+            swal("All fields are mandatory", "Please try again", "warning");
         } else {
             console.log("link", params.params.review_form.description);
             //api.add_link(params.params.token.id,params.params.details.imdbID,params.params.link.data);
@@ -84,23 +87,23 @@ function EditReviewForm(params) {
                 <h3>Edit Review</h3>
                 <FormGroup>
                     <FormGroup>
-                        <Label for="imdbid">IMDB ID:</Label>
+                        <Label for="imdbid">IMDB ID: </Label>
                         <Input type="hidden" name="imdbid"/>
                         <span>{params.params.details.imdbID}</span>
                     </FormGroup>
                     <FormGroup>
-                        <Label for="title">Title:</Label>
+                        <Label for="title">Title: </Label>
                         <Input type="hidden" name="title"/>
                         <span>{params.params.details.Title}</span>
                     </FormGroup>
                     <FormGroup>
-                        <Label for="title">Review Title:</Label>
+                        <Label for="title">Review Title</Label>
                         <Input type="text" name="title" placeholder="Title"
                                value={params.params.review_form.title} onChange={update}/>
                     </FormGroup>
                     <FormGroup>
-                        <Label for="description">Buying Link:</Label>
-                        <Input type="text" name="description" placeholder="My thoughts"
+                        <Label for="description">Buying Link</Label>
+                        <Input type="textarea" name="description" placeholder="My thoughts"
                                value={params.params.review_form.description} onChange={update}/>
                     </FormGroup>
                     <Button onClick={edit} type="button" className="btn btn-primary">Edit</Button>
@@ -113,23 +116,23 @@ function EditReviewForm(params) {
                 <h3>Edit Review</h3>
                 <FormGroup>
                     <FormGroup>
-                        <Label for="imdbid">IMDB ID:</Label>
+                        <Label for="imdbid">IMDB ID: </Label>
                         <Input type="hidden" name="imdbid"/>
                         <span>{params.params.details.imdbID}</span>
                     </FormGroup>
                     <FormGroup>
-                        <Label for="title">Title:</Label>
+                        <Label for="title">Title: </Label>
                         <Input type="hidden" name="title"/>
                         <span>{params.params.details.Title}</span>
                     </FormGroup>
                     <FormGroup>
-                        <Label for="title">Review Title:</Label>
+                        <Label for="title">Review Title</Label>
                         <Input type="text" name="title" placeholder="Title"
                                value={params.params.review_form.title} onChange={update}/>
                     </FormGroup>
                     <FormGroup>
-                        <Label for="description">Thoughts:</Label>
-                        <Input type="text" name="description" placeholder="My thoughts"
+                        <Label for="description">Thoughts</Label>
+                        <Input type="textarea" name="description" placeholder="My thoughts"
                                value={params.params.review_form.description} onChange={update}/>
                     </FormGroup>
                     {button}

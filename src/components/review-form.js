@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 
 import {Link} from "react-router-dom";
 import Cookies from "universal-cookie";
+import swal from "sweetalert";
 
 
 function ReviewForm(params) {
@@ -29,7 +30,8 @@ function ReviewForm(params) {
 
     function submit() {
         if(params.params.review_form.thoughts==="" || params.params.review_form.review_title===""){
-            params.dispatch({type: 'ERROR', msg: 'Please enter some thoughts!'});
+            //params.dispatch({type: 'ERROR', msg: 'Please enter some thoughts!'});
+            swal("All fields are mandatory", "Please try again", "warning");
         } else {
             console.log("thoughts", params.params.review_form.thoughts);
             //api.add_link(params.params.token.id,params.params.details.imdbID,params.params.link.data);
@@ -45,23 +47,23 @@ function ReviewForm(params) {
                 <div>A review for {params.params.details.Title}</div>
                 <FormGroup>
                     <FormGroup>
-                        <Label for="imdbid">IMDB ID:</Label>
+                        <Label for="imdbid">IMDB ID: </Label>
                         <Input type="hidden" name="imdbid" value={params.params.details.imdbID}/>
                         <span>{params.params.details.imdbID}</span>
                     </FormGroup>
                     <FormGroup>
-                        <Label for="title">Movie Title:</Label>
+                        <Label for="title">Movie Title: </Label>
                         <Input type="hidden" name="title" value={params.params.details.Title}/>
                         <span>{params.params.details.Title}</span>
                     </FormGroup>
                     <FormGroup>
-                        <Label for="review_title">Review Title:</Label>
+                        <Label for="review_title">Review Title</Label>
                         <Input type="text" name="review_title" placeholder="Title"
                                value={params.params.review_form.review_title} onChange={update}/>
                     </FormGroup>
                     <FormGroup>
-                        <Label for="thoughts">Thoughts:</Label>
-                        <Input type="text" name="thoughts" placeholder="My thoughts"
+                        <Label for="thoughts">Thoughts</Label>
+                        <Input type="textarea" name="thoughts" placeholder="My thoughts"
                                value={params.params.review_form.thoughts} onChange={update}/>
                     </FormGroup>
                     <Button onClick={submit} type="button" className="btn btn-primary">Submit</Button>
@@ -74,23 +76,23 @@ function ReviewForm(params) {
                 <div>A review for {params.params.details.Title}</div>
                 <FormGroup>
                     <FormGroup>
-                        <Label for="imdbid">IMDB ID:</Label>
+                        <Label for="imdbid">IMDB ID: </Label>
                         <Input type="hidden" name="imdbid" value={params.params.details.imdbID}/>
                         <span>{params.params.details.imdbID}</span>
                     </FormGroup>
                     <FormGroup>
-                        <Label for="title">Movie Title:</Label>
+                        <Label for="title">Movie Title: </Label>
                         <Input type="hidden" name="title" value={params.params.details.Title}/>
                         <span>{params.params.details.Title}</span>
                     </FormGroup>
                     <FormGroup>
-                        <Label for="review_title">Review Title:</Label>
+                        <Label for="review_title">Review Title</Label>
                         <Input type="text" name="review_title" placeholder="Title"
                                value={params.params.review_form.review_title} onChange={update}/>
                     </FormGroup>
                     <FormGroup>
-                        <Label for="thoughts">Thoughts:</Label>
-                        <Input type="text" name="thoughts" placeholder="My thoughts"
+                        <Label for="thoughts">Thoughts</Label>
+                        <Input type="textarea" name="thoughts" placeholder="My thoughts"
                                value={params.params.review_form.thoughts} onChange={update}/>
                     </FormGroup>
                     <Link to={"/profile"} exact={"true"}>

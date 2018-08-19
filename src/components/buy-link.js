@@ -4,6 +4,7 @@ import { Button, FormGroup, Label, Input } from 'reactstrap';
 import { connect } from 'react-redux';
 import {Link} from "react-router-dom";
 import api from '../api';
+import swal from "sweetalert";
 
 function AddBuyLink(params) {
 
@@ -23,9 +24,11 @@ function AddBuyLink(params) {
 
     function add_link() {
         if(params.params.link.data===""){
-            params.dispatch({type: 'ERROR', msg: 'Please enter valid link'});
+            //params.dispatch({type: 'ERROR', msg: 'Please enter valid link'});
+            swal("All fields are mandatory", "Please try again", "warning");
         } else if(!isUrl(params.params.link.data)){
-            params.dispatch({type: 'ERROR', msg: 'Please enter valid link'});
+            //params.dispatch({type: 'ERROR', msg: 'Please enter valid link'});
+            swal("Invalid Link", "Please try again", "warning");
         }
         else {
             console.log("link", params.params.link.data);
@@ -61,10 +64,19 @@ function AddBuyLink(params) {
                         <Input type="hidden" name="title" value={params.params.details.Title}/>
                         <span>{params.params.details.Title}</span>
                     </FormGroup>
+                    {/*<FormGroup>*/}
+                        {/*<Label for="data">Buying Link:</Label>*/}
+                        {/*<Input type="text" name="data" placeholder="link"*/}
+                               {/*value={params.link.data} onChange={update}/>*/}
+                    {/*</FormGroup>*/}
                     <FormGroup>
-                        <Label for="data">Buying Link:</Label>
-                        <Input type="text" name="data" placeholder="link"
-                               value={params.link.data} onChange={update}/>
+                        <div className="input-group">
+                            <div className="input-group-addon">
+                                <span className="glyphicon glyphicon-link"></span>
+                            </div>
+                            <Input type="text" id="data" name="data" placeholder="Link"
+                                   value={params.link.data} onChange={update}/>
+                        </div>
                     </FormGroup>
                         <Button onClick={add_link} type="button" className="btn btn-primary">Add</Button>
                 </FormGroup>
@@ -84,10 +96,19 @@ function AddBuyLink(params) {
                         <Input type="hidden" name="title" value={params.params.details.Title}/>
                         <span>{params.params.details.Title}</span>
                     </FormGroup>
+                    {/*<FormGroup>*/}
+                        {/*<Label for="data">Buying Link:</Label>*/}
+                        {/*<Input type="text" name="data" placeholder="link"*/}
+                               {/*value={params.link.data} onChange={update}/>*/}
+                    {/*</FormGroup>*/}
                     <FormGroup>
-                        <Label for="data">Buying Link:</Label>
-                        <Input type="text" name="data" placeholder="link"
-                               value={params.link.data} onChange={update}/>
+                        <div className="input-group">
+                            <div className="input-group-addon">
+                                <span className="glyphicon glyphicon-link"></span>
+                            </div>
+                            <Input type="text" id="data" name="data" placeholder="Link"
+                                   value={params.link.data} onChange={update}/>
+                        </div>
                     </FormGroup>
                     <Link to={"/profile"} exact={"true"}>
                         <Button onClick={add_link} type="button" className="btn btn-primary">Add</Button>
