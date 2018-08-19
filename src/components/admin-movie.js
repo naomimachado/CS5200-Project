@@ -6,7 +6,7 @@ import api from '../api';
 import Individual from './individual-details';
 
 export default function AdminMovie(props) {
-    console.log("props movies admin", props);
+    //console.log("props movies admin", props);
 
     function deleteMovie() {
         api.delete_movie(props.props.details.imdbID);

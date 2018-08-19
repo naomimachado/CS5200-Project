@@ -6,7 +6,7 @@ import api from '../api';
 import ViewLink from './view-link';
 
 export default function AdminLinks(props){
-    console.log("link props", props.props.link);
+    //console.log("link props", props.props.link);
     
     function deleteLink() {
         api.delete_link(props.props.link.id);

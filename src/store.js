@@ -345,13 +345,13 @@ function critic_object(state = empty_critic_object, action) {
 
 
 function root_reducer(state0, action) {
-    console.log("reducer", action);
+    //console.log("reducer", action);
     let reducer = combineReducers({search_tab, results, page, details, login, register, errors, token,
         watchlist, link, seller_list, review_form, links, movie_review, edit_link, critic_review, view_review,
         person_list, movie_list, link_list, review_list, rec, user_follows, critic_followers, critics, critic_object});
-    console.log("state0", state0);
+    //console.log("state0", state0);
     let state1 = reducer(state0, action);
-    console.log("state1", state1);
+    //console.log("state1", state1);
     return deepFreeze(state1);
 };
 

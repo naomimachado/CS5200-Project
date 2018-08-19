@@ -4,8 +4,8 @@ import $ from "jquery";
 import {connect} from "react-redux";
 import {Link} from 'react-router-dom';
 import api from '../api';
-import Cookies from 'universal-cookie';
-import store from "../store";
+//import Cookies from 'universal-cookie';
+//import store from "../store";
 import TitleNav from "./title-nav";
 import swal from "sweetalert";
 
@@ -17,12 +17,12 @@ let Login = connect(({login}) => {return {login};})((props) =>{
 
         let data = {};
         data[tgt.attr('name')] = tgt.val();
-        console.log("data",data);
+        //console.log("data",data);
         let action = {
             type: 'UPDATE_LOGIN_FORM',
             data: data,
         };
-        console.log(action);
+        //console.log(action);
         props.dispatch(action);
 
     }
@@ -91,7 +91,7 @@ let Login = connect(({login}) => {return {login};})((props) =>{
 let Session = connect(({token}) => {return {token};})((props) => {
 
     function logout(){
-        console.log("making logout call");
+        //console.log("making logout call");
         api.logout();
     }
 
@@ -117,7 +117,7 @@ let Session = connect(({token}) => {return {token};})((props) => {
     }
 
     function fillForm() {
-        console.log("id", props.token.id);
+        //console.log("id", props.token.id);
         api.find_user(props.token.id);
     }
 
@@ -152,8 +152,8 @@ let Session = connect(({token}) => {return {token};})((props) => {
 function Nav(props) {
 
     let session;
-    let cookie = new Cookies();
-    let token;
+    //let cookie = new Cookies();
+    //let token;
 
     if(props.token != null){
         session = <Session token={props.token}/>
@@ -182,7 +182,7 @@ function Nav(props) {
 }
 
 function state2props(state) {
-    console.log("rerender", state);
+    //console.log("rerender", state);
     return { token: state.token };
 }
 

@@ -97,9 +97,19 @@ select.form-control:not([size]):not([multiple]) {
 table{
     font-family: Courier New, monospace;
     font-weight: bold;
+    width: 100%;
+    border-collapse: separate;
+}
+
+table td{
+    padding: 5px;
 }
 
 .nav-item{
     font-family: Courier New, monospace;
     color: white !important;
+}
+
+.color{
+    color: crimson !important;
 }

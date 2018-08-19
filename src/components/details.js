@@ -7,7 +7,7 @@ import Cookies from "universal-cookie";
 import Individual from "./individual-details";
 
 export default function Details(params) {
-    console.log("details", params.params.details);
+    //console.log("details", params.params.details);
     let props;
     let cookie = new Cookies();
     //let imdb = cookie.get('imdb');

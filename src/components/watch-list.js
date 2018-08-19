@@ -8,7 +8,7 @@ import {Link} from "react-router-dom";
 import {Button} from "reactstrap";
 
 export default function WatchList(props) {
-    console.log(props.props.watchlist);
+    //console.log(props.props.watchlist);
     let list = props.props.watchlist;
 
     let slist = props.props.seller_list;
@@ -56,9 +56,9 @@ export default function WatchList(props) {
     let critics;
 
     if(follows.length === 0){
-        critics = <Card>
-            <CardBody> You don't follow anyone!</CardBody>
-        </Card>;
+        critics = <tr>
+            <td> You don't follow anyone!</td>
+        </tr>;
     } else {
         critics = _.map(follows, (rr, i) => <Critic key={i} c={rr}  token={props.props.token}/>);
     }
@@ -88,7 +88,11 @@ export default function WatchList(props) {
                 </div>
                 <div>
                     <div className="admin-table">Critics I follow</div>
-                    {critics}
+                    <table>
+                        <tbody>
+                        {critics}
+                        </tbody>
+                    </table>
                 </div>
                 <div>
                     <Link to={"/criticList"}>
@@ -106,7 +110,11 @@ export default function WatchList(props) {
                 </div>
                 <div>
                     <div className="admin-table">Critics I follow</div>
-                    {critics}
+                    <table>
+                        <tbody>
+                        {critics}
+                        </tbody>
+                    </table>
                 </div>
                 <div>
                     <Link to={"/criticList"}>
@@ -132,7 +140,11 @@ export default function WatchList(props) {
                 </div>
                 <div>
                     <div className="admin-table">Critics I follow</div>
-                    {critics}
+                    <table>
+                        <tbody>
+                        {critics}
+                        </tbody>
+                    </table>
                     <div>
                         <Link to={"/criticList"}>
                             <Button onClick={getCritics}> View all critics</Button>
@@ -155,21 +167,32 @@ function Users(props) {
 }
 
 function Critic(props) {
-    console.log("inside critic props", props);
+    //console.log("inside critic props", props);
     function unfollow() {
-        console.log("unfollow");
+        //console.log("unfollow");
         api.unfollow(props.token.id, props.c.id, props.token.obj);
         if(props.token.obj === "Critic") {
             api.get_followers_critic(props.token.id);
         }
     }
 
-    return <div>
-        {props.c.firstName} &nbsp;
+    function getReviews() {
+        api.get_critic_reviews(props.c.id);
+        api.get_critic_object(props.c.id);
+    }
+
+    return <tr>
+        <td>
+            <Link to={"/viewer/critic"} onClick={getReviews}>
+                {props.c.firstName}
+            </Link>
+        </td>
+        <td>
         <Link to={"/profile"}>
             <Button onClick={unfollow} className="btn btn-danger">Unfollow</Button>
         </Link>
-    </div>;
+        </td>
+    </tr>;
 }
 
 
@@ -213,7 +236,7 @@ function Result(props){
             val = "Not Watched";
         }
 
-    console.log("inside display",props);
+    //console.log("inside display",props);
     return <Card>
         <CardBody>
             <div>
@@ -256,7 +279,7 @@ function Result1(props){
 
     }
 
-    console.log("inside display",props);
+    //console.log("inside display",props);
     return <Card>
         <CardBody>
             <div>
@@ -300,7 +323,7 @@ function Result2(props){
         api.get_details(props.reviewlist.movie.imdbid);
     }
 
-    console.log("inside display",props);
+    //console.log("inside display",props);
     return <Card>
         <CardBody>
             <div>

@@ -13,12 +13,12 @@ function EditLinkForm(params) {
 
         let data = {};
         data[tgt.attr('name')] = tgt.val();
-        console.log("data",data);
+        //console.log("data",data);
         let action = {
             type: 'UPDATE_BUY_FORM',
             data: data,
         };
-        console.log("update action",action);
+        //console.log("update action",action);
         params.dispatch(action);
     }
 
@@ -30,7 +30,7 @@ function EditLinkForm(params) {
             //params.dispatch({type: 'ERROR', msg: 'Please enter valid link'});
             swal("Invalid Link", "Please try again", "warning");
         } else {
-            console.log("link", params.params.link.link);
+            //console.log("link", params.params.link.link);
             //api.add_link(params.params.token.id,params.params.details.imdbID,params.params.link.data);
             api.edit_link(params.params.token.id, params.params.link.id, params.params.link.link);
             api.get_watchlist(params.params.token.id);
@@ -46,7 +46,7 @@ function EditLinkForm(params) {
             //params.dispatch({type: 'ERROR', msg: 'Please enter valid link'});
             swal("Invalid Link", "Please try again", "warning");
         } else {
-            console.log("link", params.params.link.link);
+            //console.log("link", params.params.link.link);
             //api.add_link(params.params.token.id,params.params.details.imdbID,params.params.link.data);
             api.edit_link_by_admin(params.params.link.id, params.params.link.link);
 
@@ -81,7 +81,7 @@ function EditLinkForm(params) {
     // }
 
     function isUrl(s) {
-        var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+        var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?/
         return regexp.test(s);
     }
 
@@ -167,7 +167,7 @@ function EditLinkForm(params) {
 }
 
 function state2props(state) {
-    console.log("rerender", state);
+    //console.log("rerender", state);
     return { link: state.link };
 }
 

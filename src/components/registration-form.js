@@ -1,7 +1,7 @@
 import React from 'react';
 import $ from "jquery";
 import swal from 'sweetalert';
-import {Link, Redirect} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { connect } from 'react-redux';
@@ -16,25 +16,25 @@ function RegistrationForm(params) {
 
             let data = {};
             data[tgt.attr('name')] = tgt.val();
-            console.log("data",data);
+            //console.log("data",data);
             let action = {
             type: 'UPDATE_REGISTER_FORM',
             data: data,
             };
-            console.log("update action",action);
+            //console.log("update action",action);
             params.dispatch(action);
         }
 
     function ValidateEmail()
     {
         var re = /^(([^<>()[\]\\.,;:\s@]+(\.[^<>()[\]\\.,;:\s@]+)*)|(.+))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        console.log("validating email",re.test(params.register.email));
+        //console.log("validating email",re.test(params.register.email));
         return re.test(params.register.email);
     }
 
     function validatePassword() {
         var pass = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$");
-        console.log("validating password", params.register.password);
+        //console.log("validating password", params.register.password);
         return pass.test(params.register.password);
     }
 
@@ -54,7 +54,7 @@ function RegistrationForm(params) {
             } else  if(validatePassword() === false){
                 swal("Weak password", "Make sure the password has Minimum 8 characters which includes 1 Uppercase and 1 Number", "warning");
             } else {
-                console.log("sending register request");
+                //console.log("sending register request");
                 swal({
                     title: "Registration Successful!",
                     text: "",
@@ -66,41 +66,43 @@ function RegistrationForm(params) {
             }
         }
 
-        let button;
 
-    function validate() {
-        if(params.register.firstName === "" ||
-            params.register.lastName === "" ||
-            params.register.email === "" ||
-            params.register.password === "" ||
-            params.register.retype_password === ""){
-            swal("All fields are mandatory", "Please try again", "warning");
-        } else if(!(params.register.password === params.register.retype_password)){
-            swal("Passwords do not match", "Please try again", "warning");
-        } else if(ValidateEmail() === false){
-            swal("Invalid email address", "Please try again", "warning");
-        } else  if(validatePassword() === false) {
-            swal("Weak password", "Make sure the password has Minimum 8 characters which includes 1 Uppercase and 1 Number", "warning");
-        }
-    }
 
-    if(params.register.firstName === "" ||
-        params.register.lastName === "" ||
-        params.register.email === "" ||
-        params.register.password === "" ||
-        !(params.register.password === params.register.retype_password) ||
-        ValidateEmail() === false ||
-        validatePassword() === false){
-        console.log("error");
-        button = <Button onClick={validate} type="button" className="btn btn-primary">Edit</Button>;
-    } else {
-        console.log("sending edit request");
-        button =
-            <Link to={"/system"}>
-                <Button onClick={register} type="button" className="btn btn-primary">Edit</Button>
-            </Link>;
-        //api.edit_profile(params.params.token.id,params.register);
-    }
+    // function validate() {
+    //     if(params.register.firstName === "" ||
+    //         params.register.lastName === "" ||
+    //         params.register.email === "" ||
+    //         params.register.password === "" ||
+    //         params.register.retype_password === ""){
+    //         swal("All fields are mandatory", "Please try again", "warning");
+    //     } else if(!(params.register.password === params.register.retype_password)){
+    //         swal("Passwords do not match", "Please try again", "warning");
+    //     } else if(ValidateEmail() === false){
+    //         swal("Invalid email address", "Please try again", "warning");
+    //     } else  if(validatePassword() === false) {
+    //         swal("Weak password", "Make sure the password has Minimum 8 characters which includes 1 Uppercase and 1 Number", "warning");
+    //     }
+    // }
+
+    // let button;
+    //
+    // if(params.register.firstName === "" ||
+    //     params.register.lastName === "" ||
+    //     params.register.email === "" ||
+    //     params.register.password === "" ||
+    //     !(params.register.password === params.register.retype_password) ||
+    //     ValidateEmail() === false ||
+    //     validatePassword() === false){
+    //     //console.log("error");
+    //     button = <Button onClick={validate} type="button" className="btn btn-primary">Edit</Button>;
+    // } else {
+    //     //console.log("sending edit request");
+    //     button =
+    //         <Link to={"/system"}>
+    //             <Button onClick={register} type="button" className="btn btn-primary">Edit</Button>
+    //         </Link>;
+    //     //api.edit_profile(params.params.token.id,params.register);
+    // }
 
             if (params.params.token == null) {
                 return (
@@ -216,7 +218,7 @@ function RegistrationForm(params) {
 }
 
 function state2props(state) {
-    console.log("rerender", state);
+    //console.log("rerender", state);
     return { register: state.register };
 }
 

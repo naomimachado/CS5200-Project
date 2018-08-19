@@ -18,12 +18,12 @@ function SearchTab(params) {
 
         let data = {};
         data[tgt.attr('name')] = tgt.val();
-        console.log("data",data);
+        //console.log("data",data);
         let action = {
             type: 'UPDATE_SEARCH_TAB',
             data: data,
         };
-        console.log(action);
+        //console.log(action);
         params.dispatch(action);
 
     }
@@ -42,14 +42,14 @@ function SearchTab(params) {
             //cookies.set('search', params.search_tab.search);
             //cookies.set('page', 1);
             cookies.set('search', params.search_tab.search);
-            console.log("cookie set");
+            //console.log("cookie set");
             //let data = params.search_tab.search;
             //params.dispatch({type:'SET_SEARCH_TOKEN', data: data});
             api.search_request(params.search_tab.search, 1);
             //params.dispatch({type:'CLEAR_SEARCH_TAB'});
         } else {
             //let search = cookies.get('search');
-            console.log("should make api query to omdb");
+            //console.log("should make api query to omdb");
             //params.dispatch({type:'SET_SEARCH_TOKEN', data: search});
             api.search_request(params.search_token, 1);
             //console.log(params.search_tab);
@@ -80,7 +80,7 @@ function SearchTab(params) {
             </Button></Link>;
     }
 
-    console.log("serach tab params", params);
+    //console.log("serach tab params", params);
 
     if(params.params.token){
 
@@ -116,7 +116,7 @@ function SearchTab(params) {
 }
 
 function state2props(state) {
-    console.log("rerender", state);
+    //console.log("rerender", state);
     return { search_tab: state.search_tab };
 }
 

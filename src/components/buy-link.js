@@ -13,12 +13,12 @@ function AddBuyLink(params) {
 
         let data = {};
         data[tgt.attr('name')] = tgt.val();
-        console.log("data",data);
+        //("data",data);
         let action = {
             type: 'UPDATE_BUY_FORM',
             data: data,
         };
-        console.log("update action",action);
+        //console.log("update action",action);
         params.dispatch(action);
     }
 
@@ -31,13 +31,13 @@ function AddBuyLink(params) {
             swal("Invalid Link", "Please try again", "warning");
         }
         else {
-            console.log("link", params.params.link.data);
+            //console.log("link", params.params.link.data);
             api.add_link(params.params.token.id,params.params.details.imdbID,params.params.link.data);
         }
     }
 
     function isUrl(s) {
-        var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+        var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?/
         return regexp.test(s);
     }
 
@@ -120,7 +120,7 @@ function AddBuyLink(params) {
 }
 
 function state2props(state) {
-    console.log("rerender", state);
+    //console.log("rerender", state);
     return { link: state.link };
 }
 

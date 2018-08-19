@@ -5,9 +5,9 @@ import api from '../api';
 
 export default function ReviewDetails(props) {
 
-    console.log("movie reviews",props.props.movie_review);
+   // console.log("movie reviews",props.props.movie_review);
     let list = props.props.movie_review;
-    console.log("list of review", list);
+   // console.log("list of review", list);
     let show = _.map(list, (ll, i) => <Maps key={i} r={ll}/>);
 
     if(list.length === 0){
@@ -15,7 +15,10 @@ export default function ReviewDetails(props) {
             <div>
                 <Link to={"/profile"} exact="true">Back to Profile</Link>
                 <div>
-                    no reviews found for {props.props.details.Title}
+                    No reviews found for
+                </div>
+                <div>
+                    <b>{props.props.details.Title}</b>
                 </div>
             </div>
         )
@@ -24,7 +27,10 @@ export default function ReviewDetails(props) {
             <div>
                 <Link to={"/profile"} exact="true">Back to Profile</Link>
                 <div>
-                    reviews for {props.props.details.Title}
+                    Reviews for
+                </div>
+                <div>
+                    <b>{props.props.details.Title}</b>
                 </div>
                 { show }
             </div>
@@ -36,7 +42,7 @@ function Maps(props) {
     //console.log("critic object",props.r.critic.firstName);
     //console.log("critic object",props.r.movie.title);
     function getCritic(){
-        console.log("critic id", props.r.critic.id);
+        //console.log("critic id", props.r.critic.id);
         api.get_critic_reviews(props.r.critic.id);
         //api.get_user_follows_critic(props.props.token.id);
     }

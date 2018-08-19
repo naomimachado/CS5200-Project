@@ -6,7 +6,7 @@ import api from '../api';
 
 export default function Admin(props) {
 
-    console.log("admin props", props);
+    //console.log("admin props", props);
 
     function clear(){
         props.props.dispatch({type:'CLEAR_REGISTER_FORM'});
@@ -70,10 +70,10 @@ export default function Admin(props) {
 }
 
 function Person(props) {
-    console.log("person props", props);
+    //console.log("person props", props);
 
     function getPerson() {
-        console.log("person id", props.person.id);
+        //console.log("person id", props.person.id);
         api.find_user(props.person.id);
     }
 
@@ -92,7 +92,7 @@ function Person(props) {
 }
 
 function Movie(props) {
-    console.log("movie props", props);
+    //console.log("movie props", props);
 
     function getMovie() {
         api.get_details(props.movie.imdbid);
@@ -113,7 +113,7 @@ function Movie(props) {
 }
 
 function Links(props) {
-    console.log("link props", props);
+    //console.log("link props", props);
 
     function getLink() {
         api.get_link(props.link.id);
@@ -135,7 +135,7 @@ function Links(props) {
 }
 
 function Review(props) {
-    console.log("review props", props);
+    //console.log("review props", props);
 
     function getReview() {
         api.get_review(props.review.id);

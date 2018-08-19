@@ -11,18 +11,18 @@ import swal from "sweetalert";
 
 function ReviewForm(params) {
 
-    console.log("review forms params", params);
+    //console.log("review forms params", params);
     function update(ev) {
         let tgt = $(ev.target);
 
         let data = {};
         data[tgt.attr('name')] = tgt.val();
-        console.log("data",data);
+        //console.log("data",data);
         let action = {
             type: 'UPDATE_REVIEW_FORM',
             data: data,
         };
-        console.log("update action",action);
+        //console.log("update action",action);
         params.dispatch(action);
     }
 
@@ -33,7 +33,7 @@ function ReviewForm(params) {
             //params.dispatch({type: 'ERROR', msg: 'Please enter some thoughts!'});
             swal("All fields are mandatory", "Please try again", "warning");
         } else {
-            console.log("thoughts", params.params.review_form.thoughts);
+            //console.log("thoughts", params.params.review_form.thoughts);
             //api.add_link(params.params.token.id,params.params.details.imdbID,params.params.link.data);
             let id = cookie.get('id');
             api.add_review(id,params.params.details.imdbID,
@@ -105,7 +105,7 @@ function ReviewForm(params) {
 }
 
 function state2props(state) {
-    console.log("rerender", state);
+    //console.log("rerender", state);
     return { review_form: state.review_form };
 }
 

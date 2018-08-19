@@ -5,12 +5,13 @@ import {Link} from "react-router-dom";
 
 export default function ViewReview(params) {
 
-    console.log("view review params", params);
+    //console.log("view review params", params);
 
     if(params.params.details) {
         return (
             <div>
-                <Link to={"/profile/list"} exact="true">Back to Profile</Link>
+                <Link to={"/profile/list"} exact="true">Back to Profile</Link> |&nbsp;
+                <Link to={"/viewer/critic"} exact="true">Back to Review List</Link>
                 <h3>Review Details</h3>
                 <Card>
                     <CardBody>

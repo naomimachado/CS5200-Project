@@ -6,7 +6,7 @@ import api from "../api";
 import swal from "sweetalert";
 
 export default function WatchDetails(params) {
-    console.log("details", params.params.details);
+    //console.log("details", params.params.details);
     let props=params.params.details;
 
     function add() {
@@ -32,7 +32,8 @@ export default function WatchDetails(params) {
     if(params.params.token.obj === "Viewer"){
         return(
             <div>
-                <Link to={"/profile/list"} exact="true">Back to List</Link>
+                <Link to={"/profile/list"} exact="true">Back to Profile</Link> |&nbsp;
+                <Link to={"/criticList"} exact="true">Critic List</Link>
                 <Individual props={props}/>
                 <Link to={"/profile/list"} exact={"true"}><Button onClick={add}>Add to Watchlist</Button></Link>
             </div>
@@ -40,7 +41,8 @@ export default function WatchDetails(params) {
      } else if(params.params.token.obj === "Seller") {
         return(
             <div>
-                <Link to={"/profile/list"} exact="true">Back to List</Link>
+                <Link to={"/profile/list"} exact="true">Back to Profile</Link> |&nbsp;
+                <Link to={"/criticList"} exact="true">Critic List</Link>
                 <Individual props={props}/>
                 <Link to={"/profile/list"} exact={"true"}><Button onClick={add}>Add to Watchlist</Button></Link>
                 <Link to={"/addBuyingOptions"} exact={"true"}><Button>Add buying option for this movie</Button></Link>
@@ -49,7 +51,7 @@ export default function WatchDetails(params) {
     } else if(params.params.token.obj === "Critic") {
         return (
             <div>
-                <Link to={"/profile/list"} exact="true">Back to List</Link>
+                <Link to={"/profile/list"} exact="true">Back to Profile</Link>
                 <Individual props={props}/>
                 <Link to={"/profile/list"} exact={"true"}><Button onClick={add}>Add to Watchlist</Button></Link>
                 <Link to={"/review"} exact={"true"}><Button>Write a review!</Button></Link>

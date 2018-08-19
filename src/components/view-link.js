@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 
 export default function ViewLink(params) {
 
-    console.log("view params", params);
+    //console.log("view params", params);
 
     if(params.params.details) {
         return (

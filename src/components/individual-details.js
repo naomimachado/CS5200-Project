@@ -5,7 +5,7 @@ import {CardTitle} from "reactstrap";
 
 
 export default function Individual(props){
-    console.log("inside individual", props);
+    //console.log("inside individual", props);
 
 
     return(

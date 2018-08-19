@@ -9,17 +9,17 @@ import {Button} from "reactstrap";
 
 
 export default function List(props) {
-    console.log("props", props);
+    //console.log("props", props);
 
     let rlist = props.props.critic_review;
 
-    let crtiticlist = props.props.critics;
+    //let crtiticlist = props.props.critics;
     //let fc;
 
     let first;
 
     function follow() {
-        console.log(first.critic.id);
+        //console.log(first.critic.id);
         api.follow(props.props.token.id,first.critic.id, props.props.token.obj);
         if(props.props.token.obj === "Critic"){
             api.get_followers_critic(props.props.token.id);
@@ -28,7 +28,7 @@ export default function List(props) {
     }
 
     function unfollow() {
-        console.log("unfollow");
+        //console.log("unfollow");
         api.unfollow(props.props.token.id,first.critic.id, props.props.token.obj);
         if(props.props.token.obj === "Critic"){
             api.get_followers_critic(props.props.token.id);
@@ -37,7 +37,7 @@ export default function List(props) {
     }
 
     function follow1() {
-        console.log(first.id);
+        //console.log(first.id);
         api.follow(props.props.token.id,first.id, props.props.token.obj);
         if(props.props.token.obj === "Critic"){
             api.get_followers_critic(props.props.token.id);
@@ -46,7 +46,7 @@ export default function List(props) {
     }
 
     function unfollow1() {
-        console.log("unfollow");
+        //console.log("unfollow");
         api.unfollow(props.props.token.id,first.id, props.props.token.obj);
         if(props.props.token.obj === "Critic"){
             api.get_followers_critic(props.props.token.id);
@@ -58,7 +58,7 @@ export default function List(props) {
     if(rlist.length > 0) {
         first = _.first(rlist);
         let rdisp = _.map(rlist, (ss, i) => <Result2 key={i} reviewlist={ss}/>);
-        console.log("first review", first);
+        //console.log("first review", first);
 
         let followList = props.props.user_follows;
         let button;
@@ -68,12 +68,12 @@ export default function List(props) {
         });
 
         if (typeof found === "undefined") {
-            console.log("not found");
+            //console.log("not found");
             button = <Link to={"/profile"}>
                 <Button onClick={follow} className="btn btn-primary">Follow</Button>
             </Link>;
         } else {
-            console.log("found");
+            //console.log("found");
             button = <Link to={"/profile"}>
                 <Button onClick={unfollow} className="btn btn-danger">Unfollow</Button>
             </Link>;
@@ -81,7 +81,9 @@ export default function List(props) {
 
         if (first.critic) {
             return <div>
-                <h5>{first.critic.firstName}'s Reviews</h5>
+                <div>
+                    <b>{first.critic.firstName}'s Reviews</b>
+                </div>
                 {button}
                 {rdisp}
             </div>;
@@ -93,7 +95,7 @@ export default function List(props) {
     } else if(rlist.length === 0) {
     first = props.props.critic_object;
     let rdisp =  _.map(rlist, (ss, i) => <Result2 key={i} reviewlist={ss}/>);
-    console.log("first review", first);
+    //console.log("first review", first);
 
     let followList = props.props.user_follows;
     let button;
@@ -101,12 +103,12 @@ export default function List(props) {
     let found = _.find(followList, function (o) {return o.id === first.id});
 
     if(typeof found === "undefined" ){
-        console.log("not found");
+        //console.log("not found");
         button = <Link to={"/profile"}>
             <Button onClick={follow1} className="btn btn-primary">Follow</Button>
         </Link>;
     } else {
-        console.log("found");
+        //console.log("found");
         button = <Link to={"/profile"}>
             <Button onClick={unfollow1} className="btn btn-danger">Unfollow</Button>
         </Link>;
@@ -114,7 +116,9 @@ export default function List(props) {
 
     if(first) {
         return <div>
-            <h5>{first.firstName}'s Reviews</h5>
+            <div>
+                <b>{first.firstName}'s Reviews</b>
+            </div>
             {button}
             {rdisp}
         </div>;
@@ -158,14 +162,14 @@ function Result2(props){
         api.get_details(props.reviewlist.movie.imdbid);
     }
 
-    console.log("inside display",props);
+    //console.log("inside display",props);
     return <Card>
         <CardBody>
             <div>
-                Title:{props.reviewlist.movie.title}
+                Title:{props.reviewlist.movie.title} &nbsp;
                 <Link to={"/profile/list/"+ props.reviewlist.movie.imdbid}>
                     <Button onClick={details} className="btn btn-info">Details</Button>
-                </Link>
+                </Link> &nbsp;
                 <Link to={"/viewReview"}>
                     <Button onClick={view} className="btn btn-info">View Review</Button>
                 </Link>

@@ -6,9 +6,9 @@ import api from '../api';
 
 export default function AdminUser(props) {
 
-    console.log("admin user props", props.props.register);
+    //console.log("admin user props", props.props.register);
 
-    let user=props.props.register;
+    //let user=props.props.register;
 
     function edit() {
        api.find_user(props.props.register.id);

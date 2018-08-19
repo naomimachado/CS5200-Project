@@ -16,7 +16,7 @@ export default function ShowResults(params){
     //let cookies = new Cookies();
 
     function prev_ten() {
-        console.log(params.params.page.page);
+        //console.log(params.params.page.page);
         if (current_page === 1){
             params.params.dispatch({type: 'ERROR', msg: 'This is the first page'});
         }
@@ -29,11 +29,11 @@ export default function ShowResults(params){
     }
 
     function next_ten() {
-        console.log(params.params.page.page);
-        console.log(fir.totalResults);
+        //console.log(params.params.page.page);
+       // console.log(fir.totalResults);
 
         let next_pages = Math.round(fir.totalResults/10);
-        console.log(next_pages);
+        //console.log(next_pages);
 
         if (current_page >= next_pages){
             params.params.dispatch({type: 'ERROR', msg: 'No more pages to show'});
@@ -45,11 +45,11 @@ export default function ShowResults(params){
         }
     }
 
-    console.log("inside show results",params);
+    //console.log("inside show results",params);
     let fir = params.params.results;
-    console.log("first element",fir);
+    //console.log("first element",fir);
     let arr = fir.Search;
-    console.log(arr);
+    //console.log(arr);
 
     let res = _.map(arr, (nn, i) => <Result key={i} result={nn} />);
 
@@ -90,7 +90,7 @@ function Result(params){
         api.get_details(params.result.imdbID);
     }
 
-    console.log(params);
+    //console.log(params);
     return <Card>
         <CardBody>
             <div>
