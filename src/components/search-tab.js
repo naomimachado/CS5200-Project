@@ -89,7 +89,7 @@ function SearchTab(params) {
                 <Link to={"/system"} exact="true" onClick={getList}>System Administration</Link>
             </div>;
         } else {
-            return <div style={{padding: "4ex"}} className="images-div">
+            return <div style={{padding: "4ex"}} className="image-div">
                 <h2>Search Tab</h2>
                 <Link to="/" exact="true"><Button onClick={reload}>Start Again?</Button></Link>
                 <FormGroup>
@@ -102,7 +102,7 @@ function SearchTab(params) {
         }
 
     } else {
-        return <div style={{padding: "4ex"}} className="images-div">
+        return <div style={{padding: "4ex"}} className="image-div">
             <h2>Search Tab</h2>
             <Link to="/" exact="true"><Button onClick={reload}>Start Again?</Button></Link>
             <FormGroup>
