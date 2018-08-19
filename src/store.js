@@ -330,11 +330,23 @@ function critics(state = empty_critics, action) {
 }
 
 
+let empty_critic_object="";
+
+function critic_object(state = empty_critic_object, action) {
+    switch (action.type) {
+        case 'CRITIC_OBJECT':
+            return action.data;
+        default:
+            return state;
+    }
+}
+
+
 function root_reducer(state0, action) {
     console.log("reducer", action);
     let reducer = combineReducers({search_tab, results, page, details, login, register, errors, token,
         watchlist, link, seller_list, review_form, links, movie_review, edit_link, critic_review, view_review,
-        person_list, movie_list, link_list, review_list, rec, user_follows, critic_followers, critics});
+        person_list, movie_list, link_list, review_list, rec, user_follows, critic_followers, critics, critic_object});
     console.log("state0", state0);
     let state1 = reducer(state0, action);
     console.log("state1", state1);

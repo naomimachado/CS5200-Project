@@ -70,9 +70,11 @@ let Session = connect(({token}) => {return {token};})((props) => {
             api.get_user_follows_critic(props.token.id);
         } else if(props.token.obj === "Seller"){
             api.get_watchlist(props.token.id);
+            api.get_user_follows_critic(props.token.id);
             api.get_seller_list(props.token.id);
         } else if(props.token.obj === "Critic"){
             api.get_watchlist(props.token.id);
+            api.get_user_follows_critic(props.token.id);
             api.get_followers_critic(props.token.id);
             api.get_critic_reviews(props.token.id);
         } else if(props.token.obj === "Admin"){

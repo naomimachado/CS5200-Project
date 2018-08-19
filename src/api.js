@@ -105,6 +105,9 @@ class TheServer{
                 success: (resp) => {
                     console.log("success", resp);
                     this.login(login_data);
+                    store.dispatch({
+                        type: 'CLEAR_REGISTER_FORM',
+                    })
                 },
                 error: (resp) => {
                     console.log("error", resp);
@@ -129,6 +132,9 @@ class TheServer{
                 success: (resp) => {
                     console.log("sucess", resp);
                     this.login(login_data);
+                    store.dispatch({
+                        type: 'CLEAR_REGISTER_FORM',
+                    })
                 },
                 error: (resp) => {
                     console.log("error", resp);
@@ -153,6 +159,9 @@ class TheServer{
                 success: (resp) => {
                     console.log("sucess", resp);
                     this.login(login_data);
+                    store.dispatch({
+                        type: 'CLEAR_REGISTER_FORM',
+                    })
 
                 },
                 error: (resp) => {
@@ -923,14 +932,21 @@ class TheServer{
         });
     }
 
-    follow(id,cid){
-        let URL = "http://localhost:8080/api/user/"+id+"/critic/"+cid;
+    follow(id,cid,t){
+        let URL = "http://localhost:8080/api/person/"+id+"/critic/"+cid;
         $.ajax(URL, {
             method: "post",
             contentType: "application/json; charset=UTF-8",
             success: (resp) => {
                 console.log("sucess", resp);
                 this.get_user_follows_critic(id);
+                //const cookies = new Cookies();
+                //let token = cookies.get('token');
+                //console.log("got this token from cookie", token);
+                if(t === "Critic"){
+                    console.log("inside token cheqk");
+                    this.get_followers_critic(id);
+                }
             },
             error: (resp) => {
                 console.log("error", resp);
@@ -942,7 +958,7 @@ class TheServer{
     }
 
     get_user_follows_critic(id){
-        let URL = "http://localhost:8080/api/user/"+id+"/critic";
+        let URL = "http://localhost:8080/api/person/"+id+"/critic";
         $.ajax(URL , {
             method: "get",
             dataType: "json",
@@ -967,7 +983,7 @@ class TheServer{
     }
 
     get_followers_critic(id){
-        let URL = "http://localhost:8080/api/critic/"+id+"/user";
+        let URL = "http://localhost:8080/api/critic/"+id+"/person";
         $.ajax(URL , {
             method: "get",
             dataType: "json",
@@ -991,14 +1007,19 @@ class TheServer{
         });
     }
 
-    unfollow(id,cid){
-        let URL = "http://localhost:8080/api/user/"+id+"/critic/"+cid;
+    unfollow(id,cid, t){
+        let URL = "http://localhost:8080/api/person/"+id+"/critic/"+cid;
         $.ajax(URL , {
             method: "delete",
             success: (resp) => {
                 console.log("sucess", resp);
                 this.get_user_follows_critic(id);
                 this.get_watchlist(id);
+                //const cookies = new Cookies();
+                //let token = cookies.get('token');
+                if(t === "Critic"){
+                    this.get_followers_critic(id);
+                }
             },
             error: (resp) => {
                 console.log("error", resp);
@@ -1180,6 +1201,9 @@ class TheServer{
                     this.get_movie_list();
                     this.get_review_list();
                     this.get_link_list();
+                    store.dispatch({
+                        type: 'CLEAR_REGISTER_FORM',
+                    })
                 },
                 error: (resp) => {
                     console.log("error", resp);
@@ -1208,6 +1232,9 @@ class TheServer{
                     this.get_movie_list();
                     this.get_review_list();
                     this.get_link_list();
+                    store.dispatch({
+                        type: 'CLEAR_REGISTER_FORM',
+                    })
                 },
                 error: (resp) => {
                     console.log("error", resp);
@@ -1236,6 +1263,9 @@ class TheServer{
                     this.get_movie_list();
                     this.get_review_list();
                     this.get_link_list();
+                    store.dispatch({
+                        type: 'CLEAR_REGISTER_FORM',
+                    })
                 },
                 error: (resp) => {
                     console.log("error", resp);
@@ -1358,6 +1388,31 @@ class TheServer{
                 //alert("added succesfully");
                 store.dispatch({
                     type: 'CRITICS',
+                    data: resp
+                });
+            },
+            error: (resp) => {
+                console.log("error", resp);
+                // store.dispatch({
+                //     type: 'CLEAR_REGISTER_FORM',
+                // })
+            },
+        });
+    }
+
+    get_critic_object(id){
+        let URL = "http://localhost:8080/api/critic/"+id;
+        $.ajax(URL , {
+            method: "get",
+            dataType: "json",
+            contentType: "application/json; charset=UTF-8",
+            //data: JSON.stringify(data),
+            success: (resp) => {
+                console.log("sucess", resp);
+
+                //alert("added succesfully");
+                store.dispatch({
+                    type: 'CRITIC_OBJECT',
                     data: resp
                 });
             },

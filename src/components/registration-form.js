@@ -55,7 +55,7 @@ function RegistrationForm(params) {
                 params.dispatch({type: 'ERROR', msg: 'Weak Password!'});
             } else {
                 console.log("sending register request");
-                api.submit_registration_by_admin(params.register);
+                api.submit_registration(params.register);
             }
         }
 
@@ -95,10 +95,7 @@ function RegistrationForm(params) {
         //api.edit_profile(params.params.token.id,params.register);
     }
 
-        if(params.params) {
-
             if (params.params.token == null) {
-
                 return (
                     <div>
                         <h5>Registration Form</h5>
@@ -143,49 +140,6 @@ function RegistrationForm(params) {
             } else {
                 return (<Redirect to="/"/>);
             }
-        } else {
-            return (
-                <div>
-                    <h5>Registration Form</h5>
-                    <FormGroup>
-                        <FormGroup>
-                            <Label for="dtype">I am a:</Label>
-                            <Input type="select" name="dtype" value={params.register.dtype} onChange={update}>
-                                <option value="">Select</option>
-                                <option value="Viewer">Viewer</option>
-                                <option value="Critic">Critic</option>
-                                <option value="Seller">Vendor</option>
-                            </Input>
-                        </FormGroup>
-                        <FormGroup>
-                            <Label for="firstName">First Name:</Label>
-                            <Input type="text" name="firstName" placeholder="First Name"
-                                   value={params.register.firstName} onChange={update}/>
-                        </FormGroup>
-                        <FormGroup>
-                            <Label for="lastName">Last Name:</Label>
-                            <Input type="text" name="lastName" placeholder="Last Name"
-                                   value={params.register.lastName} onChange={update}/>
-                        </FormGroup>
-                        <FormGroup>
-                            <Label for="email">Email:</Label>
-                            <Input type="email" name="email" placeholder="email"
-                                   value={params.register.email} onChange={update}/>
-                        </FormGroup>
-                        <FormGroup>
-                            <Label for="password">Password: <i>[Min. length 8, 1 Uppercase, 1 Number]</i></Label>
-                            <Input type="password" name="password" placeholder="password"
-                                   value={params.register.password} onChange={update}/>
-                        </FormGroup>
-                        <FormGroup>
-                            <Label for="retype_password">Re-Type Password:</Label>
-                            <Input type="password" name="retype_password" placeholder="retype password"
-                                   value={params.register.retype_password} onChange={update}/>
-                        </FormGroup>
-                        { button }
-                    </FormGroup>
-                </div>);
-        }
 }
 
 function state2props(state) {

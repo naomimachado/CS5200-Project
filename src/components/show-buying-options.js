@@ -24,7 +24,9 @@ export default function BuyingOptions(props) {
                 <div>
                     buying options for {props.props.details.Title}
                 </div>
+                <div>
                 { show }
+                </div>
             </div>
         )
     }
@@ -34,7 +36,7 @@ function Maps(props) {
     console.log(props);
     return(
         <div>
-            <a href={props.buy.link} target="_blank">{props.buy.link}</a>
+            <a href="props.buy.link" target="_blank">{props.buy.link}</a>
         </div>
     );
 }
