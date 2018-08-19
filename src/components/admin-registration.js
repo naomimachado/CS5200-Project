@@ -48,13 +48,13 @@ function AdminRegistrationForm(params) {
             params.register.password === "" ||
             params.register.retype_password === "" ||
             params.register.dtype === ""){
-            params.dispatch({type: 'ERROR', msg: 'All fields are mandatory'});
+            swal("All fields are mandatory", "Please try again", "warning");
         } else if(!(params.register.password === params.register.retype_password)){
-            swal("Passwords do not match", "Please try again", "error");
+            swal("Passwords do not match", "Please try again", "warning");
         } else if(ValidateEmail() === false){
-            swal("Invalid email address", "Please try again", "error");
+            swal("Invalid email address", "Please try again", "warning");
         } else  if(validatePassword() === false){
-            swal("Weak password", "Make sure the password has Minimum 8 characters which includes 1 Uppercase and 1 Number", "error");
+            swal("Weak password", "Make sure the password has Minimum 8 characters which includes 1 Uppercase and 1 Number", "warning");
         } else {
             console.log("sending register request");
             api.submit_registration_by_admin(params.register);
@@ -69,13 +69,13 @@ function AdminRegistrationForm(params) {
             params.register.email === "" ||
             params.register.password === "" ||
             params.register.retype_password === ""){
-            params.dispatch({type: 'ERROR', msg: 'All fields are mandatory'});
+            swal("All fields are mandatory", "Please try again", "warning");
         } else if(!(params.register.password === params.register.retype_password)){
-            swal("Passwords do not match", "Please try again", "error");
+            swal("Passwords do not match", "Please try again", "warning");
         } else if(ValidateEmail() === false){
-            swal("Invalid email address", "Please try again", "error");
+            swal("Invalid email address", "Please try again", "warning");
         } else  if(validatePassword() === false) {
-            swal("Weak password", "Make sure the password has Minimum 8 characters which includes 1 Uppercase and 1 Number", "error");
+            swal("Weak password", "Make sure the password has Minimum 8 characters which includes 1 Uppercase and 1 Number", "warning");
         }
     }
 

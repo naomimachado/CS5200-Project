@@ -7,6 +7,7 @@ import api from '../api';
 import Cookies from 'universal-cookie';
 import store from "../store";
 import TitleNav from "./title-nav";
+import swal from "sweetalert";
 
 
 let Login = connect(({login}) => {return {login};})((props) =>{
@@ -29,10 +30,21 @@ let Login = connect(({login}) => {return {login};})((props) =>{
     function login() {
         if(props.login.email === "" ||
             props.login.password === "" ){
-            props.dispatch({type: 'ERROR', msg: 'Please enter valid credentials'});
+            //props.dispatch({type: 'ERROR', msg: 'Please enter valid credentials'});
+            swal({
+                title: "NO CREDENTIALS!",
+                text: "Please enter your email and password!",
+                icon: "warning",
+                button: "Okay",
+                dangerMode: false,
+            })
         } else {
             api.login(props.login);
         }
+    }
+
+    function clear() {
+        props.dispatch({type:'CLEAR_REGISTER_FORM'});
     }
 
     return (
@@ -40,17 +52,35 @@ let Login = connect(({login}) => {return {login};})((props) =>{
             <div className="float-right">
                 <Form inline>
                     <FormGroup>
-                        <Input type="email" name="email" placeholder="email"
-                               value={props.login.email} onChange={update}/>
+                        <div className="input-group">
+                            <div className="input-group-addon">
+                                <span className="glyphicon glyphicon-envelope"></span>
+                            </div>
+                            <Input type="email" id="email" name="email" placeholder="Email"
+                                   value={props.login.email} onChange={update}/>
+                        </div>
+                        {/*<Input type="email" name="email" placeholder="email"*/}
+                               {/*value={props.login.email} onChange={update}/>*/}
                     </FormGroup> &nbsp; &nbsp;
                     <FormGroup>
-                        <Input type="password" name="password" placeholder="password"
-                               value={props.login.password} onChange={update}/>
+                        <div className="input-group">
+                            <div className="input-group-addon">
+                                <span className="glyphicon glyphicon-lock"></span>
+                            </div>
+                            <Input type="password" id="password" name="password" placeholder="Password"
+                                   value={props.login.password} onChange={update}/>
+                        </div>
+                        {/*<Input type="password" name="password" placeholder="password"*/}
+                               {/*value={props.login.password} onChange={update}/>*/}
                     </FormGroup> &nbsp; &nbsp;
                     {/*<Button onClick={login} type="button" className="btn btn-primary">Login</Button>*/}
                     <Button className="btn loginbtn" onClick={login}><span className="glyphicon glyphicon-log-in"></span>&nbsp;<b>Log In</b></Button>
                 </Form>
-                <Link to="/registration" exact="true">New here? Register Now!</Link>
+                <Link to="/registration" exact="true" onClick={clear}>
+                    <span className="heading-rec">
+                        New here? Register Now!
+                    </span>
+                </Link>
             </div>
         </div>
     );
@@ -119,17 +149,19 @@ function Nav(props) {
 
     if(props.token != null){
         session = <Session token={props.token}/>
-    } else if(cookie.get('email')){
-        console.log("email", cookie.get('email'));
-        token = { id: cookie.get('id'), firstName: cookie.get('firstName'), email: cookie.get('email'), obj: cookie.get('obj')};
-        store.dispatch({
-            type: 'SET_TOKEN',
-            data: token
-        })
-        session = <Session token={token}/>
-    } else {
+    }  else {
         session = <Login/>
     }
+
+// else if(cookie.get('email')){
+//         console.log("email", cookie.get('email'));
+//         token = { id: cookie.get('id'), firstName: cookie.get('firstName'), email: cookie.get('email'), obj: cookie.get('obj')};
+//         store.dispatch({
+//             type: 'SET_TOKEN',
+//             data: token
+//         })
+//         session = <Session token={token}/>
+//     }
 
             return (
                 <div className="navbar">
